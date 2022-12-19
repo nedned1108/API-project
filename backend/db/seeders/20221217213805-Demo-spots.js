@@ -9,15 +9,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+
     options.tableName = 'Spots';
     return queryInterface.bulkInsert(options, [
       {
@@ -43,21 +35,28 @@ module.exports = {
         name: "Eddie",
         description: "Home sweet home",
         price: 553,
-      }
+      },
+      {
+        ownerId: 3,
+        address: "321 This Way",
+        city: "Dallas",
+        state: "Texas",
+        country: "United States of America",
+        lat: 456.7645358,
+        lng: -67.4734567,
+        name: "My brain",
+        description: "No way this is a house",
+        price: 456,
+      },
     ])
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  down: async (queryInterface, Sequelize) => {
+
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: { [Op.in]: [1, 2] }
+      ownerId: { [Op.in]: [1, 2, 3] }
     }, {});
   }
 };

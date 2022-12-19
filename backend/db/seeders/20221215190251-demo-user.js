@@ -11,52 +11,38 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
     options.tableName = 'Users';
     return queryInterface.bulkInsert(options, [
       {
-        email: 'demo@user.io',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password'),
-        firstName: 'Demo',
-        lastName: 'User'
+        email: 'john.smith@gmail.com',
+        username: 'JohnSmith',
+        hashedPassword: bcrypt.hashSync('johnsmith'),
+        firstName: 'John',
+        lastName: 'Smith'
       },
       {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2'),
-        firstName: 'Fakeone',
-        lastName: 'Userone'
+        email: 'emily.vu@yahoo.com',
+        username: 'EmilyVu',
+        hashedPassword: bcrypt.hashSync('emilyvu'),
+        firstName: 'Emily',
+        lastName: 'Vu'
       },
       {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3'),
-        firstName: 'Faketwo',
-        lastName: 'Usertwo'
+        email: 'cris.dan@gmail.com',
+        username: 'CrisDan',
+        hashedPassword: bcrypt.hashSync('crisdan'),
+        firstName: 'Cris',
+        lastName: 'Dan'
       }
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      username: { [Op.in]: ['JohnSmith', 'EmilyVu', 'CrisDan'] }
     }, {});
   }
 };
