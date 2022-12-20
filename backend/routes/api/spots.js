@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const express = require('express');
-const { Spot, Review, SpotImage, sequelize } = require('../../db/models');
+const { Spot, User, Review, SpotImage, sequelize } = require('../../db/models');
 const { restoreUser } = require('../../utils/auth');
 
 const router = express.Router();
@@ -47,7 +47,6 @@ router.get(
         const { user } = req;
         if (user) {
             user.toSafeObject();
-            console.log(user.id)
             const spots = await Spot.findAll({
                 where: {
                     ownerId: user.id
@@ -73,7 +72,6 @@ router.get(
                     },
                     attributes: ['url']
                 })
-    
                 spot.avgRating = avgRating[0].avgRating;
                 spot.previewImage = previewImage[0];
             };
@@ -82,6 +80,66 @@ router.get(
     }
 )
 
+// Get Details of a Spot by Id
+router.get(
+    '/:spotId',
+    async (req, res, next) => {
+        const { spotId } = req.params;
+
+        let spot = await Spot.findByPk(spotId, 
+            {
+                include: [
+                    {
+                        model: Review,
+                        attributes: []
+                    },
+                    {
+                        model: SpotImage,
+                        attributes: ['id', 'url', 'preview']
+                    },
+                    {
+                        model: User,
+                        attributes: ['id', 'firstName', 'lastName'],
+                        as: 'Owner'
+                    }
+                ]
+            },
+        );
+        // Successful response
+        if (spot) {
+            const avgRating = await Review.findAll({
+                where: {
+                    spotId: spot.id
+                },
+                attributes: {
+                    include: [
+                        [
+                            sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
+                        ]
+                ]},
+            });
+    
+            const numReviews = await spot.countReviews();
+    
+            spot = spot.toJSON();
+            spot.avgRating = avgRating[0].toJSON().avgRating;
+            spot.numReviews = numReviews;
+    
+            if (spot) {
+                return res.json(spot)
+            }
+        } else {
+            // Error response if couldn't find the specified id
+            res.status(404);
+            res.json(
+                {
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+    }
+)
 
 
-module.exports = router
+module.exports = router;
