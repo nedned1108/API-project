@@ -79,17 +79,7 @@ router.post(
             user = user.toJSON();
             user.token = token;
             return res.json(user);
-        } else if (!email) {
-            res.json(
-                {
-                    "message": "Validation error",
-                    "statusCode": 400,
-                    "errors": {
-                      "email": "Invalid email",
-                    }
-                }
-            )
-        }
+        } 
     }
 );
 
