@@ -58,6 +58,7 @@ router.get(
                             sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
                         ]
                 ]},
+                group: 'id',
                 raw: true
             });
             const previewImage = await SpotImage.findAll({
