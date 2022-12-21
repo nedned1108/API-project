@@ -52,6 +52,6 @@ router.get(
             res.json({ Reviews: newReviews })
         }
     }
-)
+);
 
 module.exports = router;
