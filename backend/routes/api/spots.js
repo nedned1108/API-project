@@ -7,7 +7,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-const validateCreateSpot = [
+const validateSpot = [
     check('address')
         .exists({ checkFalsy: true })
         .withMessage('Street address is required'),
@@ -206,7 +206,7 @@ router.post(
     '/',
     requireAuth,
     restoreUser,
-    validateCreateSpot,
+    validateSpot,
     async (req, res, next) => {
         const { user } = req;
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -241,14 +241,12 @@ router.post(
         if (spot) {
             if (user.id === spot.ownerId) {
                 const image = await SpotImage.create({
-                    spotId: spotId,
+                    spotId: parseInt(spotId),
                     url,
                     preview
                 });
-
-                const newImage = await SpotImage.findOne(
-                    {attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
-                    { where: { spotId: spotId } }
+                const newImage = await SpotImage.findByPk(image.id,
+                    {attributes: { exclude: ['spotId','createdAt', 'updatedAt'] } }
                 );
                 return res.json(newImage)
             } else {
@@ -267,6 +265,53 @@ router.post(
                 }
             )
         }
+    }
+)
+
+// Edit a spot
+router.put(
+    '/:spotId',
+    requireAuth,
+    restoreUser,
+    validateSpot,
+    async (req, res, next) => {
+        const { user } = req;
+        const { spotId } = req.params;
+        const {address, city, state, country, lat, lng, name, description, price } = req.body;
+        const spot = await Spot.findByPk(parseInt(spotId));
+        if (spot) {
+            if (user.id === spot.ownerId) {
+                await spot.update({
+                    ownerId: user.id,
+                    address,
+                    city,
+                    state, 
+                    country,
+                    lat,
+                    lng,
+                    name,
+                    description,
+                    price
+                });
+                
+                return res.json(spot)
+            } else {
+                res.status(404);
+                res.json({
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                })
+            }
+        } else {
+            res.status(404);
+            res.json(
+                {
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+
     }
 )
 
