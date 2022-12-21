@@ -67,9 +67,17 @@ router.get(
                 },
                 attributes: ['url']
             })
-
-            spot.avgRating = avgRating[0].avgRating;
-            spot.previewImage = previewImage[0].url;
+            if (avgRating[0]) {
+                spot.avgRating = avgRating[0].avgRating;
+            } else {
+                spot.avgRating = 0;
+            }
+            
+            if (previewImage[0]) {
+                spot.previewImage = previewImage[0].url;
+            } else {
+                spot.previewImage = null;
+            }
         };
 
         return res.json({ spots });
@@ -110,8 +118,17 @@ router.get(
                     },
                     attributes: ['url']
                 })
-                spot.avgRating = avgRating[0].avgRating;
-                spot.previewImage = previewImage[0].url;
+                if (avgRating[0]) {
+                    spot.avgRating = avgRating[0].avgRating;
+                } else {
+                    spot.avgRating = 0;
+                }
+                
+                if (previewImage[0]) {
+                    spot.previewImage = previewImage[0].url;
+                } else {
+                    spot.previewImage = null;
+                }
             };
             return res.json({spots})
         }
@@ -161,7 +178,11 @@ router.get(
             const numReviews = await spot.countReviews();
     
             spot = spot.toJSON();
-            spot.avgRating = avgRating[0].toJSON().avgRating;
+            if (avgRating[0]) {
+                spot.avgRating = avgRating[0].avgRating;
+            } else {
+                spot.avgRating = 0;
+            }
             spot.numReviews = numReviews;
     
             if (spot) {
@@ -247,7 +268,46 @@ router.post(
             )
         }
     }
+)
 
+// Delete a Spot
+router.delete(
+    '/:spotId',
+    requireAuth,
+    restoreUser,
+    async (req, res, next) => {
+        const { user } = req;
+        const { spotId } = req.params;
+        const spot = await Spot.findByPk(parseInt(spotId));
+
+        if (spot) {
+            if (spot.ownerId === user.id) {
+                await spot.destroy();
+                res.json(
+                    {
+                        "message": "Successfully deleted",
+                        "statusCode": 200
+                    }
+                )
+            } else {
+                res.status(404);
+                res.json(
+                    {
+                        "message": "Spot couldn't be found",
+                        "statusCode": 404
+                    }
+                )
+            }
+        } else {
+            res.status(404);
+            res.json(
+                {
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+    }
 )
 
 
