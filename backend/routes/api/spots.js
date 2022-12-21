@@ -41,6 +41,13 @@ const validateCreateSpot = [
     handleValidationErrors
 ];
 
+// const validateImage = [
+//     check('url')
+//         .exists({checkFalsy: true})
+//         .withMessage("Please provide image url"),
+//     handleValidationErrors
+// ];
+
 // Get all Spots
 router.get(
     '/', 
@@ -201,6 +208,51 @@ router.post(
         });
         return res.json(newSpot)
     }
+);
+
+// Add an Image to a Spot based on the Spot's id
+router.post(
+    '/:spotId/images',
+    requireAuth,
+    // validateImage,
+    restoreUser,
+    async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const { url, preview } = req.body;
+        const { user } = req;
+        const spot = await Spot.findByPk(parseInt(spotId));
+
+        if (spot) {
+            if (user.id === spot.ownerId) {
+                const image = await SpotImage.create({
+                    spotId: spotId,
+                    url,
+                    preview
+                });
+
+                const newImage = await SpotImage.findOne(
+                    {attributes: { exclude: ['id', 'createdAt', 'updatedAt'] } },
+                    { where: { spotId: spotId } }
+                );
+                return res.json(newImage)
+            } else {
+                res.status(404);
+                res.json({
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                })
+            }
+        } else {
+            res.status(404);
+            res.json(
+                {
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+    }
+
 )
 
 
