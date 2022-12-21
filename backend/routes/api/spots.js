@@ -172,7 +172,8 @@ router.get(
                             sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
                         ]
                 ]},
-                group: 'id'
+                group: 'id',
+                raw: true
             });
     
             const numReviews = await spot.countReviews();
