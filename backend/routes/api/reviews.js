@@ -28,12 +28,7 @@ router.get(
                     model: Spot,
                     attributes: {
                         exclude: ['createdAt', 'updatedAt', 'description']
-                    },
-                    include: {
-                        model: SpotImage,
-                        attributes: [],
-                        as: 'previewImage'
-                    },
+                    }
                 },
                 {
                     model: ReviewImage,
