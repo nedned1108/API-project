@@ -41,13 +41,6 @@ const validateCreateSpot = [
     handleValidationErrors
 ];
 
-// const validateImage = [
-//     check('url')
-//         .exists({checkFalsy: true})
-//         .withMessage("Please provide image url"),
-//     handleValidationErrors
-// ];
-
 // Get all Spots
 router.get(
     '/', 
