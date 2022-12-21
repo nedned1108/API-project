@@ -69,7 +69,7 @@ router.get(
             })
 
             spot.avgRating = avgRating[0].avgRating;
-            spot.previewImage = previewImage[0];
+            spot.previewImage = previewImage[0].url;
         };
 
         return res.json({ spots });
@@ -101,6 +101,7 @@ router.get(
                                 sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
                             ]
                     ]},
+                    group: 'id',
                     raw: true
                 });
                 const previewImage = await SpotImage.findAll({
@@ -110,7 +111,7 @@ router.get(
                     attributes: ['url']
                 })
                 spot.avgRating = avgRating[0].avgRating;
-                spot.previewImage = previewImage[0];
+                spot.previewImage = previewImage[0].url;
             };
             return res.json({spots})
         }
@@ -154,6 +155,7 @@ router.get(
                             sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
                         ]
                 ]},
+                group: 'id'
             });
     
             const numReviews = await spot.countReviews();
