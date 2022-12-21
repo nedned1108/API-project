@@ -207,7 +207,6 @@ router.post(
 router.post(
     '/:spotId/images',
     requireAuth,
-    // validateImage,
     restoreUser,
     async (req, res, next) => {
         const spotId = req.params.spotId;
