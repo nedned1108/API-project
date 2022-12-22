@@ -1,9 +1,10 @@
 const { Router } = require('express');
 const express = require('express');
-const { Spot, User, Review, SpotImage, sequelize } = require('../../db/models');
+const { Spot, User, Review, SpotImage, ReviewImage, sequelize } = require('../../db/models');
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { route } = require('./reviews');
 
 const router = express.Router();
 
@@ -38,6 +39,17 @@ const validateSpot = [
     check('price')
         .exists({ checkFalsy: true })
         .withMessage('Price per day is required'),
+    handleValidationErrors
+];
+
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5})
+        .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
 
@@ -340,6 +352,84 @@ router.delete(
                 res.json(
                     {
                         "message": "Spot couldn't be found",
+                        "statusCode": 404
+                    }
+                )
+            }
+        } else {
+            res.status(404);
+            res.json(
+                {
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+    }
+);
+
+// Get all Reviews by a Spot's id
+router.get(
+    '/:spotId/reviews',
+    async (req, res, next) => {
+        const { spotId } = req.params;
+        const reviews = await Review.findAll({
+            where: {
+                spotId: parseInt(spotId)
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                },
+                {
+                    model: ReviewImage,
+                    attributes: ['id', 'url']
+                }
+            ]
+            });
+
+        if (reviews) {
+            res.json({ Reviews: reviews })
+        } else {
+            res.status(404);
+            res.json(
+                {
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+    }
+);
+
+// Create a Review for a Spot based on the Spot's id
+router.post(
+    '/:spotId/reviews',
+    requireAuth,
+    restoreUser,
+    validateReview,
+    async (req, res, next) => {
+        const { user } = req;
+        const { spotId } = req.params;
+        const { review, stars } = req.body;
+        const spot = await Spot.findByPk(parseInt(spotId));
+
+        if ( spot ) {
+            if (spot.ownerId !== user.id) {
+                const newReview = await Review.create({
+                    userId: user.id,
+                    spotId: parseInt(spotId),
+                    review,
+                    stars: parseInt(stars)
+                });
+
+                return res.json(newReview)
+            } else {
+                res.status(400);
+                res.json(
+                    {
+                        "message": "Can not create review for your own spot",
                         "statusCode": 404
                     }
                 )
