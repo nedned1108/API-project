@@ -7,6 +7,23 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+const validateImage = [
+    check('url')
+        .exists({checkFalsy: true})
+        .withMessage('Please provide image url'),
+    handleValidationErrors
+];
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5})
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+
 // Get all Reviews of the Current User
 router.get(
     '/current',
@@ -59,6 +76,7 @@ router.post(
     '/:reviewId/images',
     requireAuth,
     restoreUser,
+    validateImage,
     async (req, res, next) => {
         const { user } = req;
         const { reviewId } = req.params;
@@ -108,6 +126,48 @@ router.post(
             )
         }
     }
+);
+
+// Edit a Review
+router.put(
+    '/:reviewId',
+    requireAuth,
+    restoreUser,
+    validateReview,
+    async (req, res, next) => {
+        const { user } = req;
+        const { reviewId } = req.params;
+        const { review, stars } = req.body;
+        const updateReview = await Review.findByPk(parseInt(reviewId));
+        
+        if (updateReview) {
+            if (updateReview.userId === user.id) {
+                updateReview.update({
+                    review,
+                    stars
+                });
+
+                res.json(updateReview);
+            } else {
+                res.status(404);
+            res.json(
+                {
+                    "message": "Review couldn't be found",
+                    "statusCode": 404
+                }
+            )
+            }
+        } else {
+            res.status(404);
+            res.json(
+                {
+                    "message": "Review couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+    }
+
 )
 
 module.exports = router;
