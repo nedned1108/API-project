@@ -60,6 +60,7 @@ const validateBooking = [
     check('endDate')
         .exists({checkFalsy: true})
         .withMessage('Please provide end date'),
+    handleValidationErrors
 ];
 
 // Get all Spots
