@@ -58,10 +58,13 @@ router.get(
     '/',
     restoreUser,
     (req, res) => {
-        const { user } = req;
+        let { user } = req;
+        const { token } = req.cookies
         if (user) {
+            currentUser = user.toJSON();
+            currentUser.token = token;
             return res.json({
-            user: user.toSafeObject()
+            user: currentUser
             });
         } else return res.json({ user: null });
     }
