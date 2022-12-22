@@ -167,7 +167,46 @@ router.put(
             )
         }
     }
+);
 
+// Delete a Review
+router.delete(
+    '/:reviewId',
+    requireAuth,
+    restoreUser,
+    async (req, res, next) => {
+        const { user } = req;
+        const { reviewId } =  req.params;
+        const review = await Review.findByPk(parseInt(reviewId));
+
+        if (review) {
+            if (review.userId === user.id) {
+                await review.destroy();
+                res.json(
+                    {
+                        "message": "Successfully deleted",
+                        "statusCode": 200
+                    }
+                )
+            } else {
+                res.status(404);
+                res.json(
+                    {
+                        "message": "Review couldn't be found",
+                        "statusCode": 404
+                    }
+                )
+            }
+        } else {
+            res.status(404);
+            res.json(
+                {
+                    "message": "Review couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        }
+    }
 )
 
 module.exports = router;
