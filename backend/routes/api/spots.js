@@ -459,16 +459,16 @@ router.get(
         if (spot) {
             if (user.id === spot.ownerId) {
                 const bookings = await Booking.findAll({
-                    attributes: ['spotId', 'startDate', 'endDate'],
-                    where: { spotId: parseInt(spotId) }
-                });
-                return res.json({Bookings: bookings});
-            } else {
-                const bookings = await Booking.findAll({
                     include: {
                         model: User,
                         attributes: ['id', 'firstName', 'lastName']
                     },
+                    where: { spotId: parseInt(spotId) }
+                });
+                return res.json({Bookings: bookings});
+            } else {  
+                const bookings = await Booking.findAll({
+                    attributes: ['spotId', 'startDate', 'endDate'],
                     where: { spotId: parseInt(spotId) }
                 });
                 return res.json({Bookings: bookings});
