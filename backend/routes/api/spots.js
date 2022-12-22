@@ -389,7 +389,7 @@ router.get(
             ]
             });
 
-        if (reviews) {
+        if (reviews.length !== 0) {
             res.json({ Reviews: reviews })
         } else {
             res.status(404);
