@@ -14,7 +14,7 @@ const validateBooking = [
         .withMessage('Please provide start date'),
     check('startDate')
         .isAfter()
-        .withMessage('startDate cannot be on or before today')
+        .withMessage('startDate cannot be on or before today'),
     check('endDate')
         .exists({checkFalsy: true})
         .withMessage('Please provide end date'),
