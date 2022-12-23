@@ -4,6 +4,7 @@ const { Spot, User, Review, SpotImage, ReviewImage, Booking, sequelize } = requi
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router.get(
             include: {
                 model: Spot,
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt']
+                    exclude: ['createdAt', 'updatedAt', 'description']
                 }
             },
             where: {
@@ -68,7 +69,10 @@ router.put(
         const bookedDate = await Booking.findAll({
             attributes: ['startDate', 'endDate'],
             where: {
-                id: parseInt(bookingId)
+                id: parseInt(bookingId),
+                userId: {
+                    [Op.ne]: user.id
+                }
             }
         });
 
@@ -77,8 +81,7 @@ router.put(
                 for (let booked of bookedDate) {
                     const bookedStartDate = new Date(booked.startDate);
                     const bookedEndDate = new Date(booked.endDate);
-                    if ((newStartDate.getTime() >= bookedStartDate.getTime() && newStartDate.getTime() <= bookedEndDate.getTime()) ||
-                    (newStartDate.getTime() <= bookedStartDate.getTime() && newEndDate.getTime() >= bookedEndDate.getTime())) {
+                    if (newStartDate.getTime() >= bookedStartDate.getTime() && newStartDate.getTime() <= bookedEndDate.getTime()) {
                         res.status(403);
                         return res.json(
                             {
