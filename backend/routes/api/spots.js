@@ -534,7 +534,7 @@ router.post(
                                 }
                             )
                     } else if ((newEndDate.getTime() >= bookedStartDate.getTime()) &&
-                    newEndDate.getTime() <= bookedEndDate.getTime()) {
+                        newEndDate.getTime() <= bookedEndDate.getTime()) {
                         res.status(403);
                         return res.json(
                             {
