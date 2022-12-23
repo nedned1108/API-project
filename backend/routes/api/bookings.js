@@ -7,6 +7,16 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+const validateBooking = [
+    check('startDate')
+        .exists({checkFalsy: true})
+        .withMessage('Please provide start date'),
+    check('endDate')
+        .exists({checkFalsy: true})
+        .withMessage('Please provide end date'),
+    handleValidationErrors
+];
+
 // Get all of the Current User's Bookings
 router.get(
     '/current',
@@ -46,11 +56,12 @@ router.put(
     '/:bookingId',
     requireAuth,
     restoreUser,
+    validateBooking,
     async (req, res, next) => {
         const { bookingId } = req.params;
         const { user } = req;
         let { startDate, endDate } = req.body;
-        const booking = await Booking.findByPk(parseInt(bookingId));
+        const booking = await Booking.findByPk(bookingId);
         const newStartDate = new Date(startDate);
         const newEndDate = new Date(endDate);
         const currentDate = new Date()
@@ -66,8 +77,8 @@ router.put(
                 for (let booked of bookedDate) {
                     const bookedStartDate = new Date(booked.startDate);
                     const bookedEndDate = new Date(booked.endDate);
-                    if ((newStartDate.getTime() >= bookedStartDate.getTime()) &&
-                        newStartDate.getTime() <= bookedEndDate.getTime()) {
+                    if ((newStartDate.getTime() >= bookedStartDate.getTime() && newStartDate.getTime() <= bookedEndDate.getTime()) ||
+                    (newStartDate.getTime() <= bookedStartDate.getTime() && newEndDate.getTime() >= bookedEndDate.getTime())) {
                         res.status(403);
                         return res.json(
                             {
@@ -78,8 +89,7 @@ router.put(
                                 }
                             }
                         )
-                    } else if ((newEndDate.getTime() >= bookedStartDate.getTime()) &&
-                        newEndDate.getTime() <= bookedEndDate.getTime()) {
+                    } else if ((newEndDate.getTime() >= bookedStartDate.getTime()) && newEndDate.getTime() <= bookedEndDate.getTime()) {
                         res.status(403);
                         return res.json(
                             {
@@ -137,6 +147,46 @@ router.put(
                 }
             )
         }
+    }
+);
+
+// Delete a Booking
+router.delete('/:bookingId', requireAuth,
+    async (req, res, next) => {
+        const { user } = req;
+        const { bookingId } = req.params;
+        const booking = await Booking.findByPk(bookingId);
+        let spot;
+        if (booking) {
+            spot = await Spot.findByPk(booking.spotId)
+        }
+        const currentDate = new Date();
+
+        if (!booking || (user.id !== booking.userId && spot.ownerId !== user.id)) {
+            res.status(404);
+            return res.json(
+                {
+                    "message": "Booking couldn't be found",
+                    "statusCode": 404
+                }
+            )
+        } else if (booking.startDate.getTime() <= currentDate.getTime()) {
+            res.status(403);
+            return res.json(
+                {
+                    "message": "Bookings that have been started can't be deleted",
+                    "statusCode": 403
+                }
+            )
+        }
+
+        await booking.destroy();
+        return res.json(
+            {
+                "message": "Successfully deleted",
+                "statusCode": 200
+            }
+        )
     }
 )
 

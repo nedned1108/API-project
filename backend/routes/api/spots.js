@@ -57,6 +57,9 @@ const validateBooking = [
     check('startDate')
         .exists({checkFalsy: true})
         .withMessage('Please provide start date'),
+    check('startDate')
+        .isAfter()
+        .withMessage('StartDate cannot be before or on today'),
     check('endDate')
         .exists({checkFalsy: true})
         .withMessage('Please provide end date'),
@@ -512,7 +515,7 @@ router.post(
                 spotId: parseInt(spotId)
             }
         });
-
+        
         if (spot) {
             if (user.id !== spot.ownerId) {
                 newStartDate = new Date(startDate);
@@ -559,14 +562,15 @@ router.post(
                             }
                           }
                     )
-                } 
+                };
                 const booking = await Booking.create({
                     spotId: parseInt(spotId),
                     userId: user.id,
-                    startDate: startDate,
-                    endDate: endDate
+                    startDate: new Date(startDate),
+                    endDate: new Date(endDate)
                 });
-                return res.json(booking)
+                res.json(booking)
+                
             } else {
                 res.status(400);
                 return res.json(
