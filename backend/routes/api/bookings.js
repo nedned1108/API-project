@@ -85,7 +85,8 @@ router.put(
                 for (let booked of bookedDate) {
                     const bookedStartDate = new Date(booked.startDate);
                     const bookedEndDate = new Date(booked.endDate);
-                    if (newStartDate.getTime() >= bookedStartDate.getTime() && newStartDate.getTime() <= bookedEndDate.getTime()) {
+                    if ((newStartDate.getTime() >= bookedStartDate.getTime() && newStartDate.getTime() <= bookedEndDate.getTime()) ||
+                    (newStartDate.getTime() < bookedStartDate.getTime() && newEndDate.getTime() > bookedEndDate.getTime())) {
                         res.status(403);
                         return res.json(
                             {
