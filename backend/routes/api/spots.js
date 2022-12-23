@@ -66,6 +66,13 @@ const validateBooking = [
     handleValidationErrors
 ];
 
+const validateSpotImage = [
+    check('url')
+        .exists({checkFalsy: true})
+        .withMessage('Please provide image url'),
+    handleValidationErrors
+];
+
 // Get all Spots
 router.get(
     '/', 
@@ -217,7 +224,7 @@ router.get(
         } else {
             // Error response if couldn't find the specified id
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -258,6 +265,7 @@ router.post(
     '/:spotId/images',
     requireAuth,
     restoreUser,
+    validateSpotImage,
     async (req, res, next) => {
         const spotId = req.params.spotId;
         const { url, preview } = req.body;
@@ -277,14 +285,14 @@ router.post(
                 return res.json(newImage)
             } else {
                 res.status(404);
-                res.json({
+                return res.json({
                     "message": "Spot couldn't be found",
                     "statusCode": 404
                 })
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -323,14 +331,14 @@ router.put(
                 return res.json(spot)
             } else {
                 res.status(404);
-                res.json({
+                return res.json({
                     "message": "Spot couldn't be found",
                     "statusCode": 404
                 })
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -354,7 +362,7 @@ router.delete(
         if (spot) {
             if (spot.ownerId === user.id) {
                 await spot.destroy();
-                res.json(
+                return res.json(
                     {
                         "message": "Successfully deleted",
                         "statusCode": 200
@@ -362,7 +370,7 @@ router.delete(
                 )
             } else {
                 res.status(404);
-                res.json(
+                return res.json(
                     {
                         "message": "Spot couldn't be found",
                         "statusCode": 404
@@ -371,7 +379,7 @@ router.delete(
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -403,10 +411,10 @@ router.get(
             });
 
         if (reviews.length !== 0) {
-            res.json({ Reviews: reviews })
+            return res.json({ Reviews: reviews })
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -440,7 +448,7 @@ router.post(
                 return res.json(newReview)
             } else {
                 res.status(400);
-                res.json(
+                return res.json(
                     {
                         "message": "Can not create review for your own spot",
                         "statusCode": 400
@@ -449,7 +457,7 @@ router.post(
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -488,7 +496,7 @@ router.get(
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -569,7 +577,7 @@ router.post(
                     startDate: new Date(startDate),
                     endDate: new Date(endDate)
                 });
-                res.json(booking)
+                return res.json(booking)
                 
             } else {
                 res.status(400);
