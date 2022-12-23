@@ -72,12 +72,13 @@ router.put(
         const bookedDate = await Booking.findAll({
             attributes: ['startDate', 'endDate'],
             where: {
-                id: parseInt(bookingId),
-                userId: {
-                    [Op.ne]: user.id
+                spotId: booking.spotId,
+                id: {
+                    [Op.ne]: booking.id
                 }
             }
         });
+        console.log(bookedDate)
 
         if (booking) {
             if (user.id === booking.userId) {
