@@ -4,7 +4,8 @@ const { Spot, User, Review, SpotImage, Booking, ReviewImage, sequelize } = requi
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { route } = require('./reviews');
+
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -77,8 +78,42 @@ const validateSpotImage = [
 router.get(
     '/', 
     async (req, res, next) => {
-        const spots = await Spot.findAll({raw: true});
+        // Add Query Filters to Get All Spots
+        let { page, size } = req.query;
+        const query = {};
+        if (page < 1 || !Number.isInteger(page)) {
+            res.status(400);
+            return res.json(
+                {
+                    "message": "Validation Error",
+                    "statusCode": 400,
+                    "errors": {
+                      "page": "Page must be greater than or equal to 1",
+                    }
+                }
+            )
+        } else if (size < 1 || !Number.isInteger(size)) {
+            res.status(400);
+            return res.json(
+                {
+                    "message": "Validation Error",
+                    "statusCode": 400,
+                    "errors": {
+                      "page": "Size must be greater than or equal to 1",
+                    }
+                }
+            )
+        }
+        page = (!page || page < 0) ? 1 : +page;
+        size = (!size || size < 0) ? 20 : +size;
+        page = (page > 10) ? 10 : page;
+        size = (size > 20) ? 20 : size;
+        if (page > 0 && page <= 10 && size > 0 && size <= 20) {
+            query.limit = size;
+            query.offset = size * (page - 1);
+        };
 
+        const spots = await Spot.findAll({raw: true, ...query});
         for (let spot of spots) {
             const avgRating = await Review.findAll({
                 where: {
@@ -97,7 +132,7 @@ router.get(
                 where: {
                     spotId: spot.id
                 },
-                attributes: ['url']
+                attributes: ['url'],
             })
             if (avgRating[0]) {
                 spot.avgRating = avgRating[0].avgRating;
@@ -111,8 +146,10 @@ router.get(
                 spot.previewImage = null;
             }
         };
+        // spots.page = (page === 0) ? 1 : page;
+        // spots.size = (size === 0) ? 20 : size;
 
-        return res.json({ spots });
+        return res.json({ spots, page, size });
     })
 
 // Get all Spots owned by the Current User
@@ -598,7 +635,7 @@ router.post(
             )
         }
     }
-)
+);
 
 
 module.exports = router;
