@@ -4,7 +4,8 @@ const { Spot, User, Review, SpotImage, Booking, ReviewImage, sequelize } = requi
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { route } = require('./reviews');
+
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -66,12 +67,53 @@ const validateBooking = [
     handleValidationErrors
 ];
 
+const validateSpotImage = [
+    check('url')
+        .exists({checkFalsy: true})
+        .withMessage('Please provide image url'),
+    handleValidationErrors
+];
+
 // Get all Spots
 router.get(
     '/', 
     async (req, res, next) => {
-        const spots = await Spot.findAll({raw: true});
+        // Add Query Filters to Get All Spots
+        let { page, size } = req.query;
+        const query = {};
+        if (page < 1) {
+            res.status(400);
+            return res.json(
+                {
+                    "message": "Validation Error",
+                    "statusCode": 400,
+                    "errors": {
+                      "page": "Page must be greater than or equal to 1",
+                    }
+                }
+            )
+        } else if (size < 1) {
+            res.status(400);
+            return res.json(
+                {
+                    "message": "Validation Error",
+                    "statusCode": 400,
+                    "errors": {
+                      "page": "Size must be greater than or equal to 1",
+                    }
+                }
+            )
+        }
+        page = (page) ? +page : 1;
+        size = (size) ? +size : 20;
+        page = (page > 10) ? 10 : page;
+        size = (size > 20) ? 20 : size;
+        if (page > 0 && page <= 10 && size > 0 && size <= 20) {
+            query.limit = size;
+            query.offset = size * (page - 1);
+        };
 
+        const spots = await Spot.findAll({raw: true, ...query});
         for (let spot of spots) {
             const avgRating = await Review.findAll({
                 where: {
@@ -90,7 +132,7 @@ router.get(
                 where: {
                     spotId: spot.id
                 },
-                attributes: ['url']
+                attributes: ['url'],
             })
             if (avgRating[0]) {
                 spot.avgRating = avgRating[0].avgRating;
@@ -105,7 +147,7 @@ router.get(
             }
         };
 
-        return res.json({ spots });
+        return res.json({ spots, page, size });
     })
 
 // Get all Spots owned by the Current User
@@ -217,7 +259,7 @@ router.get(
         } else {
             // Error response if couldn't find the specified id
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -258,6 +300,7 @@ router.post(
     '/:spotId/images',
     requireAuth,
     restoreUser,
+    validateSpotImage,
     async (req, res, next) => {
         const spotId = req.params.spotId;
         const { url, preview } = req.body;
@@ -277,14 +320,14 @@ router.post(
                 return res.json(newImage)
             } else {
                 res.status(404);
-                res.json({
+                return res.json({
                     "message": "Spot couldn't be found",
                     "statusCode": 404
                 })
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -323,14 +366,14 @@ router.put(
                 return res.json(spot)
             } else {
                 res.status(404);
-                res.json({
+                return res.json({
                     "message": "Spot couldn't be found",
                     "statusCode": 404
                 })
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -354,7 +397,7 @@ router.delete(
         if (spot) {
             if (spot.ownerId === user.id) {
                 await spot.destroy();
-                res.json(
+                return res.json(
                     {
                         "message": "Successfully deleted",
                         "statusCode": 200
@@ -362,7 +405,7 @@ router.delete(
                 )
             } else {
                 res.status(404);
-                res.json(
+                return res.json(
                     {
                         "message": "Spot couldn't be found",
                         "statusCode": 404
@@ -371,7 +414,7 @@ router.delete(
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -403,10 +446,10 @@ router.get(
             });
 
         if (reviews.length !== 0) {
-            res.json({ Reviews: reviews })
+            return res.json({ Reviews: reviews })
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -440,7 +483,7 @@ router.post(
                 return res.json(newReview)
             } else {
                 res.status(400);
-                res.json(
+                return res.json(
                     {
                         "message": "Can not create review for your own spot",
                         "statusCode": 400
@@ -449,7 +492,7 @@ router.post(
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -488,7 +531,7 @@ router.get(
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Spot couldn't be found",
                     "statusCode": 404
@@ -569,7 +612,7 @@ router.post(
                     startDate: new Date(startDate),
                     endDate: new Date(endDate)
                 });
-                res.json(booking)
+                return res.json(booking)
                 
             } else {
                 res.status(400);
@@ -590,7 +633,7 @@ router.post(
             )
         }
     }
-)
+);
 
 
 module.exports = router;

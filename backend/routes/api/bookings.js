@@ -148,7 +148,7 @@ router.put(
             }
         } else {
             res.status(404);
-            res.json(
+            return res.json(
                 {
                     "message": "Booking couldn't be found",
                     "statusCode": 404
