@@ -81,7 +81,7 @@ router.get(
         // Add Query Filters to Get All Spots
         let { page, size } = req.query;
         const query = {};
-        if (page < 1 || !Number.isInteger(page)) {
+        if (page < 1) {
             res.status(400);
             return res.json(
                 {
@@ -92,7 +92,7 @@ router.get(
                     }
                 }
             )
-        } else if (size < 1 || !Number.isInteger(size)) {
+        } else if (size < 1) {
             res.status(400);
             return res.json(
                 {
@@ -104,8 +104,8 @@ router.get(
                 }
             )
         }
-        page = (!page || page < 0) ? 1 : +page;
-        size = (!size || size < 0) ? 20 : +size;
+        page = (page) ? +page : 1;
+        size = (size) ? +size : 20;
         page = (page > 10) ? 10 : page;
         size = (size > 20) ? 20 : size;
         if (page > 0 && page <= 10 && size > 0 && size <= 20) {
@@ -146,8 +146,6 @@ router.get(
                 spot.previewImage = null;
             }
         };
-        // spots.page = (page === 0) ? 1 : page;
-        // spots.size = (size === 0) ? 20 : size;
 
         return res.json({ spots, page, size });
     })
