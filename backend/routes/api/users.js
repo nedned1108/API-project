@@ -78,7 +78,7 @@ router.post(
             let token = await setTokenCookie(res, user);
             user = user.toJSON();
             user.token = token;
-            return res.json(user);
+            return res.json({user});
         } 
     }
 );
