@@ -13,9 +13,9 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.active {
+/* .active {
   font-weight: bold;
-}
+} */
 
 .login-nav,
 .signup-nav {
@@ -24,6 +24,7 @@
   background-color: rgb(224, 148, 148);
   border-radius: 10px;
   padding: 5px;
+  border: red;
 }
 
 .hidden {
