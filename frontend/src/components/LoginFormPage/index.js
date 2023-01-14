@@ -20,21 +20,11 @@ function LoginFormPage() {
     e.preventDefault();
     setErrors([]);
 
-    const user = {
-      credential,
-      password
-    };
-
     return dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       })
-  }
-
-  const reset = () => {
-    setCredential('');
-    setPassword('');
   }
 
   return (
