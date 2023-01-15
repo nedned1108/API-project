@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import SpotsIndex from './components/SpotIndex';
+import SpotDetail from './components/SpotDetail';
 
 
 function App() {
@@ -20,7 +21,10 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
-          <SpotsIndex />
+            <SpotsIndex />
+          </Route>
+          <Route path='/:spotId'>
+            <SpotDetail />
           </Route>
         </Switch>
       )}

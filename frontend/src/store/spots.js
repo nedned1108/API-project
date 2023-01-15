@@ -27,14 +27,14 @@ export const thunkLoadAllSpots = () => async (dispatch) => {
   }
 };
 
-export const thunkLoadSpot = () => async (dispatch) => {
-  const response = await csrfFetch('/api/:spotId');
+export const thunkLoadSpot = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${id}`);
 
   if (response.ok) {
-    const data = await response.json();
-    console.log("thunkLoadSpot ",data.spot)
-    dispatch(loadSingleSpot(data.spot))
-    return data;
+    const spot = await response.json();
+    console.log("thunkLoadSpot ",spot)
+    dispatch(loadSingleSpot(spot))
+    return spot;
   }
 }
 
@@ -47,9 +47,9 @@ const spotReducer = (state = initialState, action) => {
       newState.allSpots = normalize(action.payload);
       console.log(newState)
       return newState;
-    // case LOAD_SINGLESPOT:
-    //   const singleSpotState = {...state, singleSpot: normalize(action.spot)}
-    //   return singleSpotState;
+    case LOAD_SINGLESPOT:
+      const singleSpotState = {...state, singleSpot: action.payload}
+      return singleSpotState;
     default:
       return state;
   }
