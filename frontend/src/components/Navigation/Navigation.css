@@ -13,17 +13,14 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.active {
-  font-weight: bold;
-}
-
 .login-nav,
 .signup-nav {
   display: flex;
   color: white;
-  background-color: rgb(224, 148, 148);
+  background-color: rgb(235, 86, 86);
   border-radius: 10px;
   padding: 5px;
+  border: black solid 2px;
 }
 
 .hidden {
