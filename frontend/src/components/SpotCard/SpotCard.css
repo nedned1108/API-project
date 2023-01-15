@@ -18,7 +18,20 @@
 
 .spot-city-state {
   display: flex;
+  flex-direction: column;
   align-self: start;
-  padding-top: 10px;
   padding-left: 10px;
+  font-weight: bold;
+  color: black;
+}
+
+.price-div {
+  display: flex;
+  column-gap: 5px;
+  align-self: flex-start;
+}
+
+.price-night {
+  display: flex;
+  font-weight: normal;
 }
