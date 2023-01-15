@@ -78,7 +78,6 @@ router.put(
                 }
             }
         });
-        console.log(bookedDate)
 
         if (booking) {
             if (user.id === booking.userId) {
