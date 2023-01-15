@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { thunkLoadAllSpots } from "../../store/spots";
 import { useEffect } from "react";
 import SpotCard from "../SpotCard/SpotCard";
+import './SpotIndex.css'
 
 const SpotsIndex = () => {
   const dispatch = useDispatch();
@@ -24,10 +25,9 @@ const SpotsIndex = () => {
 
   return (
     <section>
-      <ul>
-        <h1>Spot Index</h1>
+      <div className="spots-main-div">
         {allSpots.map(spot => <SpotCard spot={spot} key={spot.id}/>)}
-      </ul>
+      </div>
     </section>
   )
 };

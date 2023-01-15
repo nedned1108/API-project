@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import './SpotCard.css'
 
 const SpotCard = ({ spot }) => {
@@ -7,7 +8,8 @@ const SpotCard = ({ spot }) => {
   
   return (
     <div className="spotCard-main-div">
-      <h4>{spot.address}</h4>
+      <img className="spot-previewImage" src={spot.previewImage} />
+      <Link className="spot-city-state" to={`/${spot.id}`}>{spot.city}, {spot.state}</Link>
     </div>
   )
 };

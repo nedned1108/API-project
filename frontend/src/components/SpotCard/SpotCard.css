@@ -1,9 +1,24 @@
 .spotCard-main-div {
   width: 200px;
-  height: 200px;
-  border: 1px solid red;
-  padding: 5px;
+  height: 300px;
   margin: 5px;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.spot-previewImage {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  border-radius: 10%;
+}
+
+.spot-city-state {
+  display: flex;
+  align-self: start;
+  padding-top: 10px;
+  padding-left: 10px;
 }
