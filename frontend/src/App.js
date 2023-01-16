@@ -6,6 +6,7 @@ import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import SpotsIndex from './components/SpotIndex';
 import SpotDetail from './components/SpotDetail';
+import OwnedSpot from './components/OwnedSpot';
 
 
 function App() {
@@ -23,7 +24,10 @@ function App() {
           <Route exact path='/'>
             <SpotsIndex />
           </Route>
-          <Route path='/:spotId'>
+          <Route exact path='/spots/current' >
+            <OwnedSpot />
+          </Route>
+          <Route path='/spots/:spotId'>
             <SpotDetail />
           </Route>
         </Switch>

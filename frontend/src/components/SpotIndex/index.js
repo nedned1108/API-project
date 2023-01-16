@@ -8,7 +8,7 @@ import './SpotIndex.css'
 const SpotsIndex = () => {
   const dispatch = useDispatch();
   const allSpotsData = useSelector(state => state.spots.allSpots);
-  let allSpots = {};
+  let allSpots;
   if (allSpotsData) allSpots = Object.values(allSpotsData);
  
   useEffect(() => {

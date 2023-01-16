@@ -9,7 +9,7 @@ const SpotCard = ({ spot }) => {
 
   return (
     <div className="spotCard-main-div">
-      <Link className="spot-city-state" to={`/${spot.id}`}>
+      <Link className="spot-city-state" to={`/spots/${spot.id}`}>
         <img className="spot-previewImage" src={(spot.previewImage) ? spot.previewImage : comingSoon} />
         <p>{spot.city}, {spot.state}</p>
         <div className="price-div">
