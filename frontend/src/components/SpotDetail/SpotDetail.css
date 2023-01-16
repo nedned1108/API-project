@@ -1,0 +1,41 @@
+.spot-detail-main-div {
+  border: red solid 2px;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.spot-detail-image-div {
+  height: 517px;
+  width: 1120px;
+  border: blue solid 2px;
+  /* display: grid;
+  grid-template-areas: 
+  "a b c"
+  "a d e"; */
+}
+
+.spot-detail-title {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.spot-image-0 {
+  width: 560px;
+  height: 493px;
+  grid-area: "a";
+}
+/* .spot-image-1 {
+  grid-area: "b";
+}
+.spot-image-2 {
+  grid-area: "c";
+}
+.spot-image-3 {
+  grid-area: "d";
+}
+.spot-image-4 {
+  grid-area: "e";
+}  */
