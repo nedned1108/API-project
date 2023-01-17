@@ -24,13 +24,13 @@ const CreateSpotFormModal = () => {
     const spot = {
       ownerId: user.id,
       address,
-      city, 
-      state, 
+      city,
+      state,
       country,
       lat: 123.1234567,
       lng: 123.1234567,
-      name, 
-      description, 
+      name,
+      description,
       price
     }
 
@@ -41,7 +41,7 @@ const CreateSpotFormModal = () => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
-    
+
   };
 
   return (
@@ -51,56 +51,70 @@ const CreateSpotFormModal = () => {
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
+        <div className="input-form">
         <label>Address:</label>
-          <input
-            type='text'
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        
-        <label>City:</label>
+        <input
+          type='text'
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className='input-placeholder'
+        />
+        </div>
+        <div className="input-form">
+          <label>City:</label>
           <input
             type='text'
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            className='input-placeholder'
           />
-        
-        <label>State:</label>
+        </div>
+        <div className="input-form">
+          <label>State:</label>
           <input
             type='text'
             value={state}
             onChange={(e) => setState(e.target.value)}
+            className='input-placeholder'
           />
-
-        <label>Country:</label>
+        </div>
+        <div className="input-form">
+          <label>Country:</label>
           <input
             type='text'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
+            className='input-placeholder'
           />
-        
-        <label>Name:</label>
+        </div>
+        <div className="input-form">
+          <label>Name:</label>
           <input
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className='input-placeholder'
           />
-        
-        <label>Description:</label>
+        </div>
+        <div className="input-form">
+          <label>Description:</label>
           <input
             type='text'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className='input-placeholder'
           />
-        
-        <label>Price per night:</label>
+        </div>
+        <div className="input-form">
+          <label>Price per night:</label>
           <input
             type='number'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            className='input-placeholder'
           />
-        
-        <button type="submit">Create New Listing</button>
+        </div>
+        <button className="submit-button" type="submit">Create New Listing</button>
       </form>
     </section>
   )
