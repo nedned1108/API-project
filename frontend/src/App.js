@@ -7,6 +7,7 @@ import Navigation from './components/Navigation';
 import SpotsIndex from './components/SpotIndex';
 import SpotDetail from './components/SpotDetail';
 import OwnedSpot from './components/OwnedSpot';
+import CreateSpotForm from './components/CreateSpotForm';
 
 
 function App() {
@@ -24,11 +25,17 @@ function App() {
           <Route exact path='/'>
             <SpotsIndex />
           </Route>
+          <Route exact path='/spots/create'>
+            <CreateSpotForm />
+          </Route>
           <Route exact path='/spots/current' >
             <OwnedSpot />
           </Route>
           <Route path='/spots/:spotId'>
             <SpotDetail />
+          </Route>
+          <Route>
+            Page not Found!
           </Route>
         </Switch>
       )}

@@ -48,7 +48,7 @@ export const thunkLoadSpot = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${id}`);
   if (response.ok) {
     const spot = await response.json();
-    console.log("thunkLoadSpot ",spot)
+    console.log("thunkLoadSpot ", spot)
     dispatch(loadSingleSpot(spot))
     return spot;
   }
@@ -64,34 +64,35 @@ export const thunkLoadCurrentSpots = () => async (dispatch) => {
   }
 };
 
-export const thunkCreateSpot = () => async (dispatch) => {
+export const thunkCreateSpot = (createdSpot) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots`, {
     method: "POST",
-    
+    body: JSON.stringify(createdSpot)
   });
   if (response.ok) {
-    const data = await response.json();
-    console.log('thunkLoadCurrentSpots', data)
-    dispatch(loadCurrentSpots(data.spots))
-    return data;
+    const spot = await response.json();
+    console.log('thunkCreateSpot', spot)
+    dispatch(loadCurrentSpots(spot))
+    return spot;
   }
 };
-
-
 
 const initialState = {};
 
 const spotReducer = (state = initialState, action) => {
-  const newState = {...state};
+  const newState = { ...state };
   switch (action.type) {
     case LOAD_ALLSPOTS:
       newState.allSpots = normalize(action.payload);
       return newState;
     case LOAD_SINGLESPOT:
-      const singleSpotState = {...state, singleSpot: action.payload}
+      const singleSpotState = { ...state, singleSpot: action.payload }
       return singleSpotState;
     case LOAD_CURRENTSPOT:
       newState.currentSpot = normalize(action.payload);
+      return newState;
+    case CREATE_SPOT:
+      newState[action.payload.id] = action.payload;
       return newState;
     default:
       return state;
