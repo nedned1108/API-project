@@ -3,23 +3,21 @@
   display: flex;
   justify-content: center;
   padding-top: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .spot-detail-image-div {
   height: 517px;
   width: 1120px;
+  padding-left: 5%;
+  padding-right: 5%;
   border: blue solid 2px;
-  /* display: grid;
-  grid-template-areas: 
-  "a b c"
-  "a d e"; */
 }
 
 .spot-detail-title {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .spot-image-0 {
@@ -27,15 +25,31 @@
   height: 493px;
   grid-area: "a";
 }
-/* .spot-image-1 {
-  grid-area: "b";
+
+.spot-detail-div {
+  display: flex;
+  flex-direction: row;
+  padding: 5%;
+  column-gap: 20px;
 }
-.spot-image-2 {
-  grid-area: "c";
+
+.spot-detail-hosts {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
 }
-.spot-image-3 {
-  grid-area: "d";
+
+.spot-detail-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.spot-image-4 {
-  grid-area: "e";
-}  */
+
+.spot-detail-extra-info {
+  width: 200px;
+}
+
+.spot-detail-price {
+  display: flex;
+  justify-content: space-between;
+}

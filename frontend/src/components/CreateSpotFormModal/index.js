@@ -1,13 +1,11 @@
 //frontend/src/components/SpotForm/index.js
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import { thunkCreateSpot } from "../../store/spots";
 
 const CreateSpotFormModal = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { user } = useSelector(state => state.session)
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -24,6 +22,7 @@ const CreateSpotFormModal = () => {
     setErrors([]);
 
     const spot = {
+      ownerId: user.id,
       address,
       city, 
       state, 
@@ -42,12 +41,8 @@ const CreateSpotFormModal = () => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
-
+    
   };
-
-  if (!user) {
-    <Redirect to='/' />
-  }
 
   return (
     <section className="create-spot-form centered">

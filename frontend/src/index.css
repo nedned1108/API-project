@@ -5,3 +5,12 @@
   align-items: center;
   row-gap: 5px;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.logo {
+  width: 120px;
+  height: 40px;
+}
