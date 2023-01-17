@@ -5,6 +5,7 @@ const LOAD_ALLSPOTS = 'allSpots/LOAD_ALLSPOTS';
 const LOAD_SINGLESPOT = 'singleSpot/LOAD_SINGLESPOT';
 const CREATE_SPOT = 'singleSpot/CREATE_SPOT';
 const UPDATE_SPOT = 'singleSpot/UPDATE_SPOT';
+const DELETE_SPOT = 'singleSpot/DELETE_SPOT';
 
 // action
 export const loadAllSpots = (allSpots) => {
@@ -33,7 +34,14 @@ export const updateSpot = (spot) => {
     type: UPDATE_SPOT,
     payload: spot
   }
-}
+};
+
+export const deleteSpot = (spot) => {
+  return {
+    type: DELETE_SPOT,
+    payload: spot
+  }
+};
 
 // thunk action
 export const thunkLoadAllSpots = () => async (dispatch) => {
@@ -110,6 +118,29 @@ export const thunkUpdateSpot = (data) => async (dispatch) => {
   }
 };
 
+export const thunkDeleteSpot = (id) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/spots/${id}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      let error;
+      error = await response.json();
+      throw new Error(error)
+    }
+
+    const data = await response.json();
+    console.log('thunkDeleteSpot ',data )
+    dispatch(deleteSpot(data))
+    return data;
+  } catch (error) {
+    throw error
+  }
+};
+
+
+// initialState
 const initialState = {
   allSpots: {},
   singleSpot: {
@@ -136,11 +167,15 @@ const spotReducer = (state = initialState, action) => {
       newState.singleSpot[action.payload.id] = {...action.payload};
       newState.allSpots[action.payload.id] = {...action.payload};
       return newState;
+    case DELETE_SPOT:
+      delete newState.allSpots[action.payload]
+      return newState;
     default:
       return state;
   }
 };
 
+// helper function
 const normalize = (array) => {
   const obj = {}
   array.forEach((el) => {

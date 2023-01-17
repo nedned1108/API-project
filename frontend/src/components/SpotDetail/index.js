@@ -1,7 +1,9 @@
 //frontend/src/components/SpotDetail/index.js
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { thunkLoadSpot } from "../../store/spots";
+import { thunkDeleteSpot } from "../../store/spots";
 import { useParams } from "react-router-dom";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
@@ -13,6 +15,7 @@ import comingSoon from '../../Image/Image_Coming_Soon.png'
 const SpotDetail = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const spot = useSelector(state => state.spots.singleSpot);
   const  { user } = useSelector(state => state.session)
 
@@ -28,7 +31,8 @@ const SpotDetail = () => {
   }
 
   const deleteListing = () => {
-
+    dispatch(thunkDeleteSpot(spotId))
+    history.push('/')
   }
   return (
     <section>
@@ -39,10 +43,10 @@ const SpotDetail = () => {
           {!user || user.id !== spot.Owner.id ? '' : (
           <div>
             <OpenModalMenuItem
-              itemText={<i class="fas fa-solid fa-pen-to-square"></i>}
+              itemText={<i className="fas fa-solid fa-pen-to-square"> Edit</i>}
               modalComponent={<EditSpotFormModal spot={spot} />}
             />
-            <button>{<i class="fas fa-solid fa-trash"></i>}</button>
+            <button onClick={deleteListing}>{<i className="fas fa-solid fa-trash"></i>}</button>
           </div>
           )} 
         </div>
