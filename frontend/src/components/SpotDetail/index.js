@@ -14,6 +14,7 @@ const SpotDetail = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
   const spot = useSelector(state => state.spots.singleSpot);
+  const  { user } = useSelector(state => state.session)
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
@@ -35,6 +36,7 @@ const SpotDetail = () => {
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
           <h4>{spot.avgRating} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
+          {!user || user.id !== spot.Owner.id ? '' : (
           <div>
             <OpenModalMenuItem
               itemText={<i class="fas fa-solid fa-pen-to-square"></i>}
@@ -42,6 +44,7 @@ const SpotDetail = () => {
             />
             <button>{<i class="fas fa-solid fa-trash"></i>}</button>
           </div>
+          )} 
         </div>
       </div>
       <div className="spot-detail-main-div">
