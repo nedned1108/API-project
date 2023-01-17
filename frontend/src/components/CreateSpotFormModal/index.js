@@ -2,69 +2,59 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Redirect } from 'react-router-dom';
+import { useModal } from "../../context/Modal";
 import { thunkCreateSpot } from "../../store/spots";
 
-const SpotForm = ({ spot, formType }) => {
+const CreateSpotFormModal = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { user } = useSelector(state => state.session)
-  const [address, setAddress] = useState(spot.address);
-  const [city, setCity] = useState(spot.city);
-  const [state, setState] = useState(spot.state);
-  const [country, setCountry] = useState(spot.country);
-  const [lat, setLat] = useState(spot.lat);
-  const [lng, setLng] = useState(spot.lng);
-  const [name, setName] = useState(spot.name);
-  const [description, setDescription] = useState(spot.description);
-  const [price, setPrice] = useState(spot.price);
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(1);
   const [errors, setErrors] = useState([]);
+  const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    const newSpot = { ...spot, address, city, state, country, lat, lng, name, description, price }
 
-    try {
-      await dispatch(thunkCreateSpot(newSpot))
-    } catch (error) {
-      setErrors(error)
+    const spot = {
+      address,
+      city, 
+      state, 
+      country,
+      lat: 123.1234567,
+      lng: 123.1234567,
+      name, 
+      description, 
+      price
     }
 
-    if (newSpot) {
-      reset();
-      history.push('/spots/current')
-    }
+    setErrors([]);
+    return dispatch(thunkCreateSpot(spot))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+
   };
 
   if (!user) {
-    <Redirect to='/'/>
-  }
-
-  const reset = () => {
-    setAddress('')
-    setCity('')
-    setState('')
-    setCountry('')
-    setLat('')
-    setLng('')
-    setName('')
-    setDescription('')
-    setPrice(1)
-    setErrors([])
-  };
-
-  const handleCancelClick = (e) => {
-    e.preventDefault();
-    reset();
-    history.push('/spots/current')
+    <Redirect to='/' />
   }
 
   return (
     <section className="create-spot-form centered">
-      <h1>{formType}</h1>
+      <h1>Create Listing</h1>
       <form onSubmit={handleSubmit} className='centered'>
         <ul>
-          {/* {errors.map((error, idx) => <li key={idx}>{error}</li>)} */}
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
         <label>
           Address:
@@ -99,22 +89,6 @@ const SpotForm = ({ spot, formType }) => {
           />
         </label>
         <label>
-          Latitude:
-          <input
-            type='number'
-            value={lat}
-            onChange={(e) => setLat(e.target.value)}
-          />
-        </label>
-        <label>
-          Longitude:
-          <input
-            type='number'
-            value={lng}
-            onChange={(e) => setLng(e.target.value)}
-          />
-        </label>
-        <label>
           Name:
           <input
             type='text'
@@ -139,10 +113,9 @@ const SpotForm = ({ spot, formType }) => {
           />
         </label>
         <button type="submit">Create New Listing</button>
-        <button type="button" onClick={handleCancelClick}>Cancel</button>
       </form>
     </section>
   )
 }
 
-export default SpotForm
+export default CreateSpotFormModal;

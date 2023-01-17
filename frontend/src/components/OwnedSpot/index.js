@@ -1,15 +1,16 @@
 //frontend/src/components/OwnedSpot/index.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkLoadCurrentSpots } from "../../store/spots";
 import { Redirect, Link } from "react-router-dom";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import CreateSpotFormModal from "../CreateSpotFormModal";
 import SpotCard from "../SpotCard/SpotCard";
 import './OwnedSpot.css'
 
 const OwnedSpot = () => {
   const { user } = useSelector(state => state.session);
   const dispatch = useDispatch();
-  const [showForm, setShowForm] = useState(false);
   const currentSpotsData = useSelector(state => state.spots.currentSpot);
 
   useEffect(() => {
@@ -32,11 +33,19 @@ const OwnedSpot = () => {
       <div className="title-bar">
         <h1>Your Properties</h1>
         <div>
-          <Link to='/spots/new'>New Listing</Link>
+          <OpenModalMenuItem
+            itemText='New Listing'
+            modalComponent={<CreateSpotFormModal />}
+          />
         </div>
       </div>
       <div className="owned-spots-main-div">
-        {currentSpots.map(spot => <SpotCard spot={spot} key={spot.id} />)}
+        {currentSpots.map(spot => (
+          <div>
+            <SpotCard spot={spot} key={spot.id} />
+            <button>Edit</button>
+          </div>
+        ))}
       </div>
     </div>
   )
