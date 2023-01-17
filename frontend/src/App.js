@@ -1,9 +1,14 @@
 // frontend/src/App.js
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
+import SpotsIndex from './components/SpotIndex';
+import SpotDetail from './components/SpotDetail';
+import OwnedSpot from './components/OwnedSpot';
+import CreateSpotForm from './components/CreateSpotForm';
+import './index.css';
 
 
 function App() {
@@ -18,6 +23,21 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+            <SpotsIndex />
+          </Route>
+          <Route exact path='/spots/new'>
+            <CreateSpotForm />
+          </Route>
+          <Route exact path='/spots/current' >
+            <OwnedSpot />
+          </Route>
+          <Route path='/spots/:spotId'>
+            <SpotDetail />
+          </Route>
+          <Route>
+            Page not Found!
+          </Route>
         </Switch>
       )}
     </>
