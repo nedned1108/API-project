@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import { thunkUpdateSpot } from "../../store/spots";
+import './EditSpotFormModal.css'
 
 const EditSpotFormModal = ({ spot }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,8 @@ const EditSpotFormModal = ({ spot }) => {
     e.preventDefault();
     setErrors([]);
 
-    let updatedSpot = {...spot,
+    let updatedSpot = {
+      ...spot,
       address,
       city,
       state,
@@ -49,63 +51,70 @@ const EditSpotFormModal = ({ spot }) => {
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
-        <label>
-          Address:
+        <div className="input-form">
+          <label>Address:</label>
           <input
             type='text'
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            className='input-placeholder'
           />
-        </label>
-        <label>
-          City:
+        </div>
+        <div className="input-form">
+          <label>City:</label>
           <input
             type='text'
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            className='input-placeholder'
           />
-        </label>
-        <label>
-          State:
+        </div>
+        <div className="input-form">
+          <label>State:</label>
           <input
             type='text'
             value={state}
             onChange={(e) => setState(e.target.value)}
+            className='input-placeholder'
           />
-        </label>
-        <label>
-          Country:
+        </div>
+        <div className="input-form">
+          <label>Country:</label>
           <input
             type='text'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
+            className='input-placeholder'
           />
-        </label>
-        <label>
-          Name:
+        </div>
+        <div className="input-form">
+          <label>Name:</label>
           <input
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className='input-placeholder'
           />
-        </label>
-        <label>
-          Description:
+        </div>
+        <div className="input-form">
+          <label>Description:</label>
           <input
             type='text'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className='input-placeholder'
           />
-        </label>
-        <label>
-          Price per night:
+        </div>
+        <div className="input-form">
+          <label>Price per night:</label>
           <input
             type='number'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            className='input-placeholder'
           />
-        </label>
-        <button type="submit">Update Listing</button>
+        </div>
+        <button className="submit-button" type="submit">Update Listing</button>
       </form>
     </section>
   )

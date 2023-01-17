@@ -4,6 +4,29 @@
   flex-direction: column;
   align-items: center;
   row-gap: 5px;
+  width: 500px;
+  row-gap: 0;
+  padding-bottom: 10px;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  border: black solid 1px;
+  width: 90%;
+  padding-bottom: 0;
+}
+
+.submit-button {
+  padding: 5px;
+  width: 90%;
+  font-weight: bold;
+  color: white;
+  background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+}
+
+.input-placeholder {
+  border: none;
 }
 
 .bold {
