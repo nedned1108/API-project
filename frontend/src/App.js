@@ -8,6 +8,7 @@ import SpotsIndex from './components/SpotIndex';
 import SpotDetail from './components/SpotDetail';
 import OwnedSpot from './components/OwnedSpot';
 import CreateSpotForm from './components/CreateSpotForm';
+import './index.css';
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
           <Route exact path='/'>
             <SpotsIndex />
           </Route>
-          <Route exact path='/spots/create'>
+          <Route exact path='/spots/new'>
             <CreateSpotForm />
           </Route>
           <Route exact path='/spots/current' >

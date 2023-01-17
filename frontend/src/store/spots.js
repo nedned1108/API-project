@@ -1,10 +1,10 @@
+//frontend/src/store/spots.js
 import { csrfFetch } from "./csrf";
 
 const LOAD_ALLSPOTS = 'allSpots/LOAD_ALLSPOTS';
 const LOAD_SINGLESPOT = 'singleSpot/LOAD_SINGLESPOT';
 const LOAD_CURRENTSPOT = 'currentSpot/LOAD_CURRENTSPOT';
 const CREATE_SPOT = 'singleSpot/CREATE_SPOT';
-
 
 export const loadAllSpots = (allSpots) => {
   return {
@@ -64,16 +64,26 @@ export const thunkLoadCurrentSpots = () => async (dispatch) => {
   }
 };
 
-export const thunkCreateSpot = (createdSpot) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots`, {
-    method: "POST",
-    body: JSON.stringify(createdSpot)
-  });
-  if (response.ok) {
+export const thunkCreateSpot = (data) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/spots`, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      let error;
+      error = await response.json();
+      throw new Error(error)
+    }
+
     const spot = await response.json();
     console.log('thunkCreateSpot', spot)
-    dispatch(loadCurrentSpots(spot))
+    dispatch(createSpot(spot))
     return spot;
+  } catch (error) {
+    console.log('thunkCreateSpot error ',error)
+    throw error
   }
 };
 

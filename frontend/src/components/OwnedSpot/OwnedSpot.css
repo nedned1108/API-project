@@ -1,7 +1,18 @@
+.owned-spots-div {
+  display: flex;
+  flex-direction: column;
+}
+
 .title-bar {
-  border: red solid 2px;
+  /* border: red solid 2px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
+}
+
+.owned-spots-main-div {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 30px;
 }

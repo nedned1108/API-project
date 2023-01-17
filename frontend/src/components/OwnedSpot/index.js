@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { thunkLoadCurrentSpots } from "../../store/spots";
 import { Redirect, Link } from "react-router-dom";
 import SpotCard from "../SpotCard/SpotCard";
-import CreateSpotForm from "../CreateSpotForm";
 import './OwnedSpot.css'
 
 const OwnedSpot = () => {
@@ -29,17 +28,17 @@ const OwnedSpot = () => {
   }
 
   return (
-    <section>
+    <div className="owned-spots-div">
       <div className="title-bar">
         <h1>Your Properties</h1>
         <div>
-          <Link to='/spots/create'>New Listing</Link>
+          <Link to='/spots/new'>New Listing</Link>
         </div>
       </div>
       <div className="owned-spots-main-div">
         {currentSpots.map(spot => <SpotCard spot={spot} key={spot.id} />)}
       </div>
-    </section>
+    </div>
   )
 };
 
