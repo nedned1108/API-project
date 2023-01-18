@@ -160,13 +160,9 @@ const spotReducer = (state = initialState, action) => {
       newState.singleSpot = {...action.payload};
       return newState;
     case CREATE_SPOT:
-      newState.singleSpot[action.payload.id] = {...action.payload};
-      newState.allSpots[action.payload.id] = {...action.payload};
-      return newState;
+      return {...state, allSpots: {...state.allSpots, [action.payload.id]: action.payload}};
     case UPDATE_SPOT:
-      newState.singleSpot[action.payload.id] = {...action.payload};
-      newState.allSpots[action.payload.id] = {...action.payload};
-      return newState;
+      return {...state, singleSpot: {...state.singleSpot, singleSpot: {...action.payload}}};
     case DELETE_SPOT:
       delete newState.allSpots[action.payload]
       return newState;
