@@ -8,6 +8,21 @@
   margin: 0;
 }
 
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 70px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .login-signup-nav {
   display: flex;
   column-gap: 10px;
