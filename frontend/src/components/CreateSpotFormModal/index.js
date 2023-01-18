@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
-import { thunkCreateSpot } from "../../store/spots";
+import { thunkAddSpotImage, thunkCreateSpot } from "../../store/spots";
 
 const CreateSpotFormModal = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const CreateSpotFormModal = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(1);
+  const [previewImage, setPreviewImage] = useState('')
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
@@ -21,27 +22,33 @@ const CreateSpotFormModal = () => {
     e.preventDefault();
     setErrors([]);
 
-    const spot = {
-      ownerId: user.id,
-      address,
-      city,
-      state,
-      country,
-      lat: 123.1234567,
-      lng: 123.1234567,
-      name,
-      description,
-      price
-    }
-
-    setErrors([]);
-    return dispatch(thunkCreateSpot(spot))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
-
+    let spot = {
+      spotData: {
+        ownerId: user.id,
+        address,
+        city,
+        state,
+        country,
+        lat: 123.1234567,
+        lng: 123.1234567,
+        name,
+        description,
+        price,
+      },
+      spotImage: {
+        url: previewImage
+      }
+    };
+    
+    if (previewImage) {
+      return dispatch(thunkCreateSpot(spot))
+        .then(closeModal)
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+      }
+    return setErrors(['Please add one photo'])
   };
 
   return (
@@ -111,6 +118,16 @@ const CreateSpotFormModal = () => {
             type='number'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            className='input-placeholder'
+          />
+        </div>
+        <div className="input-form">
+          <label>Add your place's photo</label>
+          <input
+            type='url'
+            value={previewImage}
+            onChange={(e) => setPreviewImage(e.target.value)}
+            placeholder="https://example.com"
             className='input-placeholder'
           />
         </div>
