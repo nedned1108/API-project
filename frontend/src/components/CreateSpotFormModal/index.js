@@ -1,12 +1,14 @@
-//frontend/src/components/SpotForm/index.js
-import { useState } from "react";
+//frontend/src/components/CreateSpotFormModal/index.js
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from "../../context/Modal";
-import { thunkAddSpotImage, thunkCreateSpot } from "../../store/spots";
+import { thunkCreateSpot } from "../../store/spots";
+import { Redirect, useHistory } from 'react-router-dom';
 
 const CreateSpotFormModal = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.session)
+  const history = useHistory();
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -16,6 +18,7 @@ const CreateSpotFormModal = () => {
   const [price, setPrice] = useState(1);
   const [previewImage, setPreviewImage] = useState('')
   const [errors, setErrors] = useState([]);
+  const [newSpot, setNewSpot] = useState({});
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -39,17 +42,16 @@ const CreateSpotFormModal = () => {
         url: previewImage
       }
     };
-    
-    if (previewImage) {
-      return dispatch(thunkCreateSpot(spot))
+
+
+      dispatch(thunkCreateSpot(spot))
+        // .then((res) => setNewSpot(res))
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
-        });
-      }
-    return setErrors(['Please add one photo'])
-  };
+        })
+  }
 
   return (
     <section className="create-spot-form centered">
@@ -59,13 +61,13 @@ const CreateSpotFormModal = () => {
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
         <div className="input-form">
-        <label>Address:</label>
-        <input
-          type='text'
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className='input-placeholder'
-        />
+          <label>Address:</label>
+          <input
+            type='text'
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className='input-placeholder'
+          />
         </div>
         <div className="input-form">
           <label>City:</label>

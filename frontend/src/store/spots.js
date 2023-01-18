@@ -6,7 +6,6 @@ const LOAD_SINGLESPOT = 'singleSpot/LOAD_SINGLESPOT';
 const CREATE_SPOT = 'singleSpot/CREATE_SPOT';
 const UPDATE_SPOT = 'singleSpot/UPDATE_SPOT';
 const DELETE_SPOT = 'singleSpot/DELETE_SPOT';
-// const ADD_SPOTIMAGE = 'singleSpot/ADD_SPOTIMAGE';
 
 // action
 export const loadAllSpots = (allSpots) => {
@@ -44,13 +43,6 @@ export const deleteSpot = (spot) => {
   }
 };
 
-// export const addSpotImage = (url) => {
-//   return {
-//     type: DELETE_SPOT,
-//     payload: url
-//   }
-// };
-
 // thunk action
 export const thunkLoadAllSpots = () => async (dispatch) => {
   const response = await csrfFetch('/api/spots');
@@ -82,8 +74,7 @@ export const thunkLoadCurrentSpots = () => async (dispatch) => {
   }
 };
 
-export const thunkCreateSpot = ({ spotData, spotImage}) => async (dispatch) => {
-  console.log('spot', spotImage.url)
+export const thunkCreateSpot = ({ spotData, spotImage }) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/spots`, {
       method: "POST",
@@ -95,11 +86,10 @@ export const thunkCreateSpot = ({ spotData, spotImage}) => async (dispatch) => {
       throw new Error(error)
     }
     const spot = await response.json();
-    console.log('spot', spot)
 
-    const res = await csrfFetch(`/api/${spot.id}/images`, {
+    const res = await csrfFetch(`/api/spots/${spot.id}/images`, {
       method: "POST",
-      body: JSON.stringify({url: spotImage.url, preview: true})
+      body: JSON.stringify({ url: spotImage.url, preview: true })
     });
 
     if (!res.ok) {
@@ -107,37 +97,15 @@ export const thunkCreateSpot = ({ spotData, spotImage}) => async (dispatch) => {
       error = await res.json();
       throw new Error(error)
     }
-    const spotWithImage = await res.json();
-    console.log('spotWithImage', spotWithImage)
-    dispatch(createSpot(spotWithImage))
-    return spotWithImage;
+    const image = await res.json();
+
+    dispatch(createSpot({spot, image}))
+    return spot;
+
   } catch (error) {
     throw error
   }
 };
-
-// export const thunkAddSpotImage = ({ url, spot }) => async (dispatch) => {
-//   console.log('thunkAddSpotImage', url)
-//   try {
-//     const response = await csrfFetch(`/api/${spot.id}/images`, {
-//       method: "POST",
-//       body: JSON.stringify({url: url, preview: true})
-//     });
-
-//     if (!response.ok) {
-//       let error;
-//       error = await response.json();
-//       throw new Error(error)
-//     }
-
-//     const data = await response.json();
-//     dispatch(addSpotImage(data.url))
-//     console.log('thunkAddSpotImage', data)
-//     return spot;
-//   } catch (error) {
-//     throw error
-//   }
-// }
 
 export const thunkUpdateSpot = (data) => async (dispatch) => {
   try {
@@ -174,7 +142,7 @@ export const thunkDeleteSpot = (id) => async (dispatch) => {
     }
 
     const data = await response.json();
-    console.log('thunkDeleteSpot ',data )
+    console.log('thunkDeleteSpot ', data)
     dispatch(deleteSpot(data))
     return data;
   } catch (error) {
@@ -198,23 +166,22 @@ const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_ALLSPOTS:
       newState.allSpots = normalize(action.payload);
+      newState.singleSpot = {SpotImages: [], Owner: {}}
       return newState;
     case LOAD_SINGLESPOT:
-      newState.singleSpot = {...action.payload};
+      newState.singleSpot = { ...action.payload };
       return newState;
     case CREATE_SPOT:
-      newState.allSpots = {...state.allSpots, [action.payload.id]: action.payload}
-      newState.singleSpot = {...state.singleSpot, [state.singleSpot.SpotImages]: [...action.payload]}
+      newState.allSpots = { ...state.allSpots, [action.payload.spot.id]: action.payload.spot }
+      newState.singleSpot = action.payload.spot
+      newState.singleSpot.SpotImages = {...state.singleSpot.SpotImages, SpotImages: [action.payload.image.url]}
       return newState;
     case UPDATE_SPOT:
-      newState.singleSpot = {...state.singleSpot, ...action.payload}
+      newState.singleSpot = { ...state.singleSpot, ...action.payload }
       return newState;
     case DELETE_SPOT:
       delete newState.allSpots[action.payload]
       return newState;
-    // case ADD_SPOTIMAGE:
-    //   newState.singleSpot = {...state.singleSpot, [state.singleSpot.SpotImages]: [...action.payload]}
-    //   return newState;
     default:
       return state;
   }
