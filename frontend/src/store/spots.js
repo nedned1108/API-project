@@ -75,78 +75,52 @@ export const thunkLoadCurrentSpots = () => async (dispatch) => {
 };
 
 export const thunkCreateSpot = ({ spotData, spotImage }) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/spots`, {
-      method: "POST",
-      body: JSON.stringify(spotData)
-    });
-    if (!response.ok) {
-      let error;
-      error = await response.json();
-      throw new Error(error)
-    }
-    const spot = await response.json();
+  const response1 = await csrfFetch(`/api/spots`, {
+    method: "POST",
+    body: JSON.stringify(spotData)
+  });
+  if (response1.ok) {
+    const spot = await response1.json();
 
-    const res = await csrfFetch(`/api/spots/${spot.id}/images`, {
+    const response2 = await csrfFetch(`/api/spots/${spot.id}/images`, {
       method: "POST",
       body: JSON.stringify({ url: spotImage.url, preview: true })
     });
-
-    if (!res.ok) {
-      let error;
-      error = await res.json();
-      throw new Error(error)
+    if (response2.ok) {
+      const image = await response2.json();
+  
+      const newSpot = {...spot, SpotImages: [image]}
+      dispatch(createSpot(newSpot))
+      return spot;
     }
-    const image = await res.json();
-
-    dispatch(createSpot({spot, image}))
-    return spot;
-
-  } catch (error) {
-    throw error
   }
-};
+}
 
 export const thunkUpdateSpot = (data) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/spots/${data.id}`, {
-      method: "PUT",
-      body: JSON.stringify(data)
-    });
+  const response = await csrfFetch(`/api/spots/${data.id}`, {
+    method: "PUT",
+    body: JSON.stringify(data)
+  });
 
-    if (!response.ok) {
-      let error;
-      error = await response.json();
-      throw new Error(error)
-    }
-
+  if (response.ok) {
     const spot = await response.json();
     console.log('thunkUpdateSpot', spot)
     dispatch(updateSpot(spot))
     return spot;
-  } catch (error) {
-    throw error
   }
-};
+}
 
 export const thunkDeleteSpot = (id) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/spots/${id}`, {
-      method: "DELETE"
-    });
 
-    if (!response.ok) {
-      let error;
-      error = await response.json();
-      throw new Error(error)
-    }
+  const response = await csrfFetch(`/api/spots/${id}`, {
+    method: "DELETE"
+  });
 
+  if (response.ok) {
     const data = await response.json();
     console.log('thunkDeleteSpot ', data)
     dispatch(deleteSpot(data))
     return data;
-  } catch (error) {
-    throw error
   }
 };
 
@@ -166,15 +140,14 @@ const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_ALLSPOTS:
       newState.allSpots = normalize(action.payload);
-      newState.singleSpot = {SpotImages: [], Owner: {}}
+      newState.singleSpot = { SpotImages: [], Owner: {} }
       return newState;
     case LOAD_SINGLESPOT:
       newState.singleSpot = { ...action.payload };
       return newState;
     case CREATE_SPOT:
-      newState.allSpots = { ...state.allSpots, [action.payload.spot.id]: action.payload.spot }
-      newState.singleSpot = action.payload.spot
-      newState.singleSpot.SpotImages = {...state.singleSpot.SpotImages, SpotImages: [action.payload.image.url]}
+      newState.allSpots = { ...state.allSpots, [action.payload.id]: action.payload }
+      newState.singleSpot = action.payload
       return newState;
     case UPDATE_SPOT:
       newState.singleSpot = { ...state.singleSpot, ...action.payload }

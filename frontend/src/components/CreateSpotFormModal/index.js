@@ -1,9 +1,8 @@
 //frontend/src/components/CreateSpotFormModal/index.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useModal } from "../../context/Modal";
 import { thunkCreateSpot } from "../../store/spots";
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const CreateSpotFormModal = () => {
   const dispatch = useDispatch();
@@ -18,8 +17,7 @@ const CreateSpotFormModal = () => {
   const [price, setPrice] = useState(1);
   const [previewImage, setPreviewImage] = useState('')
   const [errors, setErrors] = useState([]);
-  const [newSpot, setNewSpot] = useState({});
-  const { closeModal } = useModal();
+  const [newSpot, setNewSpot] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,14 +42,19 @@ const CreateSpotFormModal = () => {
     };
 
 
-      dispatch(thunkCreateSpot(spot))
-        // .then((res) => setNewSpot(res))
-        .then(closeModal)
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        })
+    dispatch(thunkCreateSpot(spot))
+      .then((res) => setNewSpot(res))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      })
   }
+
+  useEffect(() => {
+    if (newSpot) {
+      history.push(`/spots/${newSpot.id}`)
+    }
+  }, [newSpot])
 
   return (
     <section className="create-spot-form centered">

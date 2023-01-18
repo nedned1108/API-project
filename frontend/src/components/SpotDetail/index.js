@@ -26,9 +26,6 @@ const SpotDetail = () => {
   if (!spot) {
     return null;
   }
-  const editListing = () => {
-
-  }
 
   const deleteListing = () => {
     dispatch(thunkDeleteSpot(spotId))
@@ -40,7 +37,7 @@ const SpotDetail = () => {
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
           <h4>{spot.avgRating} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
-          {!user || user.id !== spot.Owner.id ? '' : (
+          {!user || user.id !== spot.ownerId ? '' : (
           <div>
             <OpenModalMenuItem
               itemText={<i className="fas fa-solid fa-pen-to-square"> Edit</i>}
@@ -56,7 +53,7 @@ const SpotDetail = () => {
           {spot.SpotImages.map((image, idx) => <img className={`spot-image-${idx}`} src={image.url} />)}
         </div>
       </div>
-      <div className="bold" >Hosted by {spot.Owner.firstName}</div>
+      <div className="bold" >Hosted by {user.firstName}</div>
       <div className="spot-detail-div">
         <div className="spot-detail-hosts">
           <h4>Hosted by a super host</h4>
