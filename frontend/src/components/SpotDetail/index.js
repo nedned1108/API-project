@@ -7,6 +7,7 @@ import { thunkDeleteSpot } from "../../store/spots";
 import { useParams } from "react-router-dom";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
+import CreateReviewFormModal from "../CreateReviewFormModal";
 import SpotReview from "../SpotReview";
 
 import './SpotDetail.css'
@@ -27,7 +28,7 @@ const SpotDetail = () => {
   if (!spot.Owner) {
     return null;
   }
-  
+
   const deleteListing = () => {
     dispatch(thunkDeleteSpot(spotId))
     history.push('/')
@@ -55,10 +56,10 @@ const SpotDetail = () => {
           {spot.SpotImages.map((image, idx) => <img className={`spot-image-${idx}`} src={image.url} />)}
         </div>
         <div className="image-right-div">
-          <img className="spot-image-1" src={comingSoon}/>
-          <img className="spot-image-2" src={comingSoon}/>
-          <img className="spot-image-3" src={comingSoon}/>
-          <img className="spot-image-4" src={comingSoon}/>
+          <img className="spot-image-1" src={comingSoon} />
+          <img className="spot-image-2" src={comingSoon} />
+          <img className="spot-image-3" src={comingSoon} />
+          <img className="spot-image-4" src={comingSoon} />
         </div>
       </div>
       <div className="bold" >Hosted by {spot.Owner.firstName}</div>
@@ -79,10 +80,17 @@ const SpotDetail = () => {
           <div className="review-container">
             <h3>Reviews</h3>
             <div className="reviews-box">
-              <SpotReview spotId={spotId}/>
+              <SpotReview spotId={spotId} />
             </div>
             <div className="review-button-container">
-              <button className="review-button">Leave your Review</button>
+              {/* <button className="review-button">Leave your Review</button> */}
+              {(!user) ? '' : (
+                <OpenModalMenuItem
+                className=''
+                itemText={'Leave your Review'}
+                modalComponent={<CreateReviewFormModal />}
+              />
+              )}
             </div>
           </div>
         </div>
