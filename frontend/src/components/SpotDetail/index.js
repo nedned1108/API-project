@@ -21,10 +21,16 @@ const SpotDetail = () => {
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
-  }, [spotId, user])
+  }, [ ])
 
-  if (!spot) {
+  if (!spot.Owner) {
     return null;
+  }
+
+  if (!spot.id) {
+    return (
+      history.push('/')
+    )
   }
 
   const deleteListing = () => {
