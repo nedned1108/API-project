@@ -57,11 +57,8 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-
             <li>
-              <Link to='/spots/current' >Account</Link>
+              <Link to='/spots/current' >Manage your Listing</Link>
             </li>
             <li>
               <button onClick={logout} >Log Out</button>

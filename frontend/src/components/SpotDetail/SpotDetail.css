@@ -1,35 +1,74 @@
 .spot-detail-main-div {
-  border: red solid 2px;
   display: flex;
   justify-content: center;
   padding-top: 10px;
-  padding-left: 5%;
-  padding-right: 5%;
 }
 
-.spot-detail-image-div {
-  height: 517px;
-  width: 1120px;
-  padding-left: 5%;
-  padding-right: 5%;
+.image-main-div {
+  height: 30%;
+  width: 100%;
   border: blue solid 2px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.spot-detail-title {
-  padding-left: 5%;
-  padding-right: 5%;
+.image-left-div {
+  border: red 2px solid;
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-right-div {
+  border: yellow 2px solid;
+  /* flex-wrap: wrap; */
+  flex-flow: column wrap;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .spot-image-0 {
-  width: 560px;
-  height: 493px;
-  grid-area: "a";
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.spot-image-1 {
+  width: 50%;
+  height: 25%;
+  object-fit: cover;
+}
+.spot-image-2 {
+  width: 50%;
+  height: 25%;
+  object-fit: cover;
+}
+.spot-image-3 {
+  width: 50%;
+  height: 25%;
+  object-fit: cover;
+}
+.spot-image-4 {
+  width: 50%;
+  height: 25%;
+  object-fit: cover;
+}
+
+.spot-detail-buttons {
+  display: flex;
+  column-gap: 10px;
+}
+
+.delete-button {
+  border: none;
+}
+
+.edit-button {
+  list-style-type: none;
 }
 
 .spot-detail-div {
   display: flex;
   flex-direction: row;
-  padding: 5%;
   column-gap: 20px;
 }
 
@@ -47,6 +86,9 @@
 
 .spot-detail-extra-info {
   width: 200px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px 4px gray;
+  padding: 10px;
 }
 
 .spot-detail-price {

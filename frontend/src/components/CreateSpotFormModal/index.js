@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkCreateSpot } from "../../store/spots";
+import { useModal } from '../../context/Modal'
 import { useHistory } from 'react-router-dom';
 
 const CreateSpotFormModal = () => {
@@ -18,6 +19,7 @@ const CreateSpotFormModal = () => {
   const [previewImage, setPreviewImage] = useState('')
   const [errors, setErrors] = useState([]);
   const [newSpot, setNewSpot] = useState();
+  const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +46,7 @@ const CreateSpotFormModal = () => {
 
     dispatch(thunkCreateSpot(spot))
       .then((res) => setNewSpot(res))
+      .then((spot) => closeModal())
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);

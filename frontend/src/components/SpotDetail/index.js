@@ -17,11 +17,11 @@ const SpotDetail = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const spot = useSelector(state => state.spots.singleSpot);
-  const  { user } = useSelector(state => state.session)
+  const { user } = useSelector(state => state.session)
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
-  }, [spotId])
+  }, [spotId, user])
 
   if (!spot) {
     return null;
@@ -38,19 +38,27 @@ const SpotDetail = () => {
         <div className="spot-detail-nav">
           <h4>{spot.avgRating} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
           {!user || user.id !== spot.ownerId ? '' : (
-          <div>
-            <OpenModalMenuItem
-              itemText={<i className="fas fa-solid fa-pen-to-square"> Edit</i>}
-              modalComponent={<EditSpotFormModal spot={spot} />}
-            />
-            <button onClick={deleteListing}>{<i className="fas fa-solid fa-trash"></i>}</button>
-          </div>
-          )} 
+            <div className="spot-detail-buttons">
+              <OpenModalMenuItem
+                className='edit-button'
+                itemText={<i className="fas fa-solid fa-pen-to-square"></i>}
+                modalComponent={<EditSpotFormModal spot={spot} />}
+              />
+              <button className="delete-button" onClick={deleteListing}>{<i className="fas fa-solid fa-trash"></i>}</button>
+            </div>
+          )}
         </div>
       </div>
-      <div className="spot-detail-main-div">
-        <div className="spot-detail-image-div">
+      <div className="image-main-div">
+        <div className="image-left-div">
           {spot.SpotImages.map((image, idx) => <img className={`spot-image-${idx}`} src={image.url} />)}
+          {/* <img className="spot-image-0" src={spot.SpotImages[0].url} /> */}
+        </div>
+        <div className="image-right-div">
+          <img className="spot-image-1" src={comingSoon}/>
+          <img className="spot-image-2" src={comingSoon}/>
+          <img className="spot-image-3" src={comingSoon}/>
+          <img className="spot-image-4" src={comingSoon}/>
         </div>
       </div>
       <div className="bold" >Hosted by {user.firstName}</div>
