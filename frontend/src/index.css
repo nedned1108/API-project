@@ -46,3 +46,8 @@ html {
   width: 120px;
   height: 40px;
 }
+
+.noU {
+  text-decoration: none;
+  color: black;
+}
