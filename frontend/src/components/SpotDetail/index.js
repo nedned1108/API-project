@@ -27,6 +27,12 @@ const SpotDetail = () => {
     return null;
   }
 
+  if (!spot.id) {
+    return (
+      history.push('/')
+    )
+  }
+
   const deleteListing = () => {
     dispatch(thunkDeleteSpot(spotId))
     history.push('/')
