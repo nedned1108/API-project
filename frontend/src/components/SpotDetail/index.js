@@ -21,9 +21,9 @@ const SpotDetail = () => {
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
-  }, [spotId, user])
+  }, [ ])
 
-  if (!spot) {
+  if (!spot.Owner) {
     return null;
   }
 
