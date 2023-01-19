@@ -88,7 +88,7 @@ const SpotDetail = () => {
                 <OpenModalMenuItem
                 className=''
                 itemText={'Leave your Review'}
-                modalComponent={<CreateReviewFormModal />}
+                modalComponent={<CreateReviewFormModal spotId={spotId}/>}
               />
               )}
             </div>

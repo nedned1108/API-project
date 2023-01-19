@@ -35,7 +35,6 @@ const EditSpotFormModal = ({ spot }) => {
       price
     }
 
-    setErrors([]);
     return dispatch(thunkUpdateSpot(updatedSpot))
       .then(closeModal)
       .catch(async (res) => {

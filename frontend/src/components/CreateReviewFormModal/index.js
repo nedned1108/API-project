@@ -1,12 +1,11 @@
 //frontend/src/components/CreateReviewFormModal/index.js
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { thunkCreateReview } from "../../store/reviews";
 import { useModal } from '../../context/Modal'
 
-const CreateReviewFormModal = () => {
+const CreateReviewFormModal = ({spotId}) => {
   const dispatch = useDispatch();
-  const { spot } = useSelector(state => state.spots.singleSpot)
   const [review, setReview] = useState('');
   const [stars, setStars] = useState('');
   const [errors, setErrors] = useState([]);
@@ -17,7 +16,7 @@ const CreateReviewFormModal = () => {
     setErrors([]);
 
     const reviewData = {
-      spotId: spot.id,
+      spotId,
       reviewDetail : {
         review,
         stars
