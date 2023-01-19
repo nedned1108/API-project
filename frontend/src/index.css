@@ -1,7 +1,48 @@
 /* TODO Add site wide styles */
+html {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
 .centered {
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 5px;
+  width: 500px;
+  padding-bottom: 10px;
+  row-gap: 10px;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  height: 40px;
+  border: black solid 1px;
+  width: 460px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.submit-button {
+  width: 470px;
+  font-weight: bold;
+  color: white;
+  border-radius: 10px;
+  height: 50px;
+  padding: 5px;
+  background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+}
+
+.input-placeholder {
+  border: none;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.logo {
+  width: 120px;
+  height: 40px;
 }

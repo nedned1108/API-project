@@ -59,9 +59,9 @@ router.post(
             {
                 "message": "User already exists",
                 "statusCode": 403,
-                "errors": {
-                    "email": "User with that email already exists"
-                }
+                "errors": [
+                    "User with that email already exists"
+            ]
             })
         } else if (existingUsername) {            // Error response: User already exists with the specified username
             res.status(403)
@@ -69,9 +69,9 @@ router.post(
             {
                 "message": "User already exists",
                 "statusCode": 403,
-                "errors": {
-                    "email": "User with that username already exists"
-                }
+                "errors": [
+                    "User with that username already exists"
+                ]
             })
         } else if (!existingEmail && ! existingUsername) {
             let user = await User.signup({ email, username, password, firstName, lastName }, {scope: 'currentUser'});

@@ -3,9 +3,11 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_ALLSPOTS = 'allSpots/LOAD_ALLSPOTS';
 const LOAD_SINGLESPOT = 'singleSpot/LOAD_SINGLESPOT';
-const LOAD_CURRENTSPOT = 'currentSpot/LOAD_CURRENTSPOT';
 const CREATE_SPOT = 'singleSpot/CREATE_SPOT';
+const UPDATE_SPOT = 'singleSpot/UPDATE_SPOT';
+const DELETE_SPOT = 'singleSpot/DELETE_SPOT';
 
+// action
 export const loadAllSpots = (allSpots) => {
   return {
     type: LOAD_ALLSPOTS,
@@ -20,13 +22,6 @@ export const loadSingleSpot = (spot) => {
   }
 };
 
-export const loadCurrentSpots = (currentSpot) => {
-  return {
-    type: LOAD_CURRENTSPOT,
-    payload: currentSpot
-  }
-};
-
 export const createSpot = (spot) => {
   return {
     type: CREATE_SPOT,
@@ -34,6 +29,21 @@ export const createSpot = (spot) => {
   }
 };
 
+export const updateSpot = (spot) => {
+  return {
+    type: UPDATE_SPOT,
+    payload: spot
+  }
+};
+
+export const deleteSpot = (spot) => {
+  return {
+    type: DELETE_SPOT,
+    payload: spot
+  }
+};
+
+// thunk action
 export const thunkLoadAllSpots = () => async (dispatch) => {
   const response = await csrfFetch('/api/spots');
 
@@ -58,57 +68,99 @@ export const thunkLoadCurrentSpots = () => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/current`);
   if (response.ok) {
     const data = await response.json();
-    console.log('thunkLoadCurrentSpots', data)
-    dispatch(loadCurrentSpots(data.spots))
+    console.log('thunkLoadAllSpots', data)
+    dispatch(loadAllSpots(data.spots))
     return data;
   }
 };
 
-export const thunkCreateSpot = (data) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/spots`, {
+export const thunkCreateSpot = ({ spotData, spotImage }) => async (dispatch) => {
+  const response1 = await csrfFetch(`/api/spots`, {
+    method: "POST",
+    body: JSON.stringify(spotData)
+  });
+  if (response1.ok) {
+    const spot = await response1.json();
+
+    const response2 = await csrfFetch(`/api/spots/${spot.id}/images`, {
       method: "POST",
-      body: JSON.stringify(data)
+      body: JSON.stringify({ url: spotImage.url, preview: true })
     });
-
-    if (!response.ok) {
-      let error;
-      error = await response.json();
-      throw new Error(error)
+    if (response2.ok) {
+      const image = await response2.json();
+  
+      const newSpot = {...spot, SpotImages: [image]}
+      dispatch(createSpot(newSpot))
+      return spot;
     }
+  }
+}
 
+export const thunkUpdateSpot = (data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${data.id}`, {
+    method: "PUT",
+    body: JSON.stringify(data)
+  });
+
+  if (response.ok) {
     const spot = await response.json();
-    console.log('thunkCreateSpot', spot)
-    dispatch(createSpot(spot))
+    console.log('thunkUpdateSpot', spot)
+    dispatch(updateSpot(spot))
     return spot;
-  } catch (error) {
-    console.log('thunkCreateSpot error ',error)
-    throw error
+  }
+}
+
+export const thunkDeleteSpot = (id) => async (dispatch) => {
+
+  const response = await csrfFetch(`/api/spots/${id}`, {
+    method: "DELETE"
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    console.log('thunkDeleteSpot ', data)
+    dispatch(deleteSpot(data))
+    return data;
   }
 };
 
-const initialState = {};
 
+// initialState
+const initialState = {
+  allSpots: {},
+  singleSpot: {
+    SpotImages: [],
+    Owner: {}
+  }
+};
+
+// Reducer
 const spotReducer = (state = initialState, action) => {
-  const newState = { ...state };
+  let newState = { ...state };
   switch (action.type) {
     case LOAD_ALLSPOTS:
       newState.allSpots = normalize(action.payload);
+      newState.singleSpot = { SpotImages: [], Owner: {} }
       return newState;
     case LOAD_SINGLESPOT:
-      const singleSpotState = { ...state, singleSpot: action.payload }
-      return singleSpotState;
-    case LOAD_CURRENTSPOT:
-      newState.currentSpot = normalize(action.payload);
+      newState.singleSpot = { ...action.payload };
       return newState;
     case CREATE_SPOT:
-      newState[action.payload.id] = action.payload;
+      newState.allSpots = { ...state.allSpots, [action.payload.id]: action.payload }
+      newState.singleSpot = action.payload
+      return newState;
+    case UPDATE_SPOT:
+      newState.singleSpot = { ...state.singleSpot, ...action.payload }
+      return newState;
+    case DELETE_SPOT:
+      delete newState.allSpots[action.payload]
       return newState;
     default:
       return state;
   }
 };
 
+// helper function
 const normalize = (array) => {
   const obj = {}
   array.forEach((el) => {
