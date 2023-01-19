@@ -11,10 +11,18 @@ const SpotCard = ({ spot }) => {
     <div className="spotCard-main-div">
       <Link className="spot-city-state" to={`/spots/${spot.id}`}>
         <img className="spot-previewImage" src={(spot.previewImage) ? spot.previewImage : comingSoon} />
-        <p>{spot.city}, {spot.state}</p>
-        <div className="price-div">
-          <p>${spot.price}</p>
-          <p className="price-night" >night</p>
+        <div className="spot-card-info">
+          <div className="spot-card-bottom-left">
+          <div>{spot.city}, {spot.state}</div>
+          <div>{spot.name}</div>
+          <div className="price-div">
+            <div>${spot.price}</div>
+            <div className="price-night" >night</div>
+          </div>
+          </div>
+          <div>
+            <p>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating}</p>
+          </div>
         </div>
       </Link>
     </div>

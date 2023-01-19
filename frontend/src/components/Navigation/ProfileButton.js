@@ -39,25 +39,26 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
+  const LoginDemoUser = (e) => {
+    e.preventDefault();
+    closeMenu();
+    return dispatch(sessionActions.login({ credential: 'JohnSmith', password: 'johnsmith' }))
+  }
+
   const ulClassName = 'profile-dropdown' + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu} >
+    <div className='profile-menu'>
+      <button onClick={openMenu} className='menu-button'>
+        <i className="fas fa-solid fa-bars"></i>
         <i className="fas fa-duotone fa-circle-user"></i>
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <ul className={`${ulClassName}`} ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-
             <li>
-              <Link to='/spots/current' >Account</Link>
-            </li>
-            <li>
-              {/* <Link >Profile</Link> */}
+              <Link to='/spots/current' >Manage your Listing</Link>
             </li>
             <li>
               <button onClick={logout} >Log Out</button>
@@ -75,10 +76,15 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
+            <button 
+              onClick={LoginDemoUser}
+            >
+              Demo User
+            </button>
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 };
 
