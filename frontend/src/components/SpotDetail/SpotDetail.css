@@ -69,6 +69,7 @@
 .spot-detail-div {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   column-gap: 20px;
 }
 
@@ -84,8 +85,8 @@
   align-items: center;
 }
 
-.spot-detail-extra-info {
-  width: 200px;
+.spot-detail-review {
+  width: 30%;
   border-radius: 10px;
   box-shadow: 2px 2px 4px 4px gray;
   padding: 10px;

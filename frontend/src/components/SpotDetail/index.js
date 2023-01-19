@@ -36,7 +36,7 @@ const SpotDetail = () => {
       <div className="spot-detail-title">
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
-          <h4>{spot.avgRating} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
+          <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
           {!user || user.id !== spot.ownerId ? '' : (
             <div className="spot-detail-buttons">
               <OpenModalMenuItem
@@ -52,7 +52,6 @@ const SpotDetail = () => {
       <div className="image-main-div">
         <div className="image-left-div">
           {spot.SpotImages.map((image, idx) => <img className={`spot-image-${idx}`} src={image.url} />)}
-          {/* <img className="spot-image-0" src={spot.SpotImages[0].url} /> */}
         </div>
         <div className="image-right-div">
           <img className="spot-image-1" src={comingSoon}/>
@@ -61,7 +60,7 @@ const SpotDetail = () => {
           <img className="spot-image-4" src={comingSoon}/>
         </div>
       </div>
-      <div className="bold" >Hosted by {user.firstName}</div>
+      <div className="bold" >Hosted by {spot.Owner.firstName}</div>
       <div className="spot-detail-div">
         <div className="spot-detail-hosts">
           <h4>Hosted by a super host</h4>
@@ -71,10 +70,13 @@ const SpotDetail = () => {
           <h4>Great check-in experience</h4>
           <p>100% of recent guests gave the check-in process a 5-star rating.</p>
         </div>
-        <div className="spot-detail-extra-info">
+        <div className="spot-detail-review">
           <div className="spot-detail-price">
             <div>${spot.price} night</div>
             <div> {spot.avgRating} | {spot.numReviews} reviews </div>
+          </div>
+          <div className="review-container">
+
           </div>
         </div>
       </div>

@@ -13,10 +13,11 @@ const SpotCard = ({ spot }) => {
         <img className="spot-previewImage" src={(spot.previewImage) ? spot.previewImage : comingSoon} />
         <div className="spot-card-info">
           <div className="spot-card-bottom-left">
-          <p>{spot.city}, {spot.state}</p>
+          <div>{spot.city}, {spot.state}</div>
+          <div>{spot.name}</div>
           <div className="price-div">
-            <p>${spot.price}</p>
-            <p className="price-night" >night</p>
+            <div>${spot.price}</div>
+            <div className="price-night" >night</div>
           </div>
           </div>
           <div>

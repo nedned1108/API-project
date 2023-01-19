@@ -17,11 +17,13 @@
 .spot-card-info {
   display: flex;
   justify-content: space-between;
+  height: 80px;
 }
 
 .spot-card-bottom-left {
   display: flex;
   flex-direction: column;
+  row-gap: 5px;
 }
 
 .spot-city-state {
