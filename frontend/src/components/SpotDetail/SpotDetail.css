@@ -5,7 +5,7 @@
 }
 
 .image-main-div {
-  height: 30%;
+  height: 400px;
   width: 100%;
   border: blue solid 2px;
   display: flex;
@@ -34,22 +34,22 @@
 }
 .spot-image-1 {
   width: 50%;
-  height: 25%;
+  height: 50%;
   object-fit: cover;
 }
 .spot-image-2 {
   width: 50%;
-  height: 25%;
+  height: 50%;
   object-fit: cover;
 }
 .spot-image-3 {
   width: 50%;
-  height: 25%;
+  height: 50%;
   object-fit: cover;
 }
 .spot-image-4 {
   width: 50%;
-  height: 25%;
+  height: 50%;
   object-fit: cover;
 }
 

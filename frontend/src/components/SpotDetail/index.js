@@ -83,13 +83,12 @@ const SpotDetail = () => {
               <SpotReview spotId={spotId} />
             </div>
             <div className="review-button-container">
-              {/* <button className="review-button">Leave your Review</button> */}
               {(!user) ? '' : (
                 <OpenModalMenuItem
-                className=''
-                itemText={'Leave your Review'}
-                modalComponent={<CreateReviewFormModal spotId={spotId}/>}
-              />
+                  className='review-button'
+                  itemText={'Leave Review'}
+                  modalComponent={<CreateReviewFormModal spotId={spotId} />}
+                />
               )}
             </div>
           </div>

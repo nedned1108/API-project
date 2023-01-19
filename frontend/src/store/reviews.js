@@ -2,10 +2,12 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_REVIEWS = 'reviews/LOAD_REVIEWS';
+const LOAD_USERREVIEWS = 'reviews/LOAD_USERREVIEWS';
 const CREATE_REVIEW = 'reviews/CREATE_REVIEW';
 const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW';
 const DELETE_REVIEW = 'reviews/DELETE_REVIEW';
 
+//Selector
 export const loadReviews = (reviews) => {
   return {
     type: LOAD_REVIEWS,
@@ -13,7 +15,13 @@ export const loadReviews = (reviews) => {
   }
 };
 
-//Selector
+export const loadUserReviews = (reviews) => {
+  return {
+    type: LOAD_USERREVIEWS,
+    payload: reviews 
+  }
+}
+
 export const createReview = (review) => {
   return {
     type: CREATE_REVIEW,
@@ -42,6 +50,15 @@ export const thunkLoadReviews = ({spotId}) => async (dispatch) => {
     const data = await response.json();
     console.log("thunkLoadReviews ", data)
     dispatch(loadReviews(data))
+  }
+};
+
+export const thunkLoadUserReviews = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/reviews/current`);
+  if (response.ok) {
+    const data = await response.json();
+    console.log("thunkLoadUserReviews ", data)
+    dispatch(loadUserReviews(data))
   }
 };
 
@@ -97,6 +114,9 @@ const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_REVIEWS:
       newState.spot = normalize(action.payload.Reviews)
+      return newState;
+    case LOAD_USERREVIEWS:
+      newState.user = normalize(action.payload.Reviews)
       return newState;
     case CREATE_REVIEW:
       newState.spot = {...state.spot, [action.payload.id]: action.payload}
