@@ -90,9 +90,16 @@
   border-radius: 10px;
   box-shadow: 2px 2px 4px 4px gray;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .spot-detail-price {
   display: flex;
   justify-content: space-between;
+  border: 2px red solid;
+}
+
+.review-container {
+  border: blue 2px solid;
 }

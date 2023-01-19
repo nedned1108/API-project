@@ -7,6 +7,7 @@ import { thunkDeleteSpot } from "../../store/spots";
 import { useParams } from "react-router-dom";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
+import SpotReview from "../SpotReview";
 
 import './SpotDetail.css'
 import comingSoon from '../../Image/Image_Coming_Soon.png'
@@ -76,7 +77,13 @@ const SpotDetail = () => {
             <div> {spot.avgRating} | {spot.numReviews} reviews </div>
           </div>
           <div className="review-container">
-
+            <h3>Reviews</h3>
+            <div className="reviews-box">
+              <SpotReview spotId={spotId}/>
+            </div>
+            <div className="review-button-container">
+              <button className="review-button">Leave your Review</button>
+            </div>
           </div>
         </div>
       </div>

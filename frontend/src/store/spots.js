@@ -7,7 +7,7 @@ const CREATE_SPOT = 'singleSpot/CREATE_SPOT';
 const UPDATE_SPOT = 'singleSpot/UPDATE_SPOT';
 const DELETE_SPOT = 'singleSpot/DELETE_SPOT';
 
-// action
+// Selector
 export const loadAllSpots = (allSpots) => {
   return {
     type: LOAD_ALLSPOTS,
@@ -43,7 +43,7 @@ export const deleteSpot = (spot) => {
   }
 };
 
-// thunk action
+// Thunk action
 export const thunkLoadAllSpots = () => async (dispatch) => {
   const response = await csrfFetch('/api/spots');
 
