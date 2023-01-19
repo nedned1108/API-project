@@ -1,8 +1,7 @@
 //frontend/src/components/YourReviewModal/index.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkUpdateReview, thunkDeleteReview, thunkLoadUserReviews } from "../../store/reviews";
-import { useModal } from '../../context/Modal'
+import { thunkLoadUserReviews } from "../../store/reviews";
 import ReviewCard from "./ReviewCard";
 import './YourReviewModal.css'
 

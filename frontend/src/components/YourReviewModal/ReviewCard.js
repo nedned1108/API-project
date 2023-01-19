@@ -6,34 +6,86 @@ import { useModal } from '../../context/Modal'
 
 const ReviewCard = ({ review }) => {
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState([])
-  const {closeModal} = useModal();
-  console.log(review)
+  const [reviewInput, setReviewInput] = useState(review.review);
+  const [stars, setStars] = useState(review.stars);
+  const [hidden, setHidden] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const { closeModal } = useModal();
 
-  const deleteReview = () => {
+  const deleteReview = (e) => {
+    e.preventDefault();
     return dispatch(thunkDeleteReview(review.id))
-    .then(closeModal)
-    .catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
-    });
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+  }
+  const reviewButton = (e) => {
+    e.preventDefault();
+    setHidden(true);
   }
 
-  const updateReview = () => {
-    return dispatch(thunkUpdateReview())
-    .catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
-    });
-  }
+  const updateReview = (e) => {
+    e.preventDefault();
+    const data = {
+      id: review.id,
+      reviewInfo: {
+        review: reviewInput,
+        stars
+      }
+    }
 
+    return dispatch(thunkUpdateReview(data))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+  }
+  if (!review) {
+    return null
+  }
   return (
-    <div className="your-review-modal">
-      <div>{review.Spot.address}</div>
-      <div key={review.id}>{review.review}</div>
-      <button onClick={updateReview}>Edit</button>
-      <button onClick={deleteReview}>Delete</button>
-    </div>
+    <>
+      {hidden ? (
+        <div className="centered">
+          <form onSubmit={updateReview}>
+            <ul>
+              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            </ul>
+            <div className="input-form">
+              <label>Review:</label>
+              <input
+                type='text'
+                value={reviewInput}
+                onChange={(e) => setReviewInput(e.target.value)}
+                className='input-placeholder'
+              />
+            </div>
+            <div className="input-form">
+              <label>Stars from 1 to 5:</label>
+              <input
+                type='number'
+                min='1'
+                max='5'
+                value={stars}
+                onChange={(e) => setStars(e.target.value)}
+                className='input-placeholder'
+              />
+            </div>
+            <button className="submit-button" type="submit">Submit</button>
+          </form>
+        </div>
+      ) : (
+        <div className="your-review-modal">
+          <div>{review.Spot.address}</div>
+          <div key={review.id}>{review.review}</div>
+          <button onClick={reviewButton}>Edit</button>
+          <button onClick={deleteReview}>Delete</button>
+        </div>
+      )}
+    </>
   )
 };
 

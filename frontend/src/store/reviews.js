@@ -78,9 +78,8 @@ export const thunkCreateReview = (data) => async (dispatch) => {
 export const thunkUpdateReview = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${data.id}`, {
     method: "PUT",
-    body: JSON.stringify(data)
+    body: JSON.stringify(data.reviewInfo)
   });
-
   if (response.ok) {
     const review = await response.json();
     console.log('thunkUpdateReview', review)
@@ -94,7 +93,6 @@ export const thunkDeleteReview = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${id}`, {
     method: "DELETE"
   });
-
   if (response.ok) {
     const data = await response.json();
     console.log('thunkDeleteReview ', data)
@@ -123,6 +121,8 @@ const reviewReducer = (state = initialState, action) => {
       newState.spot = {...state.spot, [action.payload.id]: action.payload}
       return newState;
     case UPDATE_REVIEW:
+      newState.user = { ...state.user, [action.payload.id]: {...state.user[action.payload.id], [action.payload.id]: {...action.payload}}}
+      newState.spot = { ...state.spot, [action.payload.id]: action.payload}
       return newState;
     case DELETE_REVIEW:
       delete newState.user[action.payload]
