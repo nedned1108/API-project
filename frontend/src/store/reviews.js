@@ -36,10 +36,10 @@ export const updateReview = (review) => {
   }
 };
 
-export const deleteReview = (review) => {
+export const deleteReview = (id) => {
   return {
     type: DELETE_REVIEW,
-    payload: review
+    payload: id
   }
 };
 
@@ -90,6 +90,7 @@ export const thunkUpdateReview = (data) => async (dispatch) => {
 }
 
 export const thunkDeleteReview = (id) => async (dispatch) => {
+  console.log(id)
   const response = await csrfFetch(`/api/reviews/${id}`, {
     method: "DELETE"
   });
@@ -97,7 +98,7 @@ export const thunkDeleteReview = (id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     console.log('thunkDeleteReview ', data)
-    dispatch(deleteReview(data))
+    dispatch(deleteReview(id))
     return data;
   }
 };
@@ -124,6 +125,7 @@ const reviewReducer = (state = initialState, action) => {
     case UPDATE_REVIEW:
       return newState;
     case DELETE_REVIEW:
+      delete newState.user[action.payload]
       return newState;
     default:
       return state;

@@ -19,6 +19,7 @@ const SpotDetail = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const spot = useSelector(state => state.spots.singleSpot);
+  // const spotReviews = useSelector(state => state.reviews.spot);
   const { user } = useSelector(state => state.session)
 
   useEffect(() => {

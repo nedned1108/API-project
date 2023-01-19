@@ -488,7 +488,10 @@ router.post(
         return res.json(
           {
             "message": "Can not create review for your own spot",
-            "statusCode": 400
+            "statusCode": 400,
+            "errors": [
+              "Can not create review for your own spot"
+            ]
           }
         )
       }

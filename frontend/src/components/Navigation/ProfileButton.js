@@ -57,19 +57,19 @@ function ProfileButton({ user }) {
       <ul className={`${ulClassName}`} ref={ulRef}>
         {user ? (
           <div className='dropdown-div'>
-            <li>{user.username}</li>
-            <li>
+            <div>{user.username}</div>
+            <div>
               <Link onClick={closeMenu} className='noU' to='/spots/current' >Manage your Listing</Link>
-            </li>
-            <li>
+            </div>
+            <div>
               <OpenModalMenuItem
                 itemText={'Your Review'}
                 modalComponent={<YourReviewModal />}
               />
-            </li>
-            <li>
+            </div>
+            <div>
               <button onClick={logout} >Log Out</button>
-            </li>
+            </div>
           </div>
         ) : (
           <div className='dropdown-div'>
