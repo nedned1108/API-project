@@ -99,7 +99,6 @@ const reviewReducer = (state = initialState, action) => {
       newState.spot = normalize(action.payload.Reviews)
       return newState;
     case CREATE_REVIEW:
-      // newState.spot[action.payload.id] = action.payload
       newState.spot = {...state.spot, [action.payload.id]: action.payload}
       return newState;
     case UPDATE_REVIEW:

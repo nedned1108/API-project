@@ -12,8 +12,10 @@ const SpotReview = (spotId) => {
   console.log(reviews)
 
   useEffect(() => {
-    dispatch(thunkLoadReviews(spotId))
-  }, [dispatch])
+    if (spotId) {
+      dispatch(thunkLoadReviews(spotId))
+    }
+  }, [spotId])
 
   if (!reviewsData) {
     return null;
