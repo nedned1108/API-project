@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { thunkCreateReview } from "../../store/reviews";
 import { useModal } from '../../context/Modal'
+import { thunkLoadSpot } from "../../store/spots";
 
 const CreateReviewFormModal = ({spotId}) => {
   const dispatch = useDispatch();
@@ -23,12 +24,14 @@ const CreateReviewFormModal = ({spotId}) => {
       }
     }
 
-    return dispatch(thunkCreateReview(reviewData))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      })
+    dispatch(thunkCreateReview(reviewData))
+    .then(closeModal)
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+
+    dispatch(thunkLoadSpot(spotId))
   };
 
   return (
