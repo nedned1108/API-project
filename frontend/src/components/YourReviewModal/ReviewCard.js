@@ -37,7 +37,8 @@ const ReviewCard = ({ review }) => {
     }
 
     return dispatch(thunkUpdateReview(data))
-      .then(closeModal)
+      // .then(closeModal)
+      .then(() => setHidden(false))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
@@ -83,9 +84,9 @@ const ReviewCard = ({ review }) => {
         </div>
       ) : (
         <div className="your-review-modal">
-          <div className="">
-            <div>{review.Spot.name} | {review.Spot.address}</div>
-            <div key={review.id}>{review.review}</div>
+          <div className="your-review-single-container">
+            <div className="your-review-single-name bold">{review.Spot.name} | {review.Spot.address}</div>
+            <div className="your-review-single-review" key={review.id}>{review.review}</div>
           </div>
           <div className="delete-submit-buttons">
             <button className="d-s-b" onClick={reviewButton}>{<i className="fas fa-solid fa-pen-to-square"></i>}</button>

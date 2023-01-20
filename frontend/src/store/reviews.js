@@ -115,7 +115,7 @@ const reviewReducer = (state = initialState, action) => {
       newState.spot = {...state.spot, [action.payload.id]: action.payload}
       return newState;
     case UPDATE_REVIEW:
-      newState.user = { ...state.user, [action.payload.id]: {...state.user[action.payload.id], [action.payload.id]: {...action.payload}}}
+      newState.user = { ...state.user, [action.payload.id]: {...state.user[action.payload.id], ...action.payload}}
       newState.spot = { ...state.spot, [action.payload.id]: action.payload}
       return newState;
     case DELETE_REVIEW:
