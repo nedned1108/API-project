@@ -8,12 +8,16 @@
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .owned-spots-main-div {
   display: flex;
   flex-wrap: wrap;
   column-gap: 10px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .new-listing-div {

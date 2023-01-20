@@ -4,13 +4,19 @@
   padding-top: 10px;
 }
 
+.spot-detail-title {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
 .image-main-div {
   height: 40vh;
-  width: 100%;
   display: flex;
   justify-content: space-between;
   border-radius: 25px;
   gap: 1%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .image-left-div {
@@ -67,10 +73,12 @@
 .spot-detail-buttons {
   display: flex;
   column-gap: 10px;
+  list-style-type: none;
 }
 
 .delete-button {
   border: none;
+  background-color: white;
 }
 
 .edit-button {
@@ -82,10 +90,14 @@
   flex-direction: row;
   justify-content: space-between;
   column-gap: 20px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .spot-host {
   margin-top: 20px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .spot-detail-hosts {
@@ -104,7 +116,7 @@
   width: 30%;
   height: 50%;
   border-radius: 10px;
-  box-shadow: 2px 2px 4px 4px gray;
+  box-shadow: 2px 2px 8px 2px gray;
   padding: 20px;
   display: flex;
   flex-direction: column;

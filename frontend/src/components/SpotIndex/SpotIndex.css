@@ -3,4 +3,7 @@
   flex-wrap: wrap;
   padding: 5px;
   column-gap: 1%;
+  justify-content: flex-start space-evenly;
+  padding-left: 5%;
+  padding-right: 5%;
 }

@@ -7,7 +7,6 @@
   overflow-y: scroll;
   width: 300px;
   height: 70vh;
-  border: 2px red solid;
 }
 
 .your-review-title {
@@ -25,9 +24,10 @@
 
 .delete-submit-button {
   display: flex;
-  gap: 5px;
+  column-gap: 5px;
 }
 
 .d-s-b {
   cursor: pointer;
 }
+
