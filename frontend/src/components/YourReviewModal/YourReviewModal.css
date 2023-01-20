@@ -1,0 +1,29 @@
+.your-review-main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  row-gap: 30px;
+  overflow-y: scroll;
+  width: 300px;
+  height: 70vh;
+  border: 2px red solid;
+}
+
+.your-review-title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.your-review-modal {
+  margin-right: 40px;
+  list-style-type: none;
+  row-gap: 5px;
+}
+
+.delete-submit-button {
+  display: flex;
+  gap: 5px;
+}

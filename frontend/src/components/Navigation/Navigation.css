@@ -28,6 +28,12 @@
   box-shadow: 2px 2px 8px gray;
 }
 
+.dropdown-div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
 .login-signup-nav {
   display: flex;
   column-gap: 10px;

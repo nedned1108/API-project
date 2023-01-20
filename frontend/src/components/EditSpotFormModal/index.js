@@ -7,7 +7,6 @@ import './EditSpotFormModal.css'
 
 const EditSpotFormModal = ({ spot }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.session)
   const [address, setAddress] = useState(spot.address);
   const [city, setCity] = useState(spot.city);
   const [state, setState] = useState(spot.state);
@@ -35,7 +34,6 @@ const EditSpotFormModal = ({ spot }) => {
       price
     }
 
-    setErrors([]);
     return dispatch(thunkUpdateSpot(updatedSpot))
       .then(closeModal)
       .catch(async (res) => {
