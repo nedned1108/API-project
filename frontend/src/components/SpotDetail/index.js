@@ -79,9 +79,7 @@ const SpotDetail = () => {
           </div>
           <div className="review-container">
             <h3>Reviews</h3>
-            <div className="reviews-box">
-              <SpotReview spotId={spotId} />
-            </div>
+            <SpotReview spotId={spotId} />
             <div className="review-button-container noL bold">
               {(!user) ? '' : (
                 <OpenModalMenuItem

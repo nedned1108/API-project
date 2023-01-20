@@ -106,6 +106,7 @@
 .review-container {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .review-button-container {
