@@ -6,6 +6,7 @@ import comingSoon from '../../Image/Image_Coming_Soon.png'
 
 const SpotCard = ({ spot }) => {
   const dispatch = useDispatch();
+  console.log(typeof(spot.avgRating))
 
   return (
     <div className="spotCard-main-div">
@@ -21,7 +22,7 @@ const SpotCard = ({ spot }) => {
           </div>
           </div>
           <div>
-            <p>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating}</p>
+            <p>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)}</p>
           </div>
         </div>
       </Link>
