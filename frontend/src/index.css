@@ -34,6 +34,7 @@ html {
   height: 52px;
   padding: 5px;
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  cursor: pointer;
 }
 
 .input-placeholder {

@@ -28,6 +28,10 @@
   box-shadow: 2px 2px 8px gray;
 }
 
+.demo-user-button {
+  cursor: pointer;
+}
+
 .dropdown-div {
   display: flex;
   flex-direction: column;
@@ -53,4 +57,9 @@
   align-items: center;
   column-gap: 10px;
   position: relative;
+  cursor: pointer;
+}
+
+.your-review-button {
+  cursor: pointer;
 }

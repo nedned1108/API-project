@@ -16,7 +16,6 @@ const ReviewCard = ({ review }) => {
   const deleteReview = (e) => {
     e.preventDefault();
     return dispatch(thunkDeleteReview(review.id))
-      // .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);

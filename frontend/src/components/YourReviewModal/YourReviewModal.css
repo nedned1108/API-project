@@ -27,3 +27,7 @@
   display: flex;
   gap: 5px;
 }
+
+.d-s-b {
+  cursor: pointer;
+}
