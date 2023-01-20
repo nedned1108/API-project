@@ -1,7 +1,11 @@
 /* TODO Add site wide styles */
-html {
-  margin-left: 40px;
-  margin-right: 40px;
+body {
+  margin: 0;
+}
+
+.padd {
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .centered {
@@ -14,6 +18,7 @@ html {
   padding-bottom: 10px;
   row-gap: 10px;
   overflow-y: auto;
+  border-radius: 20px;
 }
 
 .input-form {
@@ -34,6 +39,7 @@ html {
   height: 52px;
   padding: 5px;
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  cursor: pointer;
 }
 
 .input-placeholder {
@@ -57,3 +63,8 @@ html {
 .noL {
   list-style-type: none;
 }
+
+.fa-star {
+  color: rgb(243, 243, 62);
+}
+

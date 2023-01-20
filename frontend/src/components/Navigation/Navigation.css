@@ -7,9 +7,12 @@
   padding: 10px;
   margin: 0;
   box-shadow: 0px 2px 4px gray;
-  border-radius: 20px;
   margin-bottom: 5%;
   position: sticky;
+  top: 0;
+  background-color: whitesmoke;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .profile-menu {
@@ -25,7 +28,13 @@
   border-radius: 10px;
   padding: 10px;
   list-style-type: none;
-  box-shadow: 2px 2px 8px gray;
+  box-shadow: 2px 2px 8px 2px gray;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.demo-user-button {
+  cursor: pointer;
 }
 
 .dropdown-div {
@@ -53,4 +62,16 @@
   align-items: center;
   column-gap: 10px;
   position: relative;
+  cursor: pointer;
+  box-shadow: .5px .5px 6px 1px gray;
+}
+
+.your-review-button {
+  cursor: pointer;
+}
+
+.logout-button {
+  border: none;
+  padding: 0;
+  background-color: white;
 }
