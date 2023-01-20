@@ -40,6 +40,11 @@ const CreateSpotFormModal = () => {
       },
       spotImage: {
         url: previewImage
+      },
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        id: user.id
       }
     };
 

@@ -15,7 +15,7 @@ const SpotsIndex = () => {
     dispatch(thunkLoadAllSpots())
   }, [dispatch])
   
-  if (!allSpotsData) {
+  if (!allSpots) {
     return null;
   }
 
