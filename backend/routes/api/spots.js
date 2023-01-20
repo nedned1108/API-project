@@ -115,7 +115,7 @@ router.get(
 
     const spots = await Spot.findAll({ raw: true, ...query });
     for (let spot of spots) {
-      const avgRating = await Review.findAll({
+      const avgReview = await Review.findAll({
         where: {
           spotId: spot.id
         },
@@ -135,8 +135,12 @@ router.get(
         },
         attributes: ['url'],
       })
-      if (avgRating[0]) {
-        spot.avgRating = avgRating[0].avgRating;
+      if (avgReview.length !== 0) {
+        let sum = 0;
+        for (avg of avgReview) {
+          sum += avg.stars
+        };
+        spot.avgRating = sum / avgReview.length
       } else {
         spot.avgRating = 0;
       }
@@ -167,7 +171,7 @@ router.get(
         raw: true
       });
       for (let spot of spots) {
-        const avgRating = await Review.findAll({
+        const avgReview = await Review.findAll({
           where: {
             spotId: spot.id
           },
@@ -187,8 +191,12 @@ router.get(
           },
           attributes: ['url']
         })
-        if (avgRating[0]) {
-          spot.avgRating = avgRating[0].avgRating;
+        if (avgReview.length !== 0) {
+          let sum = 0;
+          for (avg of avgReview) {
+            sum += avg.stars
+          };
+          spot.avgRating = sum / avgReview.length
         } else {
           spot.avgRating = 0;
         }
@@ -248,9 +256,9 @@ router.get(
 
       const numReviews = await spot.countReviews();
 
-      let sum = 0;
       spot = spot.toJSON();
       if (avgReview.length !== 0) {
+        let sum = 0;
         for (avg of avgReview) {
           sum += avg.stars
         };
