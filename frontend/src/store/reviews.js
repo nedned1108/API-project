@@ -60,14 +60,15 @@ export const thunkLoadUserReviews = () => async (dispatch) => {
   }
 };
 
-export const thunkCreateReview = (data) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${data.spotId}/reviews`, {
+export const thunkCreateReview = ({spotId, reviewDetail, ReviewImages, User}) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: "POST",
-    body: JSON.stringify(data.reviewDetail)
+    body: JSON.stringify(reviewDetail)
   });
   if (response.ok) {
     const review = await response.json();
-    dispatch(createReview(review))
+    const newReview = {ReviewImages, User, ...review}
+    dispatch(createReview(newReview))
     return review;
   }
 };
@@ -120,7 +121,9 @@ const reviewReducer = (state = initialState, action) => {
       return newState;
     case DELETE_REVIEW:
       newState.user = {...state.user}
+      newState.spot = {...state.spot}
       delete newState.user[action.payload]
+      delete newState.spot[action.payload]
       return newState;
     default:
       return state;

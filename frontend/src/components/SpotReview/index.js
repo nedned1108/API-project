@@ -17,7 +17,7 @@ const SpotReview = (spotId) => {
     }
   }, [spotId])
 
-  if (!reviewsData) {
+  if (reviews.length === 0 || !reviewsData) {
     return null;
   }
 
@@ -27,7 +27,7 @@ const SpotReview = (spotId) => {
         <div className="reviews-box">
           <div className="user-image-div">
             <img className="user-image" src={userImage} />
-            <div>username</div>
+            <div>{review.User.firstName}</div>
           </div>
           <div>
             <li key={review.id}>{review.review}</li>
