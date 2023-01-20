@@ -71,7 +71,7 @@ export const thunkLoadCurrentSpots = () => async (dispatch) => {
   }
 };
 
-export const thunkCreateSpot = ({ spotData, spotImage }) => async (dispatch) => {
+export const thunkCreateSpot = ({ spotData, spotImage, user }) => async (dispatch) => {
   const response1 = await csrfFetch(`/api/spots`, {
     method: "POST",
     body: JSON.stringify(spotData)
@@ -86,7 +86,7 @@ export const thunkCreateSpot = ({ spotData, spotImage }) => async (dispatch) => 
     if (response2.ok) {
       const image = await response2.json();
   
-      const newSpot = {...spot, SpotImages: [image]}
+      const newSpot = {...spot, SpotImages: [image], Owner: user}
       dispatch(createSpot(newSpot))
       return spot;
     }

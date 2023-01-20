@@ -6,6 +6,11 @@ import comingSoon from '../../Image/Image_Coming_Soon.png'
 
 const SpotCard = ({ spot }) => {
   const dispatch = useDispatch();
+  console.log(spot)
+
+  if (spot.avgRating === undefined) {
+    return null;
+  }
 
   return (
     <div className="spotCard-main-div">

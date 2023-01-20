@@ -19,7 +19,7 @@ const SpotDetail = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const spot = useSelector(state => state.spots.singleSpot);
-  const { user } = useSelector(state => state.session)
+  const { user } = useSelector(state => state.session);
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
@@ -30,7 +30,7 @@ const SpotDetail = () => {
     dispatch(thunkDeleteSpot(spotId))
     history.push('/')
   }
-  if (Object.values(spot.Owner).length === 0) {
+  if (spot.avgRating === undefined || Object.values(spot.Owner).length === 0) {
     return null;
   }
   return (
