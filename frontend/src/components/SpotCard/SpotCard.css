@@ -47,3 +47,7 @@
   display: flex;
   font-weight: normal;
 }
+
+.spot-card-stars {
+  margin: 0;
+}
