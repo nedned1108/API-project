@@ -53,3 +53,7 @@ html {
   text-decoration: none;
   color: black;
 }
+
+.noL {
+  list-style-type: none;
+}

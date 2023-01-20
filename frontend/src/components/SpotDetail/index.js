@@ -19,7 +19,6 @@ const SpotDetail = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const spot = useSelector(state => state.spots.singleSpot);
-  // const spotReviews = useSelector(state => state.reviews.spot);
   const { user } = useSelector(state => state.session)
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const SpotDetail = () => {
           <img className="spot-image-4" src={comingSoon} />
         </div>
       </div>
-      <div className="bold" >Hosted by {spot.Owner.firstName}</div>
+      <div className="bold spot-host" >Hosted by {spot.Owner.firstName}</div>
       <div className="spot-detail-div">
         <div className="spot-detail-hosts">
           <h4>Hosted by a super host</h4>
@@ -75,18 +74,17 @@ const SpotDetail = () => {
         </div>
         <div className="spot-detail-review">
           <div className="spot-detail-price">
-            <div>${spot.price} night</div>
-            <div> {spot.avgRating} | {spot.numReviews} reviews </div>
+            <div className="bold">${spot.price} night</div>
+            <div className="bold">{<i className="fas fa-solid fa-star"></i>} {spot.avgRating} | {spot.numReviews} reviews </div>
           </div>
           <div className="review-container">
             <h3>Reviews</h3>
             <div className="reviews-box">
               <SpotReview spotId={spotId} />
             </div>
-            <div className="review-button-container">
+            <div className="review-button-container noL bold">
               {(!user) ? '' : (
                 <OpenModalMenuItem
-                  className='review-button'
                   itemText={'Leave Review'}
                   modalComponent={<CreateReviewFormModal spotId={spotId} />}
                 />

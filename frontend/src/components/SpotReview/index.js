@@ -22,10 +22,8 @@ const SpotReview = (spotId) => {
   }
 
   return (
-    <div>
-      <ul>
-        {reviews.map((review) => <li key={review.id}>{review.review}</li>)}
-      </ul>
+    <div className="noL">
+      {reviews.map((review) => <li key={review.id}>{review.User.firstName}: {review.review}</li>)}
     </div>
   )
 };

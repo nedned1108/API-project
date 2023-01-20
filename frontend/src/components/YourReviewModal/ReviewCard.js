@@ -79,10 +79,14 @@ const ReviewCard = ({ review }) => {
         </div>
       ) : (
         <div className="your-review-modal">
-          <div>{review.Spot.address}</div>
-          <div key={review.id}>{review.review}</div>
-          <button onClick={reviewButton}>Edit</button>
-          <button onClick={deleteReview}>Delete</button>
+          <div className="">
+            <div>{review.Spot.name} | {review.Spot.address}</div>
+            <div key={review.id}>{review.review}</div>
+          </div>
+          <div className="delete-submit-buttons">
+            <button className="d-s-b" onClick={reviewButton}>{<i className="fas fa-solid fa-pen-to-square"></i>}</button>
+            <button className="d-s-b" onClick={deleteReview}>{<i className="fas fa-solid fa-trash"></i>}</button>
+          </div>
         </div>
       )}
     </>
