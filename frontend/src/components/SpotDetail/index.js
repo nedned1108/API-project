@@ -38,7 +38,7 @@ const SpotDetail = () => {
       <div className="spot-detail-title">
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
-          <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
+          <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
           {!user || user.id !== spot.ownerId ? '' : (
             <div className="spot-detail-buttons">
               <OpenModalMenuItem
@@ -75,7 +75,7 @@ const SpotDetail = () => {
         <div className="spot-detail-review">
           <div className="spot-detail-price">
             <div className="bold">${spot.price} night</div>
-            <div className="bold">{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
+            <div className="bold">{<i className="fas fa-solid fa-star"></i>} {spot.avgRating} | {spot.numReviews} reviews </div>
           </div>
           <div className="review-container">
             <h3>Reviews</h3>

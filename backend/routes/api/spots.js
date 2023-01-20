@@ -231,7 +231,7 @@ router.get(
     );
     // Successful response
     if (spot) {
-      const avgRating = await Review.findAll({
+      const avgReview = await Review.findAll({
         where: {
           spotId: spot.id
         },
@@ -248,9 +248,13 @@ router.get(
 
       const numReviews = await spot.countReviews();
 
+      let sum = 0;
       spot = spot.toJSON();
-      if (avgRating[0]) {
-        spot.avgRating = avgRating[0].avgRating;
+      if (avgReview.length !== 0) {
+        for (avg of avgReview) {
+          sum += avg.stars
+        };
+        spot.avgRating = sum / avgReview.length
       } else {
         spot.avgRating = 0;
       }
