@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkLoadReviews } from "../../store/reviews";
 import './SpotReview.css';
+import userImage from '../../Image/user-image.png'
 
 const SpotReview = (spotId) => {
   const dispatch = useDispatch();
@@ -21,8 +22,18 @@ const SpotReview = (spotId) => {
   }
 
   return (
-    <div className="noL reviews-box">
-      {reviews.map((review) => <li key={review.id}>{review.review}</li>)}
+    <div className="noL review-box-container">
+      {reviews.map((review) => (
+        <div className="reviews-box">
+          <div className="user-image-div">
+            <img className="user-image" src={userImage} />
+            <div>username</div>
+          </div>
+          <div>
+            <li key={review.id}>{review.review}</li>
+          </div>
+        </div>
+      ))}
     </div>
   )
 };
