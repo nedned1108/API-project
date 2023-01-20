@@ -12,12 +12,14 @@
   height: 265px;
   display: flex;
   border-radius: 10%;
+  box-shadow: 1px 1px 4px 2px gray;
 }
 
 .spot-card-info {
   display: flex;
   justify-content: space-between;
   height: 80px;
+  margin-top: 20px;
 }
 
 .spot-card-bottom-left {
@@ -44,4 +46,8 @@
 .price-night {
   display: flex;
   font-weight: normal;
+}
+
+.spot-card-stars {
+  margin: 0;
 }

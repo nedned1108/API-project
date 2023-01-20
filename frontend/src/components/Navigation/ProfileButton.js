@@ -61,14 +61,14 @@ function ProfileButton({ user }) {
             <div>
               <Link onClick={closeMenu} className='noU' to='/spots/current' >Manage your Listing</Link>
             </div>
-            <div>
+            <div className="your-review-button">
               <OpenModalMenuItem
                 itemText={'Your Review'}
                 modalComponent={<YourReviewModal />}
               />
             </div>
             <div>
-              <button onClick={logout} >Log Out</button>
+              <button className='logout-button' onClick={logout} >Log Out</button>
             </div>
           </div>
         ) : (
@@ -85,6 +85,7 @@ function ProfileButton({ user }) {
             />
             <button
               onClick={LoginDemoUser}
+              className='demo-user-button'
             >
               Demo User
             </button>

@@ -4,10 +4,9 @@
   align-items: flex-start;
   padding: 20px;
   row-gap: 30px;
-  overflow-y: scroll;
+  overflow: auto;
   width: 300px;
   height: 70vh;
-  border: 2px red solid;
 }
 
 .your-review-title {
@@ -18,12 +17,27 @@
 }
 
 .your-review-modal {
-  margin-right: 40px;
+  display: flex;
+  flex-direction: column;
   list-style-type: none;
+  row-gap: 10px;
+  padding: 5px;
+  border: black 1px solid;
+  width: 95%;
+  max-height: 40%;
+}
+
+.your-review-single-container {
+  flex-direction: column;
+  flex-wrap: wrap;
   row-gap: 5px;
 }
 
 .delete-submit-button {
   display: flex;
-  gap: 5px;
+  column-gap: 5px;
+}
+
+.d-s-b {
+  cursor: pointer;
 }
