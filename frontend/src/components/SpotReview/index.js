@@ -9,7 +9,6 @@ const SpotReview = (spotId) => {
   const reviewsData = useSelector(state => state.reviews.spot);
   let reviews;
   if (reviewsData) reviews = Object.values(reviewsData)
-  console.log(reviews)
 
   useEffect(() => {
     if (spotId) {

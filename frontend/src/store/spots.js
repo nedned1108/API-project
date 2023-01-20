@@ -49,7 +49,6 @@ export const thunkLoadAllSpots = () => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log("thunkLoadAllSpots ", data.spots)
     dispatch(loadAllSpots(data.spots))
   }
 };
@@ -58,7 +57,6 @@ export const thunkLoadSpot = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${id}`);
   if (response.ok) {
     const spot = await response.json();
-    console.log("thunkLoadSpot ", spot)
     dispatch(loadSingleSpot(spot))
     return spot;
   }
@@ -68,7 +66,6 @@ export const thunkLoadCurrentSpots = () => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/current`);
   if (response.ok) {
     const data = await response.json();
-    console.log('thunkLoadAllSpots', data)
     dispatch(loadAllSpots(data.spots))
     return data;
   }
@@ -104,7 +101,6 @@ export const thunkUpdateSpot = (data) => async (dispatch) => {
 
   if (response.ok) {
     const spot = await response.json();
-    console.log('thunkUpdateSpot', spot)
     dispatch(updateSpot(spot))
     return spot;
   }
@@ -118,7 +114,6 @@ export const thunkDeleteSpot = (id) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log('thunkDeleteSpot ', data)
     dispatch(deleteSpot(data))
     return data;
   }
