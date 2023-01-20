@@ -20,7 +20,6 @@ const SpotDetail = () => {
   const history = useHistory();
   const spot = useSelector(state => state.spots.singleSpot);
   const { user } = useSelector(state => state.session)
-  const [starAvg, setStarAvg] = useState(spot.avgRating);
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
@@ -39,7 +38,7 @@ const SpotDetail = () => {
       <div className="spot-detail-title">
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
-          <h4>{<i className="fas fa-solid fa-star"></i>} {setStarAvg} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
+          <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
           {!user || user.id !== spot.ownerId ? '' : (
             <div className="spot-detail-buttons">
               <OpenModalMenuItem

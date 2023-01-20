@@ -119,7 +119,6 @@ export const thunkDeleteSpot = (id) => async (dispatch) => {
   }
 };
 
-
 // initialState
 const initialState = {
   allSpots: {},
