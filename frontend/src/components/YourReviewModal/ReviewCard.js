@@ -1,11 +1,12 @@
 //frontend/src/components/CreateReviewFormModal/ReviewCard.js
 import React, { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux';
-import { thunkDeleteReview, thunkUpdateReview } from "../../store/reviews";
+import { useDispatch, useSelector } from 'react-redux';
+import { thunkDeleteReview, thunkUpdateReview, thunkLoadUserReviews } from "../../store/reviews";
 import { useModal } from '../../context/Modal'
 
 const ReviewCard = ({ review }) => {
   const dispatch = useDispatch();
+  const deletedReview = useSelector(state => state.reviews.user)
   const [reviewInput, setReviewInput] = useState(review.review);
   const [stars, setStars] = useState(review.stars);
   const [hidden, setHidden] = useState(false);
@@ -15,7 +16,7 @@ const ReviewCard = ({ review }) => {
   const deleteReview = (e) => {
     e.preventDefault();
     return dispatch(thunkDeleteReview(review.id))
-      .then(closeModal)
+      // .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
@@ -42,7 +43,11 @@ const ReviewCard = ({ review }) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
-  }
+  };
+
+  useEffect(() => {
+    dispatch(thunkLoadUserReviews)
+  }, [deletedReview])
   if (!review) {
     return null
   }
