@@ -6,7 +6,6 @@ import comingSoon from '../../Image/Image_Coming_Soon.png'
 
 const SpotCard = ({ spot }) => {
   const dispatch = useDispatch();
-  console.log(spot)
 
   return (
     <div className="spotCard-main-div">
