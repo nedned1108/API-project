@@ -9,9 +9,11 @@ html {
   flex-direction: column;
   align-items: center;
   row-gap: 5px;
-  width: 500px;
+  width: 550px;
+  height: 80vh;
   padding-bottom: 10px;
   row-gap: 10px;
+  overflow-y: auto;
 }
 
 .input-form {
@@ -29,7 +31,7 @@ html {
   font-weight: bold;
   color: white;
   border-radius: 10px;
-  height: 50px;
+  height: 52px;
   padding: 5px;
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
 }
@@ -45,4 +47,13 @@ html {
 .logo {
   width: 120px;
   height: 40px;
+}
+
+.noU {
+  text-decoration: none;
+  color: black;
+}
+
+.noL {
+  list-style-type: none;
 }

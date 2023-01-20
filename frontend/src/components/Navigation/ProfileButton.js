@@ -5,6 +5,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import YourReviewModal from "../YourReviewModal";
 import { Link } from 'react-router-dom';
 
 function ProfileButton({ user }) {
@@ -55,17 +56,23 @@ function ProfileButton({ user }) {
       </button>
       <ul className={`${ulClassName}`} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>
-              <Link to='/spots/current' >Manage your Listing</Link>
-            </li>
-            <li>
+          <div className='dropdown-div'>
+            <div>{user.username}</div>
+            <div>
+              <Link onClick={closeMenu} className='noU' to='/spots/current' >Manage your Listing</Link>
+            </div>
+            <div>
+              <OpenModalMenuItem
+                itemText={'Your Review'}
+                modalComponent={<YourReviewModal />}
+              />
+            </div>
+            <div>
               <button onClick={logout} >Log Out</button>
-            </li>
-          </>
+            </div>
+          </div>
         ) : (
-          <>
+          <div className='dropdown-div'>
             <OpenModalMenuItem
               itemText='Log In'
               onItemClick={closeMenu}
@@ -76,12 +83,12 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-            <button 
+            <button
               onClick={LoginDemoUser}
             >
               Demo User
             </button>
-          </>
+          </div>
         )}
       </ul>
     </div>

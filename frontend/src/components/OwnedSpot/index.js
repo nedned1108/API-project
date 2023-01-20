@@ -32,7 +32,7 @@ const OwnedSpot = () => {
     <div className="owned-spots-div">
       <div className="title-bar">
         <h1>Your Properties</h1>
-        <div>
+        <div className="new-listing-div">
           <OpenModalMenuItem
             itemText='New Listing'
             modalComponent={<CreateSpotFormModal />}
