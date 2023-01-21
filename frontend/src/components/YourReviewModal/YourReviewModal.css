@@ -41,3 +41,38 @@
 .d-s-b {
   cursor: pointer;
 }
+
+.edit-review-container {
+  width: 100%;
+}
+
+.edit-review-form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
+  margin: 0;
+}
+
+.edit-review-div {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  border: black solid 1px;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.edit-review-submit {
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+}
+
+.input-placeholder {
+  width: 100%;
+}

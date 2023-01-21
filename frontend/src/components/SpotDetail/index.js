@@ -75,7 +75,7 @@ const SpotDetail = () => {
         <div className="spot-detail-review">
           <div className="spot-detail-price">
             <div className="bold">${spot.price} night</div>
-            <div className="bold">{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
+            <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
           </div>
           <div className="review-container">
             <h3>Reviews</h3>
@@ -84,7 +84,7 @@ const SpotDetail = () => {
               {(!user) ? '' : (
                 <OpenModalMenuItem
                   itemText={'Leave Review'}
-                  modalComponent={<CreateReviewFormModal spotId={spotId} />}
+                  modalComponent={<CreateReviewFormModal spotId={spotId} user={user}/>}
                 />
               )}
             </div>

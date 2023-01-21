@@ -74,11 +74,13 @@
   display: flex;
   column-gap: 10px;
   list-style-type: none;
+  cursor: pointer;
 }
 
 .delete-button {
   border: none;
   background-color: white;
+  cursor: pointer;
 }
 
 .edit-button {
@@ -114,7 +116,7 @@
 
 .spot-detail-review {
   width: 30%;
-  height: 50%;
+  height: 60vh;
   border-radius: 10px;
   box-shadow: 2px 2px 8px 2px gray;
   padding: 20px;

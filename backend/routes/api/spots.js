@@ -484,6 +484,22 @@ router.post(
     const { spotId } = req.params;
     const { review, stars } = req.body;
     const spot = await Spot.findByPk(parseInt(spotId));
+    const existedReview = await Review.findOne({
+      where: { userId: user.id }
+    })
+
+    if (existedReview && existedReview.spotId === Number(spotId)) {
+      res.status(400)
+      return res.json(
+        {
+          "message": "Can not create more than 1 review for the same spot",
+          "statusCode": 400,
+          "errors": [
+            "Can not create more than 1 review for the same spot"
+          ]
+        }
+      )
+    }
 
     if (spot) {
       if (spot.ownerId !== user.id) {
