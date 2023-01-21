@@ -32,5 +32,5 @@ All technologies I used in this project are:
  - Run `npm start` in backend and `npm start` in front end
  - Navigate to `localhost:3000` on your browser.
  
- **Contact Info: ** 
+ **Contact Info:** 
  nednguyen1110@gmail.com
