@@ -5,7 +5,7 @@ import { thunkCreateReview } from "../../store/reviews";
 import { useModal } from '../../context/Modal'
 import { thunkLoadSpot } from "../../store/spots";
 
-const CreateReviewFormModal = ({spotId}) => {
+const CreateReviewFormModal = ({spotId, user}) => {
   const dispatch = useDispatch();
   const [review, setReview] = useState('');
   const [stars, setStars] = useState('');
@@ -21,6 +21,12 @@ const CreateReviewFormModal = ({spotId}) => {
       reviewDetail : {
         review,
         stars
+      },
+      ReviewImages: [],
+      User: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName
       }
     }
 

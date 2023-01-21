@@ -1,5 +1,24 @@
+.review-box-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
+  row-gap: 10%;
+}
+
 .review-box {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   overflow-y: scroll;
+  margin-bottom: 10%;
+}
+
+.user-image-div {
+  display: flex;
+  column-gap: 20%;
+  width: 20%;
+}
+
+.user-image {
+  width: 100%;
 }

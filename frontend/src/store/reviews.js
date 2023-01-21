@@ -60,26 +60,29 @@ export const thunkLoadUserReviews = () => async (dispatch) => {
   }
 };
 
-export const thunkCreateReview = (data) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${data.spotId}/reviews`, {
+export const thunkCreateReview = ({spotId, reviewDetail, ReviewImages, User}) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: "POST",
-    body: JSON.stringify(data.reviewDetail)
+    body: JSON.stringify(reviewDetail)
   });
   if (response.ok) {
     const review = await response.json();
-    dispatch(createReview(review))
+    const newReview = {ReviewImages, User, ...review}
+    dispatch(createReview(newReview))
     return review;
   }
 };
 
-export const thunkUpdateReview = (data) => async (dispatch) => {
-  const response = await csrfFetch(`/api/reviews/${data.id}`, {
+export const thunkUpdateReview = ({id, reviewInfo, ReviewImages, User}) => async (dispatch) => {
+  const response = await csrfFetch(`/api/reviews/${id}`, {
     method: "PUT",
-    body: JSON.stringify(data.reviewInfo)
+    body: JSON.stringify(reviewInfo)
   });
   if (response.ok) {
     const review = await response.json();
-    dispatch(updateReview(review))
+    console.log('thunk update review', review)
+    const newReview = {ReviewImages, User, ...review}
+    dispatch(updateReview(newReview))
     return review;
   }
 }
@@ -120,7 +123,9 @@ const reviewReducer = (state = initialState, action) => {
       return newState;
     case DELETE_REVIEW:
       newState.user = {...state.user}
+      newState.spot = {...state.spot}
       delete newState.user[action.payload]
+      delete newState.spot[action.payload]
       return newState;
     default:
       return state;
