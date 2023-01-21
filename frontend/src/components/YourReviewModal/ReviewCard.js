@@ -60,12 +60,12 @@ const ReviewCard = ({ review }) => {
   return (
     <>
       {hidden ? (
-        <div className="centered">
-          <form onSubmit={updateReview}>
+        <div className="edit-review-container">
+          <form className="edit-review-form-box" onSubmit={updateReview}>
             <ul>
               {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
-            <div className="input-form">
+            <div className="edit-review-div">
               <label>Review:</label>
               <input
                 type='text'
@@ -74,7 +74,7 @@ const ReviewCard = ({ review }) => {
                 className='input-placeholder'
               />
             </div>
-            <div className="input-form">
+            <div className="edit-review-div">
               <label>Stars from 1 to 5:</label>
               <input
                 type='number'
@@ -85,7 +85,7 @@ const ReviewCard = ({ review }) => {
                 className='input-placeholder'
               />
             </div>
-            <button className="submit-button" type="submit">Submit</button>
+            <button className="edit-review-submit" type="submit">Submit</button>
           </form>
         </div>
       ) : (

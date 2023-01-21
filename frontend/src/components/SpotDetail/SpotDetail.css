@@ -74,11 +74,13 @@
   display: flex;
   column-gap: 10px;
   list-style-type: none;
+  cursor: pointer;
 }
 
 .delete-button {
   border: none;
   background-color: white;
+  cursor: pointer;
 }
 
 .edit-button {
