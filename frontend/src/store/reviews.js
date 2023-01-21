@@ -73,14 +73,16 @@ export const thunkCreateReview = ({spotId, reviewDetail, ReviewImages, User}) =>
   }
 };
 
-export const thunkUpdateReview = (data) => async (dispatch) => {
-  const response = await csrfFetch(`/api/reviews/${data.id}`, {
+export const thunkUpdateReview = ({id, reviewInfo, ReviewImages, User}) => async (dispatch) => {
+  const response = await csrfFetch(`/api/reviews/${id}`, {
     method: "PUT",
-    body: JSON.stringify(data.reviewInfo)
+    body: JSON.stringify(reviewInfo)
   });
   if (response.ok) {
     const review = await response.json();
-    dispatch(updateReview(review))
+    console.log('thunk update review', review)
+    const newReview = {ReviewImages, User, ...review}
+    dispatch(updateReview(newReview))
     return review;
   }
 }
