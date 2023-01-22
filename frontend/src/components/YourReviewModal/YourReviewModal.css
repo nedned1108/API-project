@@ -71,6 +71,11 @@
   border-radius: 10px;
   color: white;
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  cursor: pointer;
+}
+
+.edit-review-submit:hover {
+  box-shadow: 2px 2px 4px 2px gray;
 }
 
 .input-placeholder {

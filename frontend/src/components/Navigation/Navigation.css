@@ -67,6 +67,9 @@
   column-gap: 10px;
   position: relative;
   cursor: pointer;
+}
+
+.menu-button:hover {
   box-shadow: .5px .5px 6px 1px gray;
 }
 
