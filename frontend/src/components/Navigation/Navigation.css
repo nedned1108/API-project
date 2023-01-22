@@ -35,6 +35,9 @@
 
 .demo-user-button {
   cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: white;
 }
 
 .dropdown-div {
@@ -74,4 +77,5 @@
   border: none;
   padding: 0;
   background-color: white;
+  cursor: pointer;
 }
