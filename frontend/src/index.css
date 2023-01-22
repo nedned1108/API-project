@@ -71,3 +71,9 @@ body {
 .fa-star {
   color: rgb(243, 243, 62);
 }
+
+@media screen and (max-width: 1024px) {
+  body {
+    display: block;
+  }
+}

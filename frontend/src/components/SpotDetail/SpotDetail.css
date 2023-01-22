@@ -102,7 +102,7 @@
   padding-right: 10%;
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
   box-shadow: 0px 4px 10px -4px gray;
   font-size: 20px;
 }
@@ -121,12 +121,13 @@
 
 .spot-detail-review {
   width: 30%;
-  height: 60vh;
+  height: 40vh;
   border-radius: 10px;
   box-shadow: 2px 2px 8px 2px gray;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .spot-detail-price {

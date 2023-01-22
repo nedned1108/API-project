@@ -15,7 +15,7 @@ const CreateSpotFormModal = () => {
   const [country, setCountry] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(1);
+  const [price, setPrice] = useState();
   const [previewImage, setPreviewImage] = useState('')
   const [errors, setErrors] = useState([]);
   const [newSpot, setNewSpot] = useState();
@@ -48,14 +48,17 @@ const CreateSpotFormModal = () => {
       }
     };
 
-
-    dispatch(thunkCreateSpot(spot))
-      .then((res) => setNewSpot(res))
-      .then((spot) => closeModal())
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      })
+    if (previewImage) {
+      dispatch(thunkCreateSpot(spot))
+        .then((res) => setNewSpot(res))
+        .then((spot) => closeModal())
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        })
+    } else {
+      return setErrors(['Please add one photo to your new listing'])
+    }
   }
 
   useEffect(() => {
