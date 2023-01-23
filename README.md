@@ -25,6 +25,9 @@ All technologies I used in this project are:
  - User's profile page
  - Booking feature
  
+ **Landing Page**
+ ![mybnb homepage](https://user-images.githubusercontent.com/112263162/213964408-6af51796-c863-45c1-9063-404b390ff062.png)
+
  **Get Started**
  - Download or git clone this repo
  - Run `npm install` in backend directory
