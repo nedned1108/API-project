@@ -42,7 +42,7 @@ const CreateReviewFormModal = ({spotId, user}) => {
 
   return (
     <section className="create-spot-form centered">
-      <h1>Review</h1>
+      <h1 className="modal-title">Review</h1>
       <form onSubmit={handleSubmit} className='centered'>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}

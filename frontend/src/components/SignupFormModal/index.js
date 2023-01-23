@@ -32,7 +32,7 @@ function SignupFormModal() {
 
   return (
     <section className='centered'>
-      <h1 className='signup-title'>Sign Up</h1>
+      <h1 className='signup-title modal-title'>Sign Up</h1>
       <form onSubmit={handleSubmit} className='signup-form centered'>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}

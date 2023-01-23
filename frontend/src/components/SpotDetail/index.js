@@ -24,8 +24,8 @@ const SpotDetail = () => {
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
   }, [dispatch])
-  
-  
+
+
   const deleteListing = () => {
     dispatch(thunkDeleteSpot(spotId))
     history.push('/')
@@ -34,7 +34,7 @@ const SpotDetail = () => {
     return null;
   }
   return (
-    <section>
+    <section className="spot-detail-main-section">
       <div className="spot-detail-title">
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
@@ -62,15 +62,18 @@ const SpotDetail = () => {
           <img className="spot-image-4" src={comingSoon} />
         </div>
       </div>
-      <div className="bold spot-host" >Hosted by {spot.Owner.firstName}</div>
+      <div className="spot-host-description">
+        <div className="bold" >Hosted by {spot.Owner.firstName}</div>
+        <div className="spot-description">{spot.description}</div>
+      </div>
       <div className="spot-detail-div">
         <div className="spot-detail-hosts">
-          <h4>Hosted by a super host</h4>
-          <p>Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
-          <h4>Great location</h4>
-          <p>100% of recent guests gave the location a 5-star rating.</p>
-          <h4>Great check-in experience</h4>
-          <p>100% of recent guests gave the check-in process a 5-star rating.</p>
+          <h4 className="spot-detail-hosts-item">Hosted by a super host</h4>
+          <p className="spot-detail-hosts-item">Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
+          <h4 className="spot-detail-hosts-item">Great location</h4>
+          <p className="spot-detail-hosts-item">100% of recent guests gave the location a 5-star rating.</p>
+          <h4 className="spot-detail-hosts-item">Great check-in experience</h4>
+          <p className="spot-detail-hosts-item">100% of recent guests gave the check-in process a 5-star rating.</p>
         </div>
         <div className="spot-detail-review">
           <div className="spot-detail-price">
@@ -84,7 +87,7 @@ const SpotDetail = () => {
               {(!user) ? '' : (
                 <OpenModalMenuItem
                   itemText={'Leave Review'}
-                  modalComponent={<CreateReviewFormModal spotId={spotId} user={user}/>}
+                  modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
                 />
               )}
             </div>
