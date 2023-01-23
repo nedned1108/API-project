@@ -1,6 +1,7 @@
 /* TODO Add site wide styles */
 body {
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .padd {
@@ -19,6 +20,14 @@ body {
   row-gap: 10px;
   overflow-y: auto;
   border-radius: 20px;
+}
+
+.modal-title {
+  box-shadow: 0px 4px 4px -2px gray;
+  padding-bottom: 20px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
 }
 
 .input-form {
@@ -40,6 +49,10 @@ body {
   padding: 14px;
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   cursor: pointer;
+}
+
+.submit-button:hover {
+  box-shadow: 2px 2px 8px 4px gray;
 }
 
 .input-placeholder {

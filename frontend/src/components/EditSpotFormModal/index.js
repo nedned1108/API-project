@@ -44,7 +44,7 @@ const EditSpotFormModal = ({ spot }) => {
 
   return (
     <section className="create-spot-form centered">
-      <h1>Create Listing</h1>
+      <h1 className="modal-title">Update Listing</h1>
       <form onSubmit={handleSubmit} className='centered'>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}

@@ -27,6 +27,31 @@ module.exports = {
         url: 'https://i.pinimg.com/564x/d6/e9/a5/d6e9a579161fb7490ccee82333d29f72.jpg',
         preview: false
       },
+      {
+        spotId: 4,
+        url: 'https://i.ebayimg.com/images/g/p-AAAOSwxyNjMVAp/s-l500.jpgg',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://cdnportal.mobalytics.gg/production/1969/10/Ionia-Splash-1920x960.jpg',
+        preview: false
+      },
+      {
+        spotId: 6,
+        url: 'https://blog.displate.com/wp-content/uploads/2021/09/img_6138b2beedbd9.jpg',
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: 'https://i.etsystatic.com/36778254/r/il/580d0c/4040086766/il_fullxfull.4040086766_ol5e.jpg',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://images.contentstack.io/v3/assets/blt187521ff0727be24/bltd170f10ccce6ba7e/614cc12077d06a0c9835f862/demacia_splash.jpeg',
+        preview: false
+      },
     ])
   },
 

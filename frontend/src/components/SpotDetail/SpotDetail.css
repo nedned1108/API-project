@@ -5,8 +5,8 @@
 }
 
 .spot-detail-title {
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .image-main-div {
@@ -15,8 +15,8 @@
   justify-content: space-between;
   border-radius: 25px;
   gap: 1%;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .image-left-div {
@@ -92,20 +92,34 @@
   flex-direction: row;
   justify-content: space-between;
   column-gap: 20px;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
-.spot-host {
+.spot-host-description {
   margin-top: 20px;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
+  box-shadow: 0px 4px 10px -4px gray;
+  font-size: 25px;
+}
+
+.spot-description {
+  font-size: 20px;
 }
 
 .spot-detail-hosts {
   display: flex;
   flex-direction: column;
   width: 65%;
+}
+
+.spot-detail-hosts-item {
+  margin: 1vh;
+  font-size: 20px;
 }
 
 .spot-detail-nav {
@@ -116,12 +130,13 @@
 
 .spot-detail-review {
   width: 30%;
-  height: 60vh;
+  max-height: 450px;
   border-radius: 10px;
   box-shadow: 2px 2px 8px 2px gray;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .spot-detail-price {
@@ -133,6 +148,8 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  padding: 5px;
+  height: 100%;
 }
 
 .review-button-container {
@@ -147,4 +164,61 @@
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   color: white;
   cursor: pointer;
+}
+
+.review-button-container:hover {
+  box-shadow: 1px 1px 4px 2px gray;
+}
+
+.aircover-img {
+  max-width: 100px;
+  padding-top: 20px;
+}
+
+.total-fee {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fee {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+@media screen and (max-width: 740px) {
+  .image-left-div {
+    width: 100vw;
+    border-radius: 20px;
+  }
+
+  .spot-image-0 {
+    border-radius: 20px;
+  }
+
+  .spot-detail-div {
+    flex-direction: column;
+  }
+
+  .spot-detail-review {
+    width: 70vw;
+    align-self: center;
+  }
+
+  .image-right-div {
+    display: none;
+  }
+}
+
+
+@media screen and (min-width: 1600px) {
+  .spot-detail-review {
+    width: 400px;
+  }
 }
