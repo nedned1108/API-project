@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         spotId: 4,
-        url: 'https://i.ebayimg.com/images/g/p-AAAOSwxyNjMVAp/s-l500.jpgg',
+        url: 'https://i.pinimg.com/564x/25/01/d5/2501d595a73c1a1cea9eb7f9ec00bebd.jpg',
         preview: false
       },
       {
