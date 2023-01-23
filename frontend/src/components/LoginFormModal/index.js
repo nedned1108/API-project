@@ -27,7 +27,7 @@ function LoginFormModal() {
 
   return (
     <section className='centered'>
-      <h1 className='login-title'>Log In</h1>
+      <h1 className='login-title modal-title'>Log In</h1>
       <form onSubmit={handleSubmit} className='login-form centered'>
         <ul>
           {errors.map((error, idx) => (

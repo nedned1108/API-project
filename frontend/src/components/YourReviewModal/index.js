@@ -19,7 +19,7 @@ const YourReviewModal = () => {
 
   return (
     <div className="your-review-main-div centered">
-      <h1 className="your-review-title">Your Reviews</h1>
+      <h1 className="your-review-title modal-title">Your Reviews</h1>
       {reviews.map((review) => <ReviewCard review={review} key={review.id}/>)}
     </div>
   )

@@ -21,10 +21,11 @@
   flex-direction: column;
   list-style-type: none;
   row-gap: 10px;
-  padding: 5px;
+  padding: 10px;
   border: black 1px solid;
   width: 95%;
   max-height: 40%;
+  border-radius: 20px;
 }
 
 .your-review-single-container {
@@ -71,6 +72,11 @@
   border-radius: 10px;
   color: white;
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  cursor: pointer;
+}
+
+.edit-review-submit:hover {
+  box-shadow: 2px 2px 4px 2px gray;
 }
 
 .input-placeholder {

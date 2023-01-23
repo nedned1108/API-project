@@ -13,6 +13,9 @@ const validateSpot = [
   check('address')
     .exists({ checkFalsy: true })
     .withMessage('Street address is required'),
+  check('address')
+    .isLength({ max: 50 })
+    .withMessage('Address must be less then 50 characters'),
   check('city')
     .exists({ checkFalsy: true })
     .withMessage('City is required'),

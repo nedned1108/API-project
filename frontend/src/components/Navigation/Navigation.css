@@ -35,12 +35,16 @@
 
 .demo-user-button {
   cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: white;
 }
 
 .dropdown-div {
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+  cursor: pointer;
 }
 
 .login-signup-nav {
@@ -63,6 +67,9 @@
   column-gap: 10px;
   position: relative;
   cursor: pointer;
+}
+
+.menu-button:hover {
   box-shadow: .5px .5px 6px 1px gray;
 }
 
@@ -74,4 +81,5 @@
   border: none;
   padding: 0;
   background-color: white;
+  cursor: pointer;
 }
