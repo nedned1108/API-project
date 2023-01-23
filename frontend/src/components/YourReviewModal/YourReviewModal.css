@@ -21,10 +21,11 @@
   flex-direction: column;
   list-style-type: none;
   row-gap: 10px;
-  padding: 5px;
+  padding: 10px;
   border: black 1px solid;
   width: 95%;
   max-height: 40%;
+  border-radius: 20px;
 }
 
 .your-review-single-container {

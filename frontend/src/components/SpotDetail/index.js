@@ -68,12 +68,17 @@ const SpotDetail = () => {
       </div>
       <div className="spot-detail-div">
         <div className="spot-detail-hosts">
-          <h4 className="spot-detail-hosts-item">Hosted by a super host</h4>
+          <h4 className="spot-detail-hosts-item">{<i className="fa-sharp fa-solid fa-medal"></i>}  Hosted by a super host</h4>
           <p className="spot-detail-hosts-item">Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
-          <h4 className="spot-detail-hosts-item">Great location</h4>
+          <h4 className="spot-detail-hosts-item">{<i className="fa-solid fa-location-dot"></i>}  Great location</h4>
           <p className="spot-detail-hosts-item">100% of recent guests gave the location a 5-star rating.</p>
-          <h4 className="spot-detail-hosts-item">Great check-in experience</h4>
+          <h4 className="spot-detail-hosts-item">{<i class="fa-solid fa-check"></i>}  Great check-in experience</h4>
           <p className="spot-detail-hosts-item">100% of recent guests gave the check-in process a 5-star rating.</p>
+          <div>
+            <img className="aircover-img" src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg"/>
+            <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</p>
+            <p>Large private walkout basement Suite on Lake Keowee; fully appointed to make your stay a pleasure.</p>
+          </div>
         </div>
         <div className="spot-detail-review">
           <div className="spot-detail-price">
@@ -81,6 +86,18 @@ const SpotDetail = () => {
             <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
           </div>
           <div className="review-container">
+            <div className="total-fee">
+              <div className="fee">
+                <p>${spot.price} x 5 nights</p>
+                <p>Cleaning fee</p>
+                <p>Service fee</p>
+              </div>
+              <div className="total">
+                <p>${spot.price * 5}</p>
+                <p>${(spot.price * 10 / 100 + 50).toFixed(2)}</p>
+                <p>${(spot.price * 7 / 100 + 100).toFixed(2)}</p>
+              </div>
+            </div>
             <h3>Reviews</h3>
             <SpotReview spotId={spotId} />
             <div className="review-button-container noL bold">
