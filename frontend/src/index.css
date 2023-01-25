@@ -25,10 +25,11 @@ body {
 
 .modal-title {
   box-shadow: 0px 4px 4px -2px gray;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   width: 100%;
   justify-content: center;
   display: flex;
+  margin-bottom: 0;
 }
 
 .input-form {
