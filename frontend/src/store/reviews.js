@@ -80,7 +80,6 @@ export const thunkUpdateReview = ({id, reviewInfo, ReviewImages, User}) => async
   });
   if (response.ok) {
     const review = await response.json();
-    console.log('thunk update review', review)
     const newReview = {ReviewImages, User, ...review}
     dispatch(updateReview(newReview))
     return review;
@@ -119,7 +118,6 @@ const reviewReducer = (state = initialState, action) => {
       return newState;
     case UPDATE_REVIEW:
       newState.user = { ...state.user, [action.payload.id]: {...state.user[action.payload.id], ...action.payload}}
-      // newState.spot = { ...state.spot, [action.payload.id]: action.payload}
       return newState;
     case DELETE_REVIEW:
       newState.user = {...state.user}
