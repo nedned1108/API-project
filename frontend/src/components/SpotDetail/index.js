@@ -85,6 +85,15 @@ const SpotDetail = () => {
             <div className="bold">${spot.price} night</div>
             <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
           </div>
+          <div>
+            <div>
+              <p>Check in</p>
+              <p>Check out</p>
+            </div>
+            <div>
+              <p>Guests</p>
+            </div>
+          </div>
           <div className="review-container">
             <div className="total-fee">
               <div className="fee">
