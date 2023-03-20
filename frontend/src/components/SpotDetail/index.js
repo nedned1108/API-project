@@ -1,10 +1,11 @@
 //frontend/src/components/SpotDetail/index.js
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { thunkLoadSpot } from "../../store/spots";
 import { thunkDeleteSpot } from "../../store/spots";
-import { useParams } from "react-router-dom";
+import { thunkCreateBooking } from "../../store/bookings";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
 import CreateReviewFormModal from "../CreateReviewFormModal";
@@ -79,6 +80,18 @@ const SpotDetail = () => {
             <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</p>
             <p>Large private walkout basement Suite on Lake Keowee; fully appointed to make your stay a pleasure.</p>
           </div>
+          <div>
+            <h3>Reviews</h3>
+            <SpotReview spotId={spotId} />
+            <div className="review-button-container noL bold">
+              {(!user) ? '' : (
+                <OpenModalMenuItem
+                  itemText={'Leave Review'}
+                  modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
+                />
+              )}
+            </div>
+          </div>
         </div>
         <div className="spot-detail-review">
           <div className="spot-detail-price">
@@ -107,7 +120,7 @@ const SpotDetail = () => {
                 <p>${(spot.price * 7 / 100 + 100).toFixed(2)}</p>
               </div>
             </div>
-            <h3>Reviews</h3>
+            {/* <h3>Reviews</h3>
             <SpotReview spotId={spotId} />
             <div className="review-button-container noL bold">
               {(!user) ? '' : (
@@ -116,7 +129,7 @@ const SpotDetail = () => {
                   modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
