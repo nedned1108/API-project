@@ -19,13 +19,34 @@ const SpotDetail = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [errors, setErrors] = useState([]);
   const spot = useSelector(state => state.spots.singleSpot);
   const { user } = useSelector(state => state.session);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors([]);
+
+    let bookingData = {
+      spotId,
+      endDate,
+      startDate
+    }
+
+    dispatch(thunkCreateBooking(bookingData))
+      .then(() => setEndDate(''))
+      .then(() => setStartDate(''))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      })
+  }
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
   }, [dispatch])
-
 
   const deleteListing = () => {
     dispatch(thunkDeleteSpot(spotId))
@@ -99,10 +120,32 @@ const SpotDetail = () => {
             <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
           </div>
           <div>
-            <div>
-              <p>Check in</p>
-              <p>Check out</p>
-            </div>
+            <form onSubmit={handleSubmit}>
+              <ul>
+                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+              </ul>
+              <div>
+                <label>Check in:</label>
+                <input
+                  type='date'
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label>Check out:</label>
+                <input
+                  type='date'
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <button className='' type="submit">Book</button>
+              </div>
+            </form>
             <div>
               <p>Guests</p>
             </div>
