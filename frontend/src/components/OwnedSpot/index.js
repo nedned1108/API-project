@@ -73,6 +73,10 @@ const OwnedSpot = () => {
                   <h3 onClick={() => toSpot(booking.spotId)} >{booking.Spot.name} - {booking.Spot.address}, {booking.Spot.city}, {booking.Spot.state}</h3>
                   <p>Check in: {start.getDate()}/{start.getMonth()}/{start.getFullYear()}</p>
                   <p>Check out: {end.getDate()}/{end.getMonth()}/{end.getFullYear()}</p>
+                  <div className="hidden">
+                    <button>Update Book</button>
+                    <button>Cancel Book</button>
+                  </div>
                 </div>
               )
             })}
