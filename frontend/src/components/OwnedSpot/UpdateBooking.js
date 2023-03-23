@@ -60,7 +60,7 @@ const UpdateBooking = ({booking}) => {
             required
           />
         </div>
-        <button className="submit-button" type="submit">Update Listing</button>
+        <button className="submit-button" type="submit">Update Booking</button>
       </form>
     </section>
   )

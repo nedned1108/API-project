@@ -20,13 +20,13 @@ const DeleteBooking = ({booking}) => {
   }
 
   return (
-    <section className="centered">
-      <h1 className="modal-title">Update Booking</h1>
-      <div>
+    <div className="centered">
+      <h1 className="modal-title">Cancel Booking</h1>
+      <div className="confirm-cancel">
         <button onClick={confirm} >Confirm</button>
         <button onClick={cancel} >Cancel</button>
       </div>
-    </section>
+    </div>
   )
 }
 
