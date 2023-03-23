@@ -13,7 +13,7 @@ const Footer = () => {
           <p>MyBnb by Ned Nguyen, 2023</p>
         </div>
         <div className='footerLink'>
-          <a target='_blank' href=''>{<i class="fa-brands fa-github"></i>}</a>
+          <a target='_blank' href='https://github.com/nedned1108/API-project'>{<i class="fa-brands fa-github"></i>}</a>
           <a target='_blank' href='https://www.linkedin.com/in/ned-nguyen-693575257/'>{<i class="fa-brands fa-linkedin"></i>}</a>
         </div>
       </div>
