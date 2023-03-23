@@ -1,15 +1,16 @@
 .owned-spots-div {
   display: flex;
-  flex-direction: column;
 }
 
+/* ----------------your properties div----------------- */
 .title-bar {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
   padding-left: 5%;
-  padding-right: 5%;
+  margin-bottom: 20px;
 }
 
 .owned-spots-main-div {
@@ -17,7 +18,7 @@
   flex-wrap: wrap;
   column-gap: 10px;
   padding-left: 5%;
-  padding-right: 5%;
+  justify-content: space-evenly;
 }
 
 .new-listing-div {
@@ -31,6 +32,37 @@
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   color: white;
 }
+
+/* ---------------booking div----------------------- */
+.bookingMainDiv {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  max-width: 600px;
+  padding-right: 5%;
+}
+.bookingDiv {
+  border: 1px black solid;
+  padding: 10px;
+  border-radius: 10px;
+  position: sticky;
+  top: 70px;
+}
+.bookingDiv h1 {
+  display: flex;
+  justify-content: center;
+}
+.singleBooking {
+  border-radius: 10px;
+  padding: 5px;
+}
+.singleBooking h3 {
+  cursor: pointer;
+} 
+.singleBooking:hover {
+  background-color: rgb(206, 206, 206);
+}
+
 
 @media screen and (max-width: 700px) {
   .owned-spots-main-div {
