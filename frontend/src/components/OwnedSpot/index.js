@@ -8,6 +8,7 @@ import { thunkLoadUserBookings } from "../../store/bookings";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import CreateSpotFormModal from "../CreateSpotFormModal";
 import SpotCard from "../SpotCard/SpotCard";
+import UpdateBooking from "./UpdateBooking";
 import './OwnedSpot.css'
 
 const OwnedSpot = () => {
@@ -71,11 +72,18 @@ const OwnedSpot = () => {
               return (
                 <div className="singleBooking">
                   <h3 onClick={() => toSpot(booking.spotId)} >{booking.Spot.name} - {booking.Spot.address}, {booking.Spot.city}, {booking.Spot.state}</h3>
-                  <p>Check in: {start.getDate()}/{start.getMonth()}/{start.getFullYear()}</p>
-                  <p>Check out: {end.getDate()}/{end.getMonth()}/{end.getFullYear()}</p>
+                  <p>Check in: {start.getUTCDate()}/{start.getUTCMonth() + 1}/{start.getUTCFullYear()}</p>
+                  <p>Check out: {end.getUTCDate()}/{end.getUTCMonth() + 1} /{end.getUTCFullYear()}</p>
                   <div className="hidden">
-                    <button>Update Book</button>
-                    <button>Cancel Book</button>
+                    <div className="updateButton">
+                      <OpenModalMenuItem
+                        itemText='Update Book'
+                        modalComponent={<UpdateBooking booking={booking} />}
+                      />
+                    </div>
+                    <div className="cancelButton">
+                      <button>Cancel Book</button>
+                    </div>
                   </div>
                 </div>
               )

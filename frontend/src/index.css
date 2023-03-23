@@ -16,7 +16,7 @@ body {
   align-items: center;
   row-gap: 5px;
   width: 550px;
-  height: 80vh;
+  /* height: 80vh; */
   padding-bottom: 10px;
   row-gap: 10px;
   overflow-y: auto;

@@ -57,9 +57,6 @@
 .singleBooking h3 {
   cursor: pointer;
 }
-.singleBooking div {
-  display: none;
-}
 .singleBooking:hover {
   background-color: rgb(223, 223, 223);
 }
@@ -69,7 +66,8 @@
 .singleBooking:hover .hidden {
   display: block;
 }
-.hidden button {
+.updateButton,
+.cancelButton {
   list-style: none;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -80,6 +78,8 @@
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   color: white;
 }
+
+/* -------------------update booking modal--------------- */
 
 
 @media screen and (max-width: 700px) {
