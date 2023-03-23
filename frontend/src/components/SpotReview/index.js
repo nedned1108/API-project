@@ -23,17 +23,24 @@ const SpotReview = (spotId) => {
 
   return (
     <div className="noL review-box-container">
-      {reviews.map((review) => (
-        <div className="reviews-box">
-          <div className="user-image-div">
-            <img className="user-image" src={userImage} />
-            <div>{review.User.firstName}</div>
+      {reviews.map((review) => {
+        const reviewDate = new Date(review.createdAt)
+        console.log(reviewDate.getUTCMonth)
+        return (
+          <div className="reviews-box">
+            <div className="user-image-div">
+              <img className="user-image" src={userImage} />
+              <div className="name-date-review">
+                <h3>{review.User.firstName}</h3>
+                <p>{reviewDate.toString().split(' ').slice(1, 4).join(' ')}</p>
+              </div>
+            </div>
+            <div>
+              <li key={review.id}>{review.review}</li>
+            </div>
           </div>
-          <div>
-            <li key={review.id}>{review.review}</li>
-          </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 };

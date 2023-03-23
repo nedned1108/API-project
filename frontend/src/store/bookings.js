@@ -32,8 +32,8 @@ export const createBooking = (booking) => {
 
 export const updateBooking = (booking) => {
   return {
-    type: UPDATE_REVIEW,
-    payload: review
+    type: UPDATE_BOOKING,
+    payload: booking
   }
 };
 
@@ -61,26 +61,38 @@ export const thunkLoadSpotBookings = ({ spotId }) => async (dispatch) => {
   }
 };
 
-export const thunkCreateBooking = ({spotId, bookingData}) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+export const thunkCreateBooking = (bookingData) => async (dispatch) => {
+  console.log(bookingData)
+  const response = await csrfFetch(`/api/spots/${bookingData.spotId}/bookings`, {
     method: "POST",
     body: JSON.stringify(bookingData)
   });
   if (response.ok) {
-    const data = await response.json();
-    dispatch(createBooking(data))
-    return data;
+    const booking = await response.json();
+    dispatch(createBooking(booking))
+    return booking;
   }
 };
 
-export const thunkUpdateReview = ({bookingData}) => async (dispatch) => {
+export const thunkUpdateBooking = (bookingData) => async (dispatch) => {
   const response = await csrfFetch(`/api/bookings/${bookingData.id}`, {
     method: "PUT",
     body: JSON.stringify(bookingData)
   });
   if (response.ok) {
+    const booking = await response.json();
+    dispatch(updateBooking(booking))
+    return booking;
+  }
+};
+
+export const thunkDeleteBooking = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${id}`, {
+    method: "DELETE"
+  });
+  if (response.ok) {
     const data = await response.json();
-    dispatch(updateBooking(data))
+    dispatch(deleteBooking(id))
     return data;
   }
 };
@@ -109,7 +121,7 @@ const bookingReducer = (state = initialState, action) => {
       newState.user = { ...state.user, [action.payload.id]: {...state.user[action.payload.id], ...action.payload}}
       newState.spot = { ...state.spot, [action.payload.id]: {...state.spot[action.payload.id], ...action.payload}}
       return newState;
-    case DELETE_REVIEW:
+    case DELETE_BOOKING:
       newState.user = {...state.user}
       newState.spot = {...state.spot}
       delete newState.user[action.payload]

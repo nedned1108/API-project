@@ -1,10 +1,11 @@
 //frontend/src/components/SpotDetail/index.js
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { thunkLoadSpot } from "../../store/spots";
 import { thunkDeleteSpot } from "../../store/spots";
-import { useParams } from "react-router-dom";
+import { thunkCreateBooking } from "../../store/bookings";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
 import CreateReviewFormModal from "../CreateReviewFormModal";
@@ -18,13 +19,34 @@ const SpotDetail = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [errors, setErrors] = useState([]);
   const spot = useSelector(state => state.spots.singleSpot);
   const { user } = useSelector(state => state.session);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors([]);
+
+    let bookingData = {
+      spotId,
+      endDate,
+      startDate
+    }
+
+    dispatch(thunkCreateBooking(bookingData))
+      .then(() => setEndDate(''))
+      .then(() => setStartDate(''))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      })
+  }
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
   }, [dispatch])
-
 
   const deleteListing = () => {
     dispatch(thunkDeleteSpot(spotId))
@@ -79,22 +101,54 @@ const SpotDetail = () => {
             <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</p>
             <p>Large private walkout basement Suite on Lake Keowee; fully appointed to make your stay a pleasure.</p>
           </div>
+          <div className="reviewMainDiv">
+            <h3>Reviews</h3>
+            <SpotReview spotId={spotId} />
+            <div className="review-button-container noL bold">
+              <OpenModalMenuItem
+                itemText={'Leave Review'}
+                modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
+              />
+            </div>
+          </div>
         </div>
         <div className="spot-detail-review">
           <div className="spot-detail-price">
             <div className="bold">${spot.price} night</div>
             <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
           </div>
-          <div>
-            <div>
-              <p>Check in</p>
-              <p>Check out</p>
-            </div>
-            <div>
-              <p>Guests</p>
-            </div>
+          <div className="spotBookingDiv">
+            <form onSubmit={handleSubmit} className="bookingForm">
+              <ul>
+                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+              </ul>
+              <div className="check-in-out">
+                <div>
+                  <label>Check in:</label>
+                  <input
+                    type='date'
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{borderLeft: "1px black solid"}}>
+                  <label>Check out:</label>
+                  <input
+                    type='date'
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <button className='reserveButton' type="submit">Reserve</button>
+              </div>
+            </form>
           </div>
           <div className="review-container">
+            <p>You won't be charged yet</p>
             <div className="total-fee">
               <div className="fee">
                 <p>${spot.price} x 5 nights</p>
@@ -107,7 +161,7 @@ const SpotDetail = () => {
                 <p>${(spot.price * 7 / 100 + 100).toFixed(2)}</p>
               </div>
             </div>
-            <h3>Reviews</h3>
+            {/* <h3>Reviews</h3>
             <SpotReview spotId={spotId} />
             <div className="review-button-container noL bold">
               {(!user) ? '' : (
@@ -116,7 +170,7 @@ const SpotDetail = () => {
                   modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
