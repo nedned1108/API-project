@@ -119,38 +119,38 @@ const SpotDetail = () => {
             <div className="bold">${spot.price} night</div>
             <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
           </div>
-          <div>
-            <form onSubmit={handleSubmit}>
+          <div className="spotBookingDiv">
+            <form onSubmit={handleSubmit} className="bookingForm">
               <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
               </ul>
-              <div>
-                <label>Check in:</label>
-                <input
-                  type='date'
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  required
-                />
+              <div className="check-in-out">
+                <div>
+                  <label>Check in:</label>
+                  <input
+                    type='date'
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{borderLeft: "1px black solid"}}>
+                  <label>Check out:</label>
+                  <input
+                    type='date'
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
               <div>
-                <label>Check out:</label>
-                <input
-                  type='date'
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <button className='' type="submit">Book</button>
+                <button className='reserveButton' type="submit">Reserve</button>
               </div>
             </form>
-            <div>
-              <p>Guests</p>
-            </div>
           </div>
           <div className="review-container">
+            <p>You won't be charged yet</p>
             <div className="total-fee">
               <div className="fee">
                 <p>${spot.price} x 5 nights</p>

@@ -73,8 +73,8 @@ const OwnedSpot = () => {
               return (
                 <div className="singleBooking">
                   <h3 onClick={() => toSpot(booking.spotId)} >{booking.Spot.name} - {booking.Spot.address}, {booking.Spot.city}, {booking.Spot.state}</h3>
-                  <p>Check in: {start.getUTCDate()}/{start.getUTCMonth() + 1}/{start.getUTCFullYear()}</p>
-                  <p>Check out: {end.getUTCDate()}/{end.getUTCMonth() + 1} /{end.getUTCFullYear()}</p>
+                  <p>Check in: {start.getUTCDate()} - {start.getUTCMonth() + 1} - {start.getUTCFullYear()}</p>
+                  <p>Check out: {end.getUTCDate()} - {end.getUTCMonth() + 1} - {end.getUTCFullYear()}</p>
                   <div className="hiddenDiv">
                     <div className="bookingButton">
                       <div className="updateButton">
