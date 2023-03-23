@@ -9,6 +9,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import CreateSpotFormModal from "../CreateSpotFormModal";
 import SpotCard from "../SpotCard/SpotCard";
 import UpdateBooking from "./UpdateBooking";
+import DeleteBooking from "./DeleteBooking";
 import './OwnedSpot.css'
 
 const OwnedSpot = () => {
@@ -82,7 +83,10 @@ const OwnedSpot = () => {
                       />
                     </div>
                     <div className="cancelButton">
-                      <button>Cancel Book</button>
+                      <OpenModalMenuItem
+                        itemText='Cancel Book'
+                        modalComponent={<DeleteBooking booking={booking} />}
+                      />
                     </div>
                   </div>
                 </div>
