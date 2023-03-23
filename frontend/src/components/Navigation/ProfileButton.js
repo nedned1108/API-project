@@ -59,7 +59,7 @@ function ProfileButton({ user }) {
           <div className='dropdown-div'>
             <div>{user.username}</div>
             <div>
-              <Link onClick={closeMenu} className='noU' to='/spots/current' >Manage your Listing</Link>
+              <Link onClick={closeMenu} className='noU' to='/spots/current' >Profile</Link>
             </div>
             <div className="your-review-button">
               <OpenModalMenuItem

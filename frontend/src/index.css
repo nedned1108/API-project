@@ -16,7 +16,7 @@ body {
   align-items: center;
   row-gap: 5px;
   width: 550px;
-  height: 80vh;
+  /* height: 80vh; */
   padding-bottom: 10px;
   row-gap: 10px;
   overflow-y: auto;
@@ -45,6 +45,7 @@ body {
 .submit-button {
   width: 470px;
   font-weight: bold;
+  font-size: 20px;
   color: white;
   border-radius: 10px;
   height: 52px;

@@ -52,6 +52,21 @@ module.exports = {
         url: 'https://images.contentstack.io/v3/assets/blt187521ff0727be24/bltd170f10ccce6ba7e/614cc12077d06a0c9835f862/demacia_splash.jpeg',
         preview: false
       },
+      {
+        spotId: 9,
+        url: 'https://a0.muscache.com/im/pictures/2c289ad6-9d1d-434d-bc5c-eb7b377bed45.jpg?im_w=1200',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://a0.muscache.com/im/pictures/6bc0a5d3-3e97-4bc4-a6a5-5f550ca36b01.jpg?im_w=1200',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://a0.muscache.com/im/pictures/d843dac1-9fd6-40a5-98a7-5f366a3aa795.jpg?im_w=1200',
+        preview: false
+      },
     ])
   },
 

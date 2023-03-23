@@ -60,13 +60,13 @@ const validateReview = [
 const validateBooking = [
   check('startDate')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide start date'),
+    .withMessage('Please provide check in date'),
   check('startDate')
     .isAfter()
-    .withMessage('StartDate cannot be before or on today'),
+    .withMessage('Invalid check in date'),
   check('endDate')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide end date'),
+    .withMessage('Please provide check out date'),
   handleValidationErrors
 ];
 
@@ -495,11 +495,8 @@ router.post(
       res.status(400)
       return res.json(
         {
-          "message": "Can not create more than 1 review for the same spot",
           "statusCode": 400,
-          "errors": [
-            "Can not create more than 1 review for the same spot"
-          ]
+          "errors": ["Can not create more than 1 review for the same spot"]
         }
       )
     }
@@ -518,7 +515,6 @@ router.post(
         res.status(400);
         return res.json(
           {
-            "message": "Can not create review for your own spot",
             "statusCode": 400,
             "errors": [
               "Can not create review for your own spot"
@@ -608,11 +604,8 @@ router.post(
             res.status(403);
             return res.json(
               {
-                "message": "Sorry, this spot is already booked for the specified dates",
                 "statusCode": 403,
-                "errors": {
-                  "startDate": "Start date conflicts with an existing booking",
-                }
+                "errors": ["Sorry, this spot is already booked for the specified dates",]
               }
             )
           } else if ((newEndDate.getTime() >= bookedStartDate.getTime()) &&
@@ -620,11 +613,8 @@ router.post(
             res.status(403);
             return res.json(
               {
-                "message": "Sorry, this spot is already booked for the specified dates",
                 "statusCode": 403,
-                "errors": {
-                  "endDate": "End date conflicts with an existing booking"
-                }
+                "errors": ["Sorry, this spot is already booked for the specified dates"]
               }
             )
           }
@@ -636,9 +626,7 @@ router.post(
             {
               "message": "Validation error",
               "statusCode": 400,
-              "errors": {
-                "endDate": "endDate cannot be on or before startDate"
-              }
+              "errors": ["Invalid check out date"]
             }
           )
         };
@@ -654,7 +642,7 @@ router.post(
         res.status(400);
         return res.json(
           {
-            "message": "Booking couldn't be created for your own property",
+            "errors": ["Can not book your own property"],
             "statusCode": 400
           }
         )
@@ -663,7 +651,7 @@ router.post(
       res.status(404);
       return res.json(
         {
-          "message": "Spot couldn't be found",
+          "errors": ["Spot couldn't be found"],
           "statusCode": 404
         }
       )
