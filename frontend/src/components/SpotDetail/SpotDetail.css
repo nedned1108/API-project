@@ -115,6 +115,7 @@
   display: flex;
   flex-direction: column;
   width: 65%;
+  margin-bottom: 40px;
 }
 
 .spot-detail-hosts-item {
@@ -145,6 +146,10 @@
 }
 
 /* ---------------------------review Div --------------------- */
+.reviewMainDiv {
+  height: auto;
+  max-height: 600px;
+}
 .review-container {
   display: flex;
   flex-direction: column;
@@ -157,6 +162,7 @@
 }
 
 .review-button-container {
+  width: 70%;
   margin-top: 10px;
   padding: 5px;
   display: flex;
@@ -168,6 +174,7 @@
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   color: white;
   cursor: pointer;
+  margin-bottom: 40px;
 }
 
 .review-button-container:hover {

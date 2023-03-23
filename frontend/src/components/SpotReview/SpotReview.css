@@ -17,8 +17,21 @@
   display: flex;
   column-gap: 20%;
   width: 12%;
+  margin-bottom: 10px;
 }
-
+.name-date-review {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} 
 .user-image {
-  width: 100%;
+  width: 50px;
+}
+.user-image-div p {
+  width: 100px;
+  margin: 0;
+}
+.user-image-div h3 {
+  width: 100px;
+  margin: 0;
 }
