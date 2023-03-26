@@ -132,6 +132,7 @@
 .spot-detail-review {
   width: 30%;
   height: 380px;
+  max-width: 380px;
   border-radius: 10px;
   box-shadow: 2px 2px 8px 2px gray;
   padding: 20px;
