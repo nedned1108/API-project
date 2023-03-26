@@ -54,17 +54,17 @@ module.exports = {
       },
       {
         spotId: 9,
-        url: 'https://a0.muscache.com/im/pictures/2c289ad6-9d1d-434d-bc5c-eb7b377bed45.jpg?im_w=1200',
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-654247531872357893/original/2e72c91a-1f43-4c75-bce3-ec27ee4d5830.jpeg?im_w=720',
         preview: false
       },
       {
         spotId: 10,
-        url: 'https://a0.muscache.com/im/pictures/6bc0a5d3-3e97-4bc4-a6a5-5f550ca36b01.jpg?im_w=1200',
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-654247531872357893/original/54e138e6-4e49-4bfc-a822-fa3f96aac1e0.jpeg?im_w=720',
         preview: false
       },
       {
         spotId: 11,
-        url: 'https://a0.muscache.com/im/pictures/d843dac1-9fd6-40a5-98a7-5f366a3aa795.jpg?im_w=1200',
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-654247531872357893/original/67860e7a-7430-48e7-a372-b9802d367795.jpeg?im_w=720',
         preview: false
       },
     ])
