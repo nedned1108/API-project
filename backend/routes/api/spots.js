@@ -659,5 +659,94 @@ router.post(
   }
 );
 
+// Create a Like for a Spot based on the Spot's id
+router.post(
+  '/:spotId/likes',
+  requireAuth,
+  restoreUser,
+  async (req, res, next) => {
+    const { user } = req;
+    const { spotId } = req.params;
+    const spot = await Spot.findByPk(parseInt(spotId));
+    const existedLike = await Like.findOne({
+      where: { userId: user.id }
+    })
+
+    if (existedLike && existedLike.spotId === Number(spotId)) {
+      res.status(400)
+      return res.json(
+        {
+          "statusCode": 400,
+          "errors": ["Can not like the same spot more than once"]
+        }
+      )
+    }
+
+    if (spot) {
+      if (spot.ownerId !== user.id) {
+        const newLike = await Like.create({
+          userId: user.id,
+          spotId: parseInt(spotId)
+        });
+
+        return res.json(
+          {
+            "message": "Like successfully",
+            "statusCode": 200
+          }
+        )
+      } else {
+        res.status(400);
+        return res.json(
+          {
+            "statusCode": 400,
+            "errors": [
+              "Can not like your own spot"
+            ]
+          }
+        )
+      }
+    } else {
+      res.status(404);
+      return res.json(
+        {
+          "message": "Spot couldn't be found",
+          "statusCode": 404
+        }
+      )
+    }
+  }
+);
+
+// Get all likes by a Spot's id
+router.get(
+  '/:spotId/likes',
+  async (req, res, next) => {
+    const { spotId } = req.params;
+    let spot = await Spot.findByPk(spotId)
+    const likes = await Like.findAll({
+      where: {
+        spotId: parseInt(spotId)
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'firstName', 'lastName']
+        }
+      ]
+    });
+    if (spot) {
+      return res.json({ Likes: likes })
+    }
+    res.status(404);
+    return res.json(
+      {
+        "message": "Spot couldn't be found",
+        "statusCode": 404
+      }
+    )
+  }
+);
+
 
 module.exports = router;
