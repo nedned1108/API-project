@@ -76,15 +76,18 @@
   list-style-type: none;
   cursor: pointer;
 }
-
-.delete-button {
-  border: none;
-  background-color: white;
+.spot-detail-buttons li {
+  margin-top: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  border: black 1px solid;
+  border-radius: 10px;
+  background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  color: white;
   cursor: pointer;
-}
-
-.edit-button {
-  list-style-type: none;
 }
 
 .spot-detail-div {

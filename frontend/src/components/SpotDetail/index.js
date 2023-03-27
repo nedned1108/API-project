@@ -62,12 +62,12 @@ const SpotDetail = () => {
             <div className="spot-detail-buttons">
               <OpenModalMenuItem
                 className='edit-button'
-                itemText={<i className="fas fa-solid fa-pen-to-square"></i>}
+                itemText='Edit Property'
                 modalComponent={<EditSpotFormModal spot={spot} />}
               />
               <OpenModalMenuItem
                 className='delete-button'
-                itemText={<i className="fas fa-solid fa-trash"></i>}
+                itemText='Remove Property'
                 modalComponent={<ConfirmDeleteSpot spotId={spotId} />}
               />
             </div>
