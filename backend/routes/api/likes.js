@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const express = require('express');
-const { Spot, User, sequelize } = require('../../db/models');
+const { Spot, User, sequelize, Like } = require('../../db/models');
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -15,7 +15,7 @@ router.delete(
   async (req, res, next) => {
       const { user } = req;
       const { likeId } =  req.params;
-      const like = await Review.findByPk(parseInt(likeId));
+      const like = await Like.findByPk(parseInt(likeId));
 
       if (like) {
           if (like.userId === user.id) {
@@ -46,3 +46,5 @@ router.delete(
       }
   }
 )
+
+module.exports = router;

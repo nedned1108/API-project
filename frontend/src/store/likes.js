@@ -36,7 +36,7 @@ export const deleteLike = (id) => {
 };
 
 //Thunk action
-export const thunkLoadLikes = ({spotId}) => async (dispatch) => {
+export const thunkLoadLikes = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/likes`);
   if (response.ok) {
     const data = await response.json();
@@ -44,15 +44,14 @@ export const thunkLoadLikes = ({spotId}) => async (dispatch) => {
   }
 };
 
-export const thunkCreateLike = ({spotId}) => async (dispatch) => {
+export const thunkCreateLike = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/likes`, {
     method: "POST",
     body: JSON.stringify()
   });
   if (response.ok) {
     const like = await response.json();
-    const newLike = {...like}
-    dispatch(createLike(newLike))
+    dispatch(createLike(like.Likes))
     return like;
   }
 };

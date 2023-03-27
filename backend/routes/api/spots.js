@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const express = require('express');
-const { Spot, User, Review, SpotImage, Booking, ReviewImage, sequelize } = require('../../db/models');
+const { Spot, User, Review, SpotImage, Booking, ReviewImage, sequelize, Like } = require('../../db/models');
 const { restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -691,7 +691,7 @@ router.post(
 
         return res.json(
           {
-            "message": "Like successfully",
+            "Likes": newLike,
             "statusCode": 200
           }
         )
@@ -727,13 +727,7 @@ router.get(
     const likes = await Like.findAll({
       where: {
         spotId: parseInt(spotId)
-      },
-      include: [
-        {
-          model: User,
-          attributes: ['id', 'firstName', 'lastName']
-        }
-      ]
+      }
     });
     if (spot) {
       return res.json({ Likes: likes })

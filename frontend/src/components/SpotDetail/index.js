@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { thunkLoadSpot } from "../../store/spots";
 import { thunkDeleteSpot } from "../../store/spots";
 import { thunkCreateBooking } from "../../store/bookings";
+import { thunkLoadLikes, thunkCreateLike, thunkDeleteLike } from "../../store/likes";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
 import CreateReviewFormModal from "../CreateReviewFormModal";
@@ -25,6 +26,14 @@ const SpotDetail = () => {
   const [errors, setErrors] = useState([]);
   const spot = useSelector(state => state.spots.singleSpot);
   const { user } = useSelector(state => state.session);
+  const likesData = useSelector(state => state.likes);
+  let likes;
+  let userLike;
+  if (likesData) {
+    likes = Object.values(likesData);
+    userLike = likes.filter(like => like.userId == user.id)
+  }
+  console.log(userLike)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,8 +54,16 @@ const SpotDetail = () => {
       })
   }
 
+  const likeButton = () => {
+    if (!userLike) {
+      dispatch(thunkCreateLike(spotId))
+    }
+    dispatch(thunkDeleteLike(userLike[0].id))
+  }
+
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
+    dispatch(thunkLoadLikes(spotId))
   }, [dispatch])
 
   if (spot.avgRating === undefined || Object.values(spot.Owner).length === 0) {
@@ -57,8 +74,13 @@ const SpotDetail = () => {
       <div className="spot-detail-title">
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
-          <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
-          {!user || user.id !== spot.ownerId ? '' : (
+          <div>
+            <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews | {likes ? likes.length : 0} {<i className="fas fa-solid fa-heart"></i>} </h4>
+            <h4>{spot.city}, {spot.state} {spot.country}</h4>
+          </div>
+          {!user || user.id !== spot.ownerId ? (
+            <button onClick={likeButton}><i className="fas fa-solid fa-heart"></i></button>
+          ) : (
             <div className="spot-detail-buttons">
               <OpenModalMenuItem
                 className='edit-button'
