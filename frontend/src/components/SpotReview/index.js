@@ -25,7 +25,6 @@ const SpotReview = (spotId) => {
     <div className="noL review-box-container">
       {reviews.map((review) => {
         const reviewDate = new Date(review.createdAt)
-        console.log(reviewDate.getUTCMonth)
         return (
           <div className="reviews-box">
             <div className="user-image-div">

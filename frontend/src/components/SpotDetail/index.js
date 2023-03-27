@@ -6,9 +6,11 @@ import { useHistory } from "react-router-dom";
 import { thunkLoadSpot } from "../../store/spots";
 import { thunkDeleteSpot } from "../../store/spots";
 import { thunkCreateBooking } from "../../store/bookings";
+import { thunkLoadLikes, thunkCreateLike, thunkDeleteLike } from "../../store/likes";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
 import CreateReviewFormModal from "../CreateReviewFormModal";
+import ConfirmDeleteSpot from "./ConfirmDeleteSpot";
 import SpotReview from "../SpotReview";
 
 import './SpotDetail.css'
@@ -22,8 +24,16 @@ const SpotDetail = () => {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [errors, setErrors] = useState([]);
+  const [isActive, setIsActive] = useState();
   const spot = useSelector(state => state.spots.singleSpot);
   const { user } = useSelector(state => state.session);
+  const likesData = useSelector(state => state.likes);
+  let likes;
+  let userLike;
+  if (likesData) {
+    likes = Object.values(likesData);
+    userLike = likes.filter(like => like.userId == user.id)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,14 +54,36 @@ const SpotDetail = () => {
       })
   }
 
+  const likeButton = () => {
+    if (userLike.length == 0) {
+      dispatch(thunkCreateLike(spotId))
+    } else {
+      dispatch(thunkDeleteLike(userLike[0].id))
+    }
+  }
+  const handleClick = () => {
+    if (userLike.length == 0) {
+      dispatch(thunkCreateLike(spotId))
+      setIsActive(true);
+    } else {
+      dispatch(thunkDeleteLike(userLike[0].id))
+      setIsActive(false);
+    }
+  }
+
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
+    dispatch(thunkLoadLikes(spotId))
   }, [dispatch])
 
-  const deleteListing = () => {
-    dispatch(thunkDeleteSpot(spotId))
-    history.push('/')
-  }
+  useEffect(() => {
+    if (userLike && userLike.length == 0) {
+      setIsActive(false)
+    } else if (userLike && userLike.length != 0) {
+      setIsActive(true)
+    }
+  })
+
   if (spot.avgRating === undefined || Object.values(spot.Owner).length === 0) {
     return null;
   }
@@ -60,15 +92,27 @@ const SpotDetail = () => {
       <div className="spot-detail-title">
         <h1>{spot.name}</h1>
         <div className="spot-detail-nav">
-          <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews | {spot.city}, {spot.state} {spot.country}</h4>
-          {!user || user.id !== spot.ownerId ? '' : (
+          <div>
+            <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews | {likes ? likes.length : 0} {<i className="fas fa-solid fa-heart"></i>} </h4>
+            <h4>{spot.city}, {spot.state} {spot.country}</h4>
+          </div>
+          {!user || user.id !== spot.ownerId ? (
+            <button className={`heart-button ${isActive ? 'active' : ''}`}  onClick={handleClick} >
+              <div className="heart-flip"></div>
+              <span>Like<span>d</span></span>
+            </button>
+          ) : (
             <div className="spot-detail-buttons">
               <OpenModalMenuItem
                 className='edit-button'
-                itemText={<i className="fas fa-solid fa-pen-to-square"></i>}
+                itemText='Edit Property'
                 modalComponent={<EditSpotFormModal spot={spot} />}
               />
-              <button className="delete-button" onClick={deleteListing}>{<i className="fas fa-solid fa-trash"></i>}</button>
+              <OpenModalMenuItem
+                className='delete-button'
+                itemText='Remove Property'
+                modalComponent={<ConfirmDeleteSpot spotId={spotId} />}
+              />
             </div>
           )}
         </div>
@@ -112,7 +156,7 @@ const SpotDetail = () => {
             </div>
           </div>
         </div>
-        <div className="spot-detail-review">
+        <div className="spot-detail-booking">
           <div className="spot-detail-price">
             <div className="bold">${spot.price} night</div>
             <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
@@ -147,7 +191,7 @@ const SpotDetail = () => {
               </div>
             </form>
           </div>
-          <div className="review-container">
+          <div className="bookingFee">
             <p>You won't be charged yet</p>
             <div className="total-fee">
               <div className="fee">
@@ -161,16 +205,6 @@ const SpotDetail = () => {
                 <p>${(spot.price * 7 / 100 + 100).toFixed(2)}</p>
               </div>
             </div>
-            {/* <h3>Reviews</h3>
-            <SpotReview spotId={spotId} />
-            <div className="review-button-container noL bold">
-              {(!user) ? '' : (
-                <OpenModalMenuItem
-                  itemText={'Leave Review'}
-                  modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
-                />
-              )}
-            </div> */}
           </div>
         </div>
       </div>

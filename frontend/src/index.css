@@ -83,3 +83,9 @@ body {
 .fa-star {
   color: rgb(243, 243, 62);
 }
+.gray {
+  color: gray;
+}
+.red {
+  color: red;
+}
