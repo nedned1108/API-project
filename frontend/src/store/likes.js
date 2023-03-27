@@ -81,6 +81,7 @@ const likeReducer = (state = initialState, action) => {
       newState = {...state, [action.payload.id]: action.payload}
       return newState;
     case DELETE_LIKE:
+      delete newState[action.payload]
       return newState;
     default:
       return state;

@@ -24,6 +24,7 @@ const SpotDetail = () => {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [errors, setErrors] = useState([]);
+  const [isActive, setIsActive] = useState();
   const spot = useSelector(state => state.spots.singleSpot);
   const { user } = useSelector(state => state.session);
   const likesData = useSelector(state => state.likes);
@@ -33,7 +34,6 @@ const SpotDetail = () => {
     likes = Object.values(likesData);
     userLike = likes.filter(like => like.userId == user.id)
   }
-  console.log(userLike)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,16 +55,34 @@ const SpotDetail = () => {
   }
 
   const likeButton = () => {
-    if (!userLike) {
+    if (userLike.length == 0) {
       dispatch(thunkCreateLike(spotId))
+    } else {
+      dispatch(thunkDeleteLike(userLike[0].id))
     }
-    dispatch(thunkDeleteLike(userLike[0].id))
+  }
+  const handleClick = () => {
+    if (userLike.length == 0) {
+      dispatch(thunkCreateLike(spotId))
+      setIsActive(true);
+    } else {
+      dispatch(thunkDeleteLike(userLike[0].id))
+      setIsActive(false);
+    }
   }
 
   useEffect(() => {
     dispatch(thunkLoadSpot(spotId))
     dispatch(thunkLoadLikes(spotId))
   }, [dispatch])
+
+  useEffect(() => {
+    if (userLike && userLike.length == 0) {
+      setIsActive(false)
+    } else if (userLike && userLike.length != 0) {
+      setIsActive(true)
+    }
+  })
 
   if (spot.avgRating === undefined || Object.values(spot.Owner).length === 0) {
     return null;
@@ -79,7 +97,10 @@ const SpotDetail = () => {
             <h4>{spot.city}, {spot.state} {spot.country}</h4>
           </div>
           {!user || user.id !== spot.ownerId ? (
-            <button onClick={likeButton}><i className="fas fa-solid fa-heart"></i></button>
+            <button className={`heart-button ${isActive ? 'active' : ''}`}  onClick={handleClick} >
+              <div className="heart-flip"></div>
+              <span>Like<span>d</span></span>
+            </button>
           ) : (
             <div className="spot-detail-buttons">
               <OpenModalMenuItem
@@ -135,7 +156,7 @@ const SpotDetail = () => {
             </div>
           </div>
         </div>
-        <div className="spot-detail-review">
+        <div className="spot-detail-booking">
           <div className="spot-detail-price">
             <div className="bold">${spot.price} night</div>
             <div className="bold">{<i className="fas fa-solid fa-star"></i>}{spot.avgRating.toFixed(2)} | {spot.numReviews} reviews </div>
@@ -170,7 +191,7 @@ const SpotDetail = () => {
               </div>
             </form>
           </div>
-          <div className="review-container">
+          <div className="bookingFee">
             <p>You won't be charged yet</p>
             <div className="total-fee">
               <div className="fee">
@@ -184,16 +205,6 @@ const SpotDetail = () => {
                 <p>${(spot.price * 7 / 100 + 100).toFixed(2)}</p>
               </div>
             </div>
-            {/* <h3>Reviews</h3>
-            <SpotReview spotId={spotId} />
-            <div className="review-button-container noL bold">
-              {(!user) ? '' : (
-                <OpenModalMenuItem
-                  itemText={'Leave Review'}
-                  modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
-                />
-              )}
-            </div> */}
           </div>
         </div>
       </div>
