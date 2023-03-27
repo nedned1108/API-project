@@ -9,6 +9,7 @@ import { thunkCreateBooking } from "../../store/bookings";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import EditSpotFormModal from "../EditSpotFormModal";
 import CreateReviewFormModal from "../CreateReviewFormModal";
+import ConfirmDeleteSpot from "./ConfirmDeleteSpot";
 import SpotReview from "../SpotReview";
 
 import './SpotDetail.css'
@@ -48,10 +49,6 @@ const SpotDetail = () => {
     dispatch(thunkLoadSpot(spotId))
   }, [dispatch])
 
-  const deleteListing = () => {
-    dispatch(thunkDeleteSpot(spotId))
-    history.push('/')
-  }
   if (spot.avgRating === undefined || Object.values(spot.Owner).length === 0) {
     return null;
   }
@@ -68,7 +65,11 @@ const SpotDetail = () => {
                 itemText={<i className="fas fa-solid fa-pen-to-square"></i>}
                 modalComponent={<EditSpotFormModal spot={spot} />}
               />
-              <button className="delete-button" onClick={deleteListing}>{<i className="fas fa-solid fa-trash"></i>}</button>
+              <OpenModalMenuItem
+                className='delete-button'
+                itemText={<i className="fas fa-solid fa-trash"></i>}
+                modalComponent={<ConfirmDeleteSpot spotId={spotId} />}
+              />
             </div>
           )}
         </div>
