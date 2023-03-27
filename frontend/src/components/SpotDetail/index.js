@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { thunkLoadSpot } from "../../store/spots";
-import { thunkDeleteSpot } from "../../store/spots";
 import { thunkCreateBooking } from "../../store/bookings";
 import { thunkLoadLikes, thunkCreateLike, thunkDeleteLike } from "../../store/likes";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
@@ -12,6 +11,7 @@ import EditSpotFormModal from "../EditSpotFormModal";
 import CreateReviewFormModal from "../CreateReviewFormModal";
 import ConfirmDeleteSpot from "./ConfirmDeleteSpot";
 import SpotReview from "../SpotReview";
+import LoginFormModal from "../LoginFormModal"
 
 import './SpotDetail.css'
 import comingSoon from '../../Image/Image_Coming_Soon.png'
@@ -32,7 +32,9 @@ const SpotDetail = () => {
   let userLike;
   if (likesData) {
     likes = Object.values(likesData);
-    userLike = likes.filter(like => like.userId == user.id)
+    if (user) {
+      userLike = likes.filter(like => like.userId == user.id)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -54,13 +56,6 @@ const SpotDetail = () => {
       })
   }
 
-  const likeButton = () => {
-    if (userLike.length == 0) {
-      dispatch(thunkCreateLike(spotId))
-    } else {
-      dispatch(thunkDeleteLike(userLike[0].id))
-    }
-  }
   const handleClick = () => {
     if (userLike.length == 0) {
       dispatch(thunkCreateLike(spotId))
@@ -96,12 +91,15 @@ const SpotDetail = () => {
             <h4>{<i className="fas fa-solid fa-star"></i>} {spot.avgRating.toFixed(2)} | {spot.numReviews} reviews | {likes ? likes.length : 0} {<i className="fas fa-solid fa-heart"></i>} </h4>
             <h4>{spot.city}, {spot.state} {spot.country}</h4>
           </div>
-          {!user || user.id !== spot.ownerId ? (
-            <button className={`heart-button ${isActive ? 'active' : ''}`}  onClick={handleClick} >
+          {!user || user.id !== spot.ownerId ? 
+          (user ?
+            (<button className={`heart-button ${isActive ? 'active' : ''}`}  onClick={handleClick} >
               <div className="heart-flip"></div>
               <span>Like<span>d</span></span>
-            </button>
-          ) : (
+            </button>)
+            : ''
+          )
+           : (
             <div className="spot-detail-buttons">
               <OpenModalMenuItem
                 className='edit-button'
