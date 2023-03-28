@@ -11,7 +11,6 @@ import EditSpotFormModal from "../EditSpotFormModal";
 import CreateReviewFormModal from "../CreateReviewFormModal";
 import ConfirmDeleteSpot from "./ConfirmDeleteSpot";
 import SpotReview from "../SpotReview";
-import LoginFormModal from "../LoginFormModal"
 
 import './SpotDetail.css'
 import comingSoon from '../../Image/Image_Coming_Soon.png'
@@ -50,10 +49,13 @@ const SpotDetail = () => {
     dispatch(thunkCreateBooking(bookingData))
       .then(() => setEndDate(''))
       .then(() => setStartDate(''))
+      .then(() => history.push('/spots/current'))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       })
+
+
   }
 
   const handleClick = () => {
@@ -146,12 +148,15 @@ const SpotDetail = () => {
           <div className="reviewMainDiv">
             <h3>Reviews</h3>
             <SpotReview spotId={spotId} />
-            <div className="review-button-container noL bold">
-              <OpenModalMenuItem
-                itemText={'Leave Review'}
-                modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
-              />
-            </div>
+            {(user && user.id == spot.ownerId) ?
+              <div className="review-button-container noL bold">
+                <OpenModalMenuItem
+                  itemText={'Leave Review'}
+                  modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
+                />
+              </div>
+              : ''
+            }
           </div>
         </div>
         <div className="spot-detail-booking">
@@ -184,9 +189,13 @@ const SpotDetail = () => {
                   />
                 </div>
               </div>
-              <div>
-                <button className='reserveButton' type="submit">Reserve</button>
-              </div>
+              {user ?
+                <div>
+                  <button className='reserveButton' type="submit">Reserve</button>
+                </div>
+                : 
+                <div style={{display: 'flex', justifyContent: 'center', paddingTop: '20px', color: 'red', fontWeight: '600'}}>Log in to Reserve</div>
+              }
             </form>
           </div>
           <div className="bookingFee">
