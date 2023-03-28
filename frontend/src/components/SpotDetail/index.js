@@ -148,14 +148,13 @@ const SpotDetail = () => {
           <div className="reviewMainDiv">
             <h3>Reviews</h3>
             <SpotReview spotId={spotId} />
-            {(user && user.id == spot.ownerId) ?
+            {(!user || user.id == spot.ownerId) ? '' :
               <div className="review-button-container noL bold">
                 <OpenModalMenuItem
                   itemText={'Leave Review'}
                   modalComponent={<CreateReviewFormModal spotId={spotId} user={user} />}
                 />
               </div>
-              : ''
             }
           </div>
         </div>
