@@ -47,6 +47,8 @@
   border: 1px black solid;
   padding: 10px;
   border-radius: 10px;
+  position: sticky;
+  top: 70px;
 }
 .bookingDiv h1 {
   display: flex;

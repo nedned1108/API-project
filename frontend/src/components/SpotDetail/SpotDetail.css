@@ -320,6 +320,11 @@
   flex-direction: column;
   margin-bottom: 20px;
 }
+.bookingForm li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
 .spot-detail-price {
   display: flex;
   justify-content: space-between;
