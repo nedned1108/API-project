@@ -636,7 +636,7 @@ router.post(
           startDate: new Date(startDate),
           endDate: new Date(endDate)
         });
-        return res.json(booking)
+        return res.json({...booking, Spot: spot})
 
       } else {
         res.status(400);

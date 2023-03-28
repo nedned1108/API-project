@@ -50,10 +50,13 @@ const SpotDetail = () => {
     dispatch(thunkCreateBooking(bookingData))
       .then(() => setEndDate(''))
       .then(() => setStartDate(''))
+      .then(() => history.push('/spots/current'))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       })
+
+
   }
 
   const handleClick = () => {
