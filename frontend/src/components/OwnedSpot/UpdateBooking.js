@@ -9,8 +9,12 @@ import './OwnedSpot.css';
 const UpdateBooking = ({booking}) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
-  const [startDate, setStartDate] = useState(booking.startDate)
-  const [endDate, setEndDate] = useState(booking.endDate)
+  const dateConvert = (data) => {
+    const dateData = new Date(data).toISOString().split('T')[0];
+    return dateData
+  }
+  const [startDate, setStartDate] = useState(dateConvert(booking.startDate))
+  const [endDate, setEndDate] = useState(dateConvert(booking.endDate))
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -22,7 +26,6 @@ const UpdateBooking = ({booking}) => {
       endDate,
       startDate
     }
-
     return dispatch(thunkUpdateBooking(bookingData))
       .then(() => closeModal())
       .catch(async (res) => {
