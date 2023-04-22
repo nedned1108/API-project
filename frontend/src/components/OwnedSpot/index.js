@@ -1,10 +1,11 @@
 //frontend/src/components/OwnedSpot/index.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { thunkLoadCurrentSpots } from "../../store/spots";
 import { Redirect } from "react-router-dom";
 import { thunkLoadUserBookings } from "../../store/bookings";
+import { thunkLoadUserReviews } from "../../store/reviews";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import CreateSpotFormModal from "../CreateSpotFormModal";
 import SpotCard from "../SpotCard/SpotCard";
@@ -15,13 +16,21 @@ import './OwnedSpot.css'
 const OwnedSpot = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [yourBooking, setYourBooking] = useState(true);
+  const [yourReview, setYourReview] = useState(false);
   const { user } = useSelector(state => state.session);
   const currentSpotsData = useSelector(state => state.spots.allSpots);
   const currentBookingData = useSelector(state => state.bookings.user)
+  const reviewsData = useSelector((state) => state.reviews.user);
+  let reviews;
+  if (reviewsData) {
+    reviews = Object.values(reviewsData)
+  }
 
   useEffect(() => {
     dispatch(thunkLoadCurrentSpots())
     dispatch(thunkLoadUserBookings())
+    dispatch(thunkLoadUserReviews())
   }, [dispatch]);
 
   let currentSpots;
