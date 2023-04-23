@@ -11,6 +11,7 @@ import CreateSpotFormModal from "../CreateSpotFormModal";
 import SpotCard from "../SpotCard/SpotCard";
 import UpdateBooking from "./UpdateBooking";
 import DeleteBooking from "./DeleteBooking";
+import ReviewCard from "../YourReviewModal/ReviewCard";
 import './OwnedSpot.css'
 
 const OwnedSpot = () => {
@@ -41,7 +42,7 @@ const OwnedSpot = () => {
   const toSpot = (e) => {
     history.push(`/spots/${e}`)
   }
-  // Funcionality for the booking and review buttons
+  // Function for the booking and review buttons
   const toBooking = () => {
     setYourBooking(true)
     setYourReview(false)
@@ -84,44 +85,45 @@ const OwnedSpot = () => {
         <button className="bookingButton" onClick={toBooking}>Your Bookings</button>
         <button className="reviewButton" onClick={toReview}>Your Reviews</button>
         {yourBooking == true ?
-        
-        <div className="bookingDiv">
-          <h1>Your Booking</h1>
-          <div>
-            {userBookings && userBookings.map(booking => {
-              const start = new Date(booking.startDate)
-              const end = new Date(booking.endDate)
 
-              return (
-                <div className="singleBooking">
-                  <h3 onClick={() => toSpot(booking.spotId)} >{booking.Spot.name} - {booking.Spot.address}, {booking.Spot.city}, {booking.Spot.state}</h3>
-                  <p>Check in: {start.getUTCMonth() + 1} - {start.getUTCDate()} - {start.getUTCFullYear()}</p>
-                  <p>Check out: {end.getUTCMonth() + 1} - {end.getUTCDate()} - {end.getUTCFullYear()}</p>
-                  <div className="hiddenDiv">
-                    <div className="bookingButton">
-                      <div className="updateButton">
-                        <OpenModalMenuItem
-                          itemText='Update'
-                          modalComponent={<UpdateBooking booking={booking} />}
-                        />
+          <div className="bookingDiv">
+            <h1>Your Booking</h1>
+            <div>
+              {userBookings && userBookings.map(booking => {
+                const start = new Date(booking.startDate)
+                const end = new Date(booking.endDate)
+
+                return (
+                  <div className="singleBooking">
+                    <h3 onClick={() => toSpot(booking.spotId)} >{booking.Spot.name} - {booking.Spot.address}, {booking.Spot.city}, {booking.Spot.state}</h3>
+                    <p>Check in: {start.getUTCMonth() + 1} - {start.getUTCDate()} - {start.getUTCFullYear()}</p>
+                    <p>Check out: {end.getUTCMonth() + 1} - {end.getUTCDate()} - {end.getUTCFullYear()}</p>
+                    <div className="hiddenDiv">
+                      <div className="bookingButton">
+                        <div className="updateButton">
+                          <OpenModalMenuItem
+                            itemText='Update'
+                            modalComponent={<UpdateBooking booking={booking} />}
+                          />
+                        </div>
+                        <div className="cancelButton">
+                          <OpenModalMenuItem
+                            itemText='Cancel'
+                            modalComponent={<DeleteBooking booking={booking} />}
+                          />
+                        </div>
                       </div>
-                      <div className="cancelButton">
-                        <OpenModalMenuItem
-                          itemText='Cancel'
-                          modalComponent={<DeleteBooking booking={booking} />}
-                        />
-                      </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
-        </div>
-        :
-        <div className="reviewDiv">
-          <h1>Your Reviews</h1>
-        </div>
+          :
+          <div>
+            <h1>Your Reviews</h1>
+            {reviews.map((review) => <ReviewCard review={review} key={review.id} />)}
+          </div>
         }
       </div>
     </div>
