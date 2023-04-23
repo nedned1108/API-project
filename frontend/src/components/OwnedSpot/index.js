@@ -82,8 +82,10 @@ const OwnedSpot = () => {
         </div>
       </div>
       <div className="bookingMainDiv">
-        <button className="bookingButton" onClick={toBooking}>Your Bookings</button>
-        <button className="reviewButton" onClick={toReview}>Your Reviews</button>
+        <div className="booking-review-button">
+          <button className="bookingButton" onClick={toBooking}>Your Bookings</button>
+          <button className="reviewButton" onClick={toReview}>Your Reviews</button>
+        </div>
         {yourBooking == true ?
 
           <div className="bookingDiv">
