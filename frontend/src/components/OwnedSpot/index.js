@@ -41,6 +41,15 @@ const OwnedSpot = () => {
   const toSpot = (e) => {
     history.push(`/spots/${e}`)
   }
+  // Funcionality for the booking and review buttons
+  const toBooking = () => {
+    setYourBooking(true)
+    setYourReview(false)
+  }
+  const toReview = () => {
+    setYourBooking(false)
+    setYourReview(true)
+  }
 
   if (!user) {
     return (
@@ -72,6 +81,10 @@ const OwnedSpot = () => {
         </div>
       </div>
       <div className="bookingMainDiv">
+        <button className="bookingButton" onClick={toBooking}>Your Bookings</button>
+        <button className="reviewButton" onClick={toReview}>Your Reviews</button>
+        {yourBooking == true ?
+        
         <div className="bookingDiv">
           <h1>Your Booking</h1>
           <div>
@@ -105,6 +118,11 @@ const OwnedSpot = () => {
             })}
           </div>
         </div>
+        :
+        <div className="reviewDiv">
+          <h1>Your Reviews</h1>
+        </div>
+        }
       </div>
     </div>
   )
