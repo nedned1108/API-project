@@ -95,8 +95,8 @@ const ReviewCard = ({ review }) => {
       ) : (
         <div className="update-review">
           <div className="your-review-single-container">
-            <div className="your-review-single-name bold">{review.Spot.name}</div>
-            <div className="bold">{review.Spot.address}</div>
+            <h2 className="your-review-single-name bold">{review.Spot.name}</h2>
+            <div className="bold">{review.Spot.address}, {review.Spot.city}, {review.Spot.state} </div>
             <div className="your-review-single-review" key={review.id}>{review.review}</div>
           </div>
           <div className="delete-submit-buttons">

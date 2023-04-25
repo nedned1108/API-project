@@ -41,12 +41,22 @@
   flex-direction: column;
   flex-wrap: wrap;
   row-gap: 5px;
+  min-height: 90px;
+  overflow: auto;
+}
+.your-review-single-container h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 5px;
 }
 
-.delete-submit-button {
+.delete-submit-buttons {
   display: flex;
   column-gap: 5px;
-  min-width: 40px;
+  min-width: 90px;
+  align-items: center;
 }
 
 .d-s-b {
