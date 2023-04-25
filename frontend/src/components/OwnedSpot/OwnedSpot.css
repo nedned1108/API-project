@@ -45,9 +45,13 @@
 
 .yourReviewDiv{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   column-gap: 20px;
+  border: 2px black solid;
+  border-radius: 10px;
+  padding: 10px;
 }
 .booking-review-button {
   display: flex;
@@ -65,7 +69,7 @@
   padding-right: 5%;
 }
 .bookingDiv {
-  border: 1px black solid;
+  border: 2px black solid;
   padding: 10px;
   border-radius: 10px;
   position: sticky;

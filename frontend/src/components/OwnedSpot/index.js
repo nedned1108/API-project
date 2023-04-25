@@ -89,7 +89,6 @@ const OwnedSpot = () => {
         {yourBooking == true ?
 
           <div className="bookingDiv">
-            <h1>Your Booking</h1>
             <div>
               {userBookings && userBookings.map(booking => {
                 const start = new Date(booking.startDate)

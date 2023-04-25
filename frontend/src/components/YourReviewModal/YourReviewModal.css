@@ -22,10 +22,19 @@
   list-style-type: none;
   row-gap: 10px;
   padding: 10px;
-  border: black 1px solid;
   width: 95%;
   max-height: 40%;
   border-radius: 20px;
+}
+.update-review {
+  display: flex;
+  list-style-type: none;
+  row-gap: 10px;
+  padding: 10px;
+  width: 95%;
+  max-height: 40%;
+  border-radius: 20px;
+  justify-content: space-between;
 }
 
 .your-review-single-container {
@@ -37,6 +46,7 @@
 .delete-submit-button {
   display: flex;
   column-gap: 5px;
+  min-width: 40px;
 }
 
 .d-s-b {
