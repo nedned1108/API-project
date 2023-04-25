@@ -87,6 +87,7 @@ const ReviewCard = ({ review }) => {
               />
             </div>
             <button className="edit-review-submit" type="submit">Submit</button>
+            <button className="edit-review-cancel" onClick={() => setHidden(false)}>Cancel</button>
           </form>
         </div>
       ) : (

@@ -54,7 +54,7 @@
   justify-content: space-around;
 }
 .pinkDash {
-  border-bottom: 5px pink solid;
+  border-bottom: 5px rgb(252, 52, 152) solid;
 }
 /* ---------------booking div----------------------- */
 .bookingMainDiv {
