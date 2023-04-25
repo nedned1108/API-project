@@ -35,6 +35,13 @@
   color: white;
 }
 
+/* -------------------review booking buttons--------------- */
+.booking-review-button {
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+}
+
 /* ---------------booking div----------------------- */
 .bookingMainDiv {
   display: flex;
@@ -89,9 +96,6 @@
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   color: white;
 }
-
-/* -------------------update booking modal--------------- */
-
 
 /* --------------confirm cancel booking-------------- */
 .centered {

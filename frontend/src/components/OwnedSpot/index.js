@@ -83,8 +83,8 @@ const OwnedSpot = () => {
       </div>
       <div className="bookingMainDiv">
         <div className="booking-review-button">
-          <button className="bookingButton" onClick={toBooking}>Your Bookings</button>
-          <button className="reviewButton" onClick={toReview}>Your Reviews</button>
+          <h1 className="bookingButton" onClick={toBooking}>Your Bookings</h1>
+          <h1 className="reviewButton" onClick={toReview}>Your Reviews</h1>
         </div>
         {yourBooking == true ?
 
@@ -123,7 +123,6 @@ const OwnedSpot = () => {
           </div>
           :
           <div>
-            <h1>Your Reviews</h1>
             {reviews.map((review) => <ReviewCard review={review} key={review.id} />)}
           </div>
         }
