@@ -36,12 +36,26 @@
 }
 
 /* -------------------review booking buttons--------------- */
-.booking-review-button {
-  display: flex;
-  justify-content: center;
-  column-gap: 20px;
+.switchToBooking {
+  cursor: pointer;
+}
+.switchToReview {
+  cursor: pointer;
 }
 
+.yourReviewDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+.booking-review-button {
+  display: flex;
+  justify-content: space-around;
+}
+.pinkDash {
+  border-bottom: 5px pink solid;
+}
 /* ---------------booking div----------------------- */
 .bookingMainDiv {
   display: flex;
