@@ -67,15 +67,26 @@
   margin-bottom: 5px;
 }
 
-.edit-review-submit {
+/* -------------submit cancel edit review button------------- */
+.submit-cancel-div {
+  display: flex;
+  justify-content: space-around;
   width: 100%;
+}
+
+.edit-review-submit,
+.edit-review-cancel {
+  width: 100px;
   border-radius: 10px;
   color: white;
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   cursor: pointer;
+  padding: 10px;
 }
 
-.edit-review-submit:hover {
+
+.edit-review-submit:hover,
+.edit-review-cancel:hover {
   box-shadow: 2px 2px 4px 2px gray;
 }
 

@@ -86,8 +86,10 @@ const ReviewCard = ({ review }) => {
                 className='input-placeholder'
               />
             </div>
-            <button className="edit-review-submit" type="submit">Submit</button>
-            <button className="edit-review-cancel" onClick={() => setHidden(false)}>Cancel</button>
+            <div className="submit-cancel-div">
+              <button className="edit-review-submit" type="submit">Submit</button>
+              <button className="edit-review-cancel" onClick={() => setHidden(false)}>Cancel</button>
+            </div>
           </form>
         </div>
       ) : (
