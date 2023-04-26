@@ -1,10 +1,11 @@
 //frontend/src/components/CreateReviewFormModal/ReviewCard.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkDeleteReview, thunkUpdateReview, thunkLoadUserReviews, thunkLoadReviews } from "../../store/reviews";
 
 const ReviewCard = ({ review }) => {
   const dispatch = useDispatch();
+  const ulRef = useRef();
   const deletedReview = useSelector(state => state.reviews.user)
   const spotId = useSelector(state => state.spots.singleSpot.id)
   const [reviewInput, setReviewInput] = useState(review.review);
@@ -52,6 +53,22 @@ const ReviewCard = ({ review }) => {
 
     dispatch(thunkLoadReviews({ spotId }))
   };
+
+  useEffect(() => {
+    if (!editButton) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current.contains(e.target)) {
+        setEditButton(false);
+      }
+    };
+
+    document.addEventListener('click', closeHidden);
+
+    return () => document.removeEventListener("click", closeHidden);
+  }, [editButton]);
+
+  const closeHidden = () => setEditButton(false);
 
   useEffect(() => {
     dispatch(thunkLoadUserReviews)
