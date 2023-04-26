@@ -8,6 +8,7 @@ const ReviewCard = ({ review }) => {
   const deletedReview = useSelector(state => state.reviews.user)
   const spotId = useSelector(state => state.spots.singleSpot.id)
   const [reviewInput, setReviewInput] = useState(review.review);
+  const [editButton, setEditButton] = useState(false);
   const { user } = useSelector(state => state.session);
   const [stars, setStars] = useState(review.stars);
   const [hidden, setHidden] = useState(false);
@@ -33,7 +34,7 @@ const ReviewCard = ({ review }) => {
       reviewInfo: {
         review: reviewInput,
         stars
-      }, 
+      },
       ReviewImages: [],
       User: {
         id: user.id,
@@ -48,8 +49,8 @@ const ReviewCard = ({ review }) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
-    
-    dispatch(thunkLoadReviews({spotId}))
+
+    dispatch(thunkLoadReviews({ spotId }))
   };
 
   useEffect(() => {
@@ -99,10 +100,20 @@ const ReviewCard = ({ review }) => {
             <div className="bold">{review.Spot.address}, {review.Spot.city}, {review.Spot.state} </div>
             <div className="your-review-single-review" key={review.id}>{review.review}</div>
           </div>
-          <div className="delete-submit-buttons">
-            <button className="d-s-b" onClick={reviewButton}>Edit</button>
-            <button className="d-s-b" onClick={deleteReview}>Delete</button>
-          </div>
+          {editButton ?
+            <div className="hiddenButton">
+              <button className="edit-review-button" onClick={() => setEditButton(false)}>...</button>
+              <div className="delete-submit-buttons">
+                <button className="d-s-b" onClick={reviewButton}>Edit</button>
+                <button className="d-s-b" onClick={deleteReview}>Delete</button>
+              </div>
+            </div>
+            :
+            <div className="hiddenButton">
+              <button className="edit-review-button" onClick={() => setEditButton(true)}>...</button>
+            </div>
+          }
+
         </div>
       )}
     </>
