@@ -102,7 +102,7 @@ const ReviewCard = ({ review }) => {
           </div>
           {editButton ?
             <div className="hiddenButton">
-              <button className="edit-review-button" onClick={() => setEditButton(false)}>...</button>
+              <button className="edit-review-button" onClick={() => setEditButton(false)}>{<i class="fa-solid fa-bars"></i>}</button>
               <div className="delete-submit-buttons">
                 <button className="d-s-b" onClick={reviewButton}>Edit</button>
                 <button className="d-s-b" onClick={deleteReview}>Delete</button>
@@ -110,7 +110,7 @@ const ReviewCard = ({ review }) => {
             </div>
             :
             <div className="hiddenButton">
-              <button className="edit-review-button" onClick={() => setEditButton(true)}>...</button>
+              <button className="edit-review-button" onClick={() => setEditButton(true)}>{<i class="fa-solid fa-bars"></i>}</button>
             </div>
           }
 

@@ -52,15 +52,42 @@
   padding-bottom: 5px;
 }
 
+/* -----------------edit delete review button--------------- */
+.hiddenButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 5px;
+}
+.edit-review-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  color: white;
+  background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  cursor: pointer;
+}
 .delete-submit-buttons {
   display: flex;
+  flex-direction: column;
   column-gap: 5px;
-  min-width: 90px;
-  align-items: center;
+  position: relative;
+  align-items: flex-start;
+  z-index: 2;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .d-s-b {
+  background-color: white;
+  border: none;
   cursor: pointer;
+}
+.d-s-b:hover {
+  background-color: rgb(250, 204, 244);
+  color: white;
+  border-radius: 10px;
 }
 
 .edit-review-container {
