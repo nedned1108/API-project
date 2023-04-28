@@ -11,7 +11,7 @@ import CreateSpotFormModal from "../CreateSpotFormModal";
 import SpotCard from "../SpotCard/SpotCard";
 import UpdateBooking from "./UpdateBooking";
 import DeleteBooking from "./DeleteBooking";
-import ReviewCard from "../YourReviewModal/ReviewCard";
+import YourReview from "../YourReview";
 import './OwnedSpot.css'
 
 const OwnedSpot = () => {
@@ -122,7 +122,7 @@ const OwnedSpot = () => {
           </div>
           :
           <div className="yourReviewDiv">
-            {reviews.map((review) => <ReviewCard review={review} key={review.id} />)}
+            {reviews.map((review) => <YourReview review={review} key={review.id} />)}
           </div>
         }
       </div>

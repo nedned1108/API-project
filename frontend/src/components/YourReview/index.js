@@ -2,8 +2,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkDeleteReview, thunkUpdateReview, thunkLoadUserReviews, thunkLoadReviews } from "../../store/reviews";
+import './YourReview.css'
 
-const ReviewCard = ({ review }) => {
+const YourReview = ({ review }) => {
   const dispatch = useDispatch();
   const ulRef = useRef();
   const deletedReview = useSelector(state => state.reviews.user)
@@ -137,4 +138,4 @@ const ReviewCard = ({ review }) => {
   )
 };
 
-export default ReviewCard;
+export default YourReview;
