@@ -61,12 +61,12 @@ function ProfileButton({ user }) {
             <div>
               <Link onClick={closeMenu} className='noU' to='/spots/current' >Profile</Link>
             </div>
-            <div className="your-review-button">
+            {/* <div className="your-review-button">
               <OpenModalMenuItem
                 itemText={'Your Review'}
                 modalComponent={<YourReviewModal />}
               />
-            </div>
+            </div> */}
             <div>
               <button className='logout-button' onClick={logout} >Log Out</button>
             </div>
