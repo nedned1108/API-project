@@ -36,11 +36,13 @@
 }
 
 /* -------------------review booking buttons--------------- */
-.switchToBooking {
-  cursor: pointer;
-}
+.switchToBooking,
 .switchToReview {
   cursor: pointer;
+}
+.switchToBooking:hover,
+.switchToReview:hover {
+  border-bottom: rgb(252, 52, 152) solid 5px ;
 }
 
 .yourReviewDiv{
