@@ -54,6 +54,8 @@
   border: 2px black solid;
   border-radius: 10px;
   padding: 10px;
+  max-height: 700px;
+  overflow-y: auto;
 }
 .booking-review-button {
   display: flex;
@@ -74,8 +76,8 @@
   border: 2px black solid;
   padding: 10px;
   border-radius: 10px;
-  position: sticky;
-  top: 70px;
+  max-height: 700px;
+  overflow-y: auto;
 }
 .bookingDiv h1 {
   display: flex;
