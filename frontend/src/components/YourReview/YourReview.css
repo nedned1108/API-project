@@ -1,0 +1,144 @@
+.your-review-main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  row-gap: 30px;
+  overflow: auto;
+  width: 300px;
+  max-height: 70vh;
+}
+
+.your-review-title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.your-review-modal {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  row-gap: 10px;
+  padding: 10px;
+  width: 95%;
+  max-height: 40%;
+  border-radius: 20px;
+}
+.update-review {
+  display: flex;
+  list-style-type: none;
+  row-gap: 10px;
+  padding: 10px;
+  width: 95%;
+  max-height: 40%;
+  border-radius: 20px;
+  justify-content: space-between;
+}
+
+.your-review-single-container {
+  flex-direction: column;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  min-height: 90px;
+  overflow: auto;
+}
+.your-review-single-container h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+/* -----------------edit delete review button--------------- */
+.hiddenButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 5px;
+  width: 65px;
+}
+.edit-review-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  color: white;
+  background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  cursor: pointer;
+}
+.delete-submit-buttons {
+  display: flex;
+  flex-direction: column;
+  column-gap: 5px;
+  position: relative;
+  align-items: flex-start;
+  z-index: 2;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px 1px gray;
+}
+
+.d-s-b {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+.d-s-b:hover {
+  background-color: rgb(250, 204, 244);
+  color: white;
+  border-radius: 10px;
+}
+
+.edit-review-container {
+  width: 100%;
+}
+
+.edit-review-form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
+  margin: 0;
+}
+
+.edit-review-div {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  border: black solid 1px;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+/* -------------submit cancel edit review button------------- */
+.submit-cancel-div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.edit-review-submit,
+.edit-review-cancel {
+  width: 100px;
+  border-radius: 10px;
+  color: white;
+  background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
+  cursor: pointer;
+  padding: 10px;
+}
+
+
+.edit-review-submit:hover,
+.edit-review-cancel:hover {
+  box-shadow: 2px 2px 4px 2px gray;
+}
+
+.input-placeholder {
+  width: 100%;
+}

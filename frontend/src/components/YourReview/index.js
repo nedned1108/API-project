@@ -1,13 +1,16 @@
 //frontend/src/components/CreateReviewFormModal/ReviewCard.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkDeleteReview, thunkUpdateReview, thunkLoadUserReviews, thunkLoadReviews } from "../../store/reviews";
+import './YourReview.css'
 
-const ReviewCard = ({ review }) => {
+const YourReview = ({ review }) => {
   const dispatch = useDispatch();
+  const ulRef = useRef();
   const deletedReview = useSelector(state => state.reviews.user)
   const spotId = useSelector(state => state.spots.singleSpot.id)
   const [reviewInput, setReviewInput] = useState(review.review);
+  const [editButton, setEditButton] = useState(false);
   const { user } = useSelector(state => state.session);
   const [stars, setStars] = useState(review.stars);
   const [hidden, setHidden] = useState(false);
@@ -33,7 +36,7 @@ const ReviewCard = ({ review }) => {
       reviewInfo: {
         review: reviewInput,
         stars
-      }, 
+      },
       ReviewImages: [],
       User: {
         id: user.id,
@@ -48,9 +51,25 @@ const ReviewCard = ({ review }) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
-    
-    dispatch(thunkLoadReviews({spotId}))
+
+    dispatch(thunkLoadReviews({ spotId }))
   };
+
+  useEffect(() => {
+    if (!editButton) return;
+
+    const closeMenu = (e) => {
+      if (!ulRef.current.contains(e.target)) {
+        setEditButton(false);
+      }
+    };
+
+    document.addEventListener('click', closeHidden);
+
+    return () => document.removeEventListener("click", closeHidden);
+  }, [editButton]);
+
+  const closeHidden = () => setEditButton(false);
 
   useEffect(() => {
     dispatch(thunkLoadUserReviews)
@@ -86,23 +105,37 @@ const ReviewCard = ({ review }) => {
                 className='input-placeholder'
               />
             </div>
-            <button className="edit-review-submit" type="submit">Submit</button>
+            <div className="submit-cancel-div">
+              <button className="edit-review-submit" type="submit">Submit</button>
+              <button className="edit-review-cancel" onClick={() => setHidden(false)}>Cancel</button>
+            </div>
           </form>
         </div>
       ) : (
-        <div className="your-review-modal">
+        <div className="update-review">
           <div className="your-review-single-container">
-            <div className="your-review-single-name bold">{review.Spot.name} | {review.Spot.address}</div>
+            <h2 className="your-review-single-name bold">{review.Spot.name}</h2>
+            <div className="bold">{review.Spot.address}, {review.Spot.city}, {review.Spot.state} </div>
             <div className="your-review-single-review" key={review.id}>{review.review}</div>
           </div>
-          <div className="delete-submit-buttons">
-            <button className="d-s-b" onClick={reviewButton}>{<i className="fas fa-solid fa-pen-to-square"></i>}</button>
-            <button className="d-s-b" onClick={deleteReview}>{<i className="fas fa-solid fa-trash"></i>}</button>
-          </div>
+          {editButton ?
+            <div className="hiddenButton">
+              <button className="edit-review-button" onClick={() => setEditButton(false)}>{<i class="fa-solid fa-bars"></i>}</button>
+              <div className="delete-submit-buttons">
+                <button className="d-s-b" onClick={reviewButton}>Edit</button>
+                <button className="d-s-b" onClick={deleteReview}>Delete</button>
+              </div>
+            </div>
+            :
+            <div className="hiddenButton">
+              <button className="edit-review-button" onClick={() => setEditButton(true)}>{<i class="fa-solid fa-bars"></i>}</button>
+            </div>
+          }
+
         </div>
       )}
     </>
   )
 };
 
-export default ReviewCard;
+export default YourReview;

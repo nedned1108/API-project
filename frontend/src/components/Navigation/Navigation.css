@@ -75,10 +75,6 @@
   box-shadow: .5px .5px 6px 1px gray;
 }
 
-.your-review-button {
-  cursor: pointer;
-}
-
 .logout-button {
   border: none;
   padding: 0;

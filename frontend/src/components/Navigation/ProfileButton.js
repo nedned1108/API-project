@@ -5,7 +5,6 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import YourReviewModal from "../YourReviewModal";
 import { Link } from 'react-router-dom';
 
 function ProfileButton({ user }) {
@@ -60,12 +59,6 @@ function ProfileButton({ user }) {
             <div>{user.username}</div>
             <div>
               <Link onClick={closeMenu} className='noU' to='/spots/current' >Profile</Link>
-            </div>
-            <div className="your-review-button">
-              <OpenModalMenuItem
-                itemText={'Your Review'}
-                modalComponent={<YourReviewModal />}
-              />
             </div>
             <div>
               <button className='logout-button' onClick={logout} >Log Out</button>

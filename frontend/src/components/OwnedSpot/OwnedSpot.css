@@ -35,6 +35,35 @@
   color: white;
 }
 
+/* -------------------review booking buttons--------------- */
+.switchToBooking,
+.switchToReview {
+  cursor: pointer;
+}
+.switchToBooking:hover,
+.switchToReview:hover {
+  border-bottom: rgb(252, 52, 152) solid 5px ;
+}
+
+.yourReviewDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  border: 2px black solid;
+  border-radius: 10px;
+  padding: 10px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+.booking-review-button {
+  display: flex;
+  justify-content: space-around;
+}
+.pinkDash {
+  border-bottom: 5px rgb(252, 52, 152) solid;
+}
 /* ---------------booking div----------------------- */
 .bookingMainDiv {
   display: flex;
@@ -44,11 +73,11 @@
   padding-right: 5%;
 }
 .bookingDiv {
-  border: 1px black solid;
+  border: 2px black solid;
   padding: 10px;
   border-radius: 10px;
-  position: sticky;
-  top: 70px;
+  max-height: 700px;
+  overflow-y: auto;
 }
 .bookingDiv h1 {
   display: flex;
@@ -89,9 +118,6 @@
   background-image: linear-gradient(to bottom right, rgb(236, 63, 63), rgb(228, 60, 206));
   color: white;
 }
-
-/* -------------------update booking modal--------------- */
-
 
 /* --------------confirm cancel booking-------------- */
 .centered {
