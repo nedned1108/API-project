@@ -108,6 +108,8 @@
 }
 
 .search-list {
+  display: flex;
+  flex-direction: column;
   width: 27%;
   position: absolute;
   top: 55px;
@@ -120,4 +122,10 @@
   font-size: 14px;
   background-color: white;
   z-index: 2;
+  row-gap: 5px;
+}
+
+.search-link {
+  text-decoration: none;
+  color: black;
 }

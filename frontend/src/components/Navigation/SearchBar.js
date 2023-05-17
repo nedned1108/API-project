@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkLoadAllSpots } from "../../store/spots";
+import { NavLink } from 'react-router-dom';
 
 function SearchBar () {
   const dispatch = useDispatch();
@@ -49,7 +50,9 @@ function SearchBar () {
         {searchTerm && 
           <ul className="search-list">
             {searchResults.map((result) => (
-              <li key={result.id}>{result.name}</li>
+              <NavLink className="search-link" exact to={`/spots/${result.id}`} key={result.id}>
+                <li className="search-list-item">{result.name}</li>
+              </NavLink>
             ))}
           </ul>
         }
