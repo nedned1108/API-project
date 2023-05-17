@@ -105,6 +105,7 @@
 }
 .search-bar input {
   border: none;
+  width: 100%;
 }
 .search-bar input:focus {
   outline: none;
