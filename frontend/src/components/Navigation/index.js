@@ -15,9 +15,9 @@ function Navigation({ isLoaded }) {
       <NavLink className='home-nav' exact to='/'>
         <img className='logo' src={Logo} alt='logo' />
       </NavLink>
-      <div>
-        <SearchBar />
-      </div>
+      
+      <SearchBar />
+      
       {isLoaded && (
         <ProfileButton user={sessionUser} />
       )}
