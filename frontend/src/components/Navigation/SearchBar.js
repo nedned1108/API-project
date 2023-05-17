@@ -4,9 +4,11 @@ import { thunkLoadAllSpots } from "../../store/spots";
 
 function SearchBar () {
   const dispatch = useDispatch();
-  const allSpotsData = useSelector(state => state.spots.allSpots);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const allSpotsData = useSelector(state => state.spots.allSpots);
+  let allSpots;
+  if (allSpotsData) allSpots = Object.values(allSpotsData);
 
   useEffect(() => {
     dispatch(thunkLoadAllSpots())
@@ -20,9 +22,19 @@ function SearchBar () {
     setSearchResults(results);
   };
 
-  const performSearch = (e) => {
-    e.preventDefault();
-    dispatch(searchTerm);
+  const performSearch = (searchTerm) => {
+    
+    if (searchTerm === "") {
+      return [];
+    }
+
+    const results = allSpots.filter((spot) => {
+      return spot.city.toLowerCase().includes(searchTerm.toLowerCase()) 
+      || spot.state.toLowerCase().includes(searchTerm.toLowerCase())
+      || spot.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    return results;
   };
 
   return (
@@ -30,14 +42,17 @@ function SearchBar () {
         <input
           type="text"
           placeholder="Search"
+          value={searchTerm}
           className="search-bar-input"
           onChange={handleSearch}
         />
-        <ul>
-          {searchResults.map((result) => (
-            <li key={result.id}>{result.name}</li>
-          ))}
-        </ul>
+        {searchTerm && 
+          <ul className="search-list">
+            {searchResults.map((result) => (
+              <li key={result.id}>{result.name}</li>
+            ))}
+          </ul>
+        }
     </div>
   )
 }
